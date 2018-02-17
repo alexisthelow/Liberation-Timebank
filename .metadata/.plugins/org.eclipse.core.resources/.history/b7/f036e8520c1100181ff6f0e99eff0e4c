@@ -1,0 +1,27 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "message_thread_reply")
+public class MessageThreadReply {
+
+	@JoinColumn(name = "message_thread_id")
+	private MessageThread parentMessageThread;
+	
+	@JoinColumn(name = "participant_id")
+	private User participantUser;
+	
+	private Timestamp posted;
+	
+	private String message;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+}

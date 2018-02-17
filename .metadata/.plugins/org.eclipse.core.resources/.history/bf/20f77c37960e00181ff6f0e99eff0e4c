@@ -1,0 +1,31 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_transfer_offer_activity")
+public class ItemTransferOfferActivity {
+
+	private int id;
+	
+	private ItemTransferOffer itemTransferOfferActivityParent;
+	
+	private User itemTransferOfferActivityUser;
+	
+	private String message;
+	
+	private Timestamp postTimestamp;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+	private Boolean moderatorHide;
+	
+	private User hidingModerator;
+	
+	
+}

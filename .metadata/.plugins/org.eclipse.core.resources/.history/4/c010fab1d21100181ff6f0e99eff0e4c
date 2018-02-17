@@ -1,0 +1,38 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "message_thread_reply")
+public class MessageThreadReply {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@JoinColumn(name = "message_thread_id")
+	private MessageThread parentMessageThread;
+	
+	@JoinColumn(name = "participant_id")
+	private User participantUser;
+	
+	@Column(name = "post_timestamp")
+	private Timestamp posted;
+	
+	private String message;
+
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+}

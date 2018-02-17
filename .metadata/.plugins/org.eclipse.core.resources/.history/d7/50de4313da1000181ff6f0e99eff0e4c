@@ -1,0 +1,28 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_activity")
+public class ServiceOfferActivity {
+
+	private int id;
+	
+	private ServiceOffer serviceOfferActivityParent;
+	
+	private User serviceOfferActivityUser;
+	
+	private String message;
+	
+	private Timestamp postTimestamp;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+	private Boolean moderatorHide;
+	
+	private User hidingModerator;
+	
+}

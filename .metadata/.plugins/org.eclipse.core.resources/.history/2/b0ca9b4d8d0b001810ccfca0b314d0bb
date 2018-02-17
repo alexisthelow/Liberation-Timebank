@@ -1,0 +1,90 @@
+package entities;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "subcategory")
+public class ServiceSubcategory {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private ServiceCategory subcategoryCategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "offerSubcategory", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ServiceOffer> subcategoryOffers;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "requestSubcategory", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ServiceRequest> subcategoryRequests;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public ServiceCategory getSubcategoryCategory() {
+		return subcategoryCategory;
+	}
+
+	public void setSubcategoryCategory(ServiceCategory subcategoryCategory) {
+		this.subcategoryCategory = subcategoryCategory;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<ServiceOffer> getSubcategoryOffers() {
+		return subcategoryOffers;
+	}
+
+	public void setSubcategoryOffers(List<ServiceOffer> subcategoryOffers) {
+		this.subcategoryOffers = subcategoryOffers;
+	}
+
+	public List<ServiceRequest> getSubcategoryRequests() {
+		return subcategoryRequests;
+	}
+
+	public void setSubcategoryRequests(List<ServiceRequest> subcategoryRequests) {
+		this.subcategoryRequests = subcategoryRequests;
+	}
+
+}

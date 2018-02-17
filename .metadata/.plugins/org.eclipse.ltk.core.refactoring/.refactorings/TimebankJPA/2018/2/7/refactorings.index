@@ -1,0 +1,16 @@
+1518646918606	Rename type 'MessageThreadReply'
+1518648396639	Delete element
+1518648404448	Rename type 'GenericLocation'
+1518649571167	Rename type 'ServiceOfferLocation'
+1518649807171	Rename type 'ServiceRequestLocation'
+1518653082458	Rename field 'postTimestamp'
+1518726546721	Delete element
+1518726585281	Move compilation unit
+1518726598424	Move compilation unit
+1518726613655	Delete element
+1518883978304	Delete element
+1518901424658	Rename field 'userServiceRequestTxs'
+1518901442755	Rename field 'userItemTransferOfferTxs'
+1518901453480	Rename field 'userItemTransferRequestTxs'
+1518901463600	Rename field 'userItemLoanRequestTxs'
+1518901475503	Rename field 'userItemLoanOfferTxs'

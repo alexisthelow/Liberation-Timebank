@@ -1,0 +1,46 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_tx")
+public class ServiceOfferTx {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name ="service_offer_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ServiceOffer serviceOfferTxParent;
+	
+	@JoinColumn(name = "recipient_user_id")
+	private User serviceOfferRecipient;
+	
+	private Timestamp recipientAcceptTimestamp;
+	
+	private int recipientHourExchangeOffer;
+	
+	private Timestamp providerAcceptTimestamp;
+	
+	private int providerHourExchangeRequest;
+	
+	private int hoursExchanged;
+	
+	private Boolean moderatorClosed;
+	
+	private User closingModerator;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+}

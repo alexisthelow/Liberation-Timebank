@@ -1,0 +1,16 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_destination")
+public class ServiceOfferDestination {
+	
+	private int id;
+	
+	private ServiceOffer serviceOfferDestinationParent;
+	
+	private GenericDestination serviceOfferDestinationGenericDestination
+
+}

@@ -1,0 +1,16 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_activity")
+public class ServiceOfferActivity {
+
+	private int id;
+	
+	private ServiceOffer serviceOfferActivityParent;
+	
+	
+	
+}

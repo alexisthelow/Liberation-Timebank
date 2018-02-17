@@ -1,0 +1,59 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_lend_offer_activity")
+public class ItemLoanOfferActivity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_lend_offer_id")
+	private ItemLoanOffer itemLendOfferActivityParent;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User itemLendOfferActivityUser;
+	
+	private String message;
+	
+	@Column(name = "post_timestamp")
+	private Timestamp postTimestamp;
+	
+	@JsonIgnore
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JsonIgnore
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	@JsonIgnore
+	@Column(name = "moderator_hide")
+	private Boolean moderatorHide;
+	
+	@JsonIgnore
+	@JoinColumn(name = "hiding_moderator_id")
+	private User hidingModerator;
+	
+	
+	
+	
+}

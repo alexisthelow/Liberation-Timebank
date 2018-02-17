@@ -1,0 +1,73 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_loan_offer_tx")
+public class ItemLoanOfferTx {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_loan_offer_id")
+	private ItemLoanOffer itemLoanOfferTxParent;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "borrower_id")
+	private User borrower;
+	
+	@Column(name = "create_timestamp")
+	private Timestamp createTimestamp;
+	
+	@Column(name = "loan_days_requested")
+	private int loanDaysRequested;
+	
+	@Column(name = "loan_period_start_borrower_acknowledged_timestamp")
+	private Timestamp startBorrowerAcknowledge;
+	
+	@Column(name = "loan_period_start_lender_acknowledged_timestamp")
+	private Timestamp startLenderAcknowledge;
+	
+	@Column(name = "loan_begin_date")
+	private Date loanBeginDate;
+	
+	@Column(name = "renew_count")
+	private int renewCount;
+	
+	@Column(name = "due_date")
+	private Date dueDate;
+	
+	@Column(name = "borrower_return_acknowledged_timestamp")
+	private Timestamp returnBorrowerAcknowledge;
+	
+	@Column(name = "lender_return_acknowledged_timestamp")
+	private Timestamp returnLenderAcknowledge;
+	
+	@Column(name = "complete_timestamp")
+	private Timestamp completeTimestamp;
+	
+	private Boolean moderatorClosed;
+	
+	private User closingModerator;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+	
+}

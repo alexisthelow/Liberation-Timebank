@@ -1,0 +1,50 @@
+package entities;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "timebank")
+public class Timebank {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private String title;
+	
+	private String description;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "userTimebanks", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "timebank_user", joinColumns=@JoinColumn(name = "timebank_id"), inverseJoinColumns=@JoinColumn(name = "user_id"))
+	private List<User> timebankUsers;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "userModeratorTimebanks", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "timebank_moderator", joinColumns=@JoinColumn(name = "timebank_id"), inverseJoinColumns=@JoinColumn(name = "moderator_id"))
+	private List<User> timebankModeratorUsers;
+	
+	@JoinColumn(name = "owner_id")
+	private User timebankOwner;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceOfferTimebank", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceOffer> timebankServiceOffers;
+	
+	private List<ServiceRequest> timebankServiceRequest;
+	
+}

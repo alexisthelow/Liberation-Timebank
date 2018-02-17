@@ -1,0 +1,22 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_request_time_window")
+public class ServiceRequestTimeWindow {
+	
+	private int id;
+	
+	private ServiceRequest serviceRequestTimeWindowParent;
+	
+	private Date requestBeginDate;
+	
+	private Time requestBeginTime;
+	
+	private Date requestEndDate;
+	
+	private Time requestEndTime;
+
+}

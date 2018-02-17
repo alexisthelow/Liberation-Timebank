@@ -1,0 +1,68 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_request_tx")
+public class ServiceRequestTx {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "service_request_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ServiceRequest serviceRequestTxParent;
+	
+	@JoinColumn(name = "service_request_time_window_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ServiceRequestTimeWindow serviceRequestTxTimeWindow;
+
+	@JoinColumn(name = "provider_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private User provider;
+	
+	@Column(name = "")
+	private Timestamp providerAcceptRequest;
+	
+	@Column(name = "")
+	private Timestamp recipientAcceptProvider;
+	
+	@Column(name = "")
+	private Timestamp recipientAcceptComplete;
+	
+	@Column(name = "")
+	private int recipientHourExchangeOffer;
+
+	@Column(name = "")
+	private Timestamp providerAcceptComplete;
+	
+	@Column(name = "")
+	private int providerHourExchangeRequest;
+
+	@Column(name = "")
+	private int hoursExchanged;
+	
+	@Column(name = "")
+	private Boolean moderatorClosed;
+	
+	@JoinColumn(name = "")
+	private User closingModerator;
+	
+	@Column(name = "")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "")
+	private User lastUpdateUser;
+	
+}

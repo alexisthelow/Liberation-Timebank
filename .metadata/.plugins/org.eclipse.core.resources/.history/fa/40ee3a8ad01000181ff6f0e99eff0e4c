@@ -1,0 +1,32 @@
+package entities;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_location")
+public class ServiceOfferLocation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "service_offer_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ServiceOffer serviceOfferLocationParent;
+	
+	@JoinColumn(name = "generic_location_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private GenericLocation serviceOfferGenericLocation;
+	
+	@JoinColumn(name = "address_id")
+	private Address serviceOfferAddress;
+	
+}

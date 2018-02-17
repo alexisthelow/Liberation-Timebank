@@ -1,0 +1,18 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_subcategory")
+public class ItemSubcategory {
+
+	private int id;
+	
+	private String title;
+	
+	private String description;
+	
+	private ItemCategory itemSubcategoryCategory;
+	
+}

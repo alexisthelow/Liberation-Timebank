@@ -1,0 +1,61 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_transfer_request")
+public class ItemTransferRequest {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemTransferRequestTimebank;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User itemTransferRequestUser;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemTransferRequestCategory;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_subcategory_id")
+	private ItemSubcategory itemTransferRequestSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_date")
+	private Date createDate;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferRequestActivityParent")
+	private ItemTransferRequestActivity itemTransferRequestActivity;
+
+}

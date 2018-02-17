@@ -1,0 +1,73 @@
+package entities;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "timebank")
+public class Timebank {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private String title;
+	
+	private String description;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "userTimebanks", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<User> timebankUsers;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "userModeratorTimebanks", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<User> timebankModeratorUsers;
+	
+	@JoinColumn(name = "owner_id")
+	private User timebankOwner;
+	
+	//service offers
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceOfferTimebank", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceOffer> timebankServiceOffers;
+	
+	//service requests
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestTimebank", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceRequest> timebankServiceRequest;
+	
+	//item loan offers
+	
+	private List<ItemLoanOffer> timebankItemLoanOffers;
+	
+	//item loan request
+	
+	private List<ItemLoanRequest> timebankItemLoanRequests;
+	
+	//item transfer offers
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferOfferTimebank", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemTransferOffer> timebankItemOffers;
+
+	//item transfer requests
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferRequestTimebank", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemTransferRequest> timebankItemRequests;
+
+}

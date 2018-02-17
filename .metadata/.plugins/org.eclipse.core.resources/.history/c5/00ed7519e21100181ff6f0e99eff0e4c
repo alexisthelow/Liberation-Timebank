@@ -1,0 +1,94 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "service_request")
+public class ServiceRequest {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "timebank_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Timebank serviceRequestTimebank;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User serviceRequestUser;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private ServiceCategory serviceRequestCategory;
+
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "subcategory_id")
+	private ServiceSubcategory serviceRequestSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "global_visibility")
+	private Boolean globalVisibility;
+	
+	@Column(name = "requires_supplies")
+	private Boolean requiresSupplies;
+	
+	@Column(name = "supply_cost_estimate")
+	private int supplyCostEstimate;
+	
+	private Timestamp created;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	private Boolean active;
+	
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+	
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestTimeWindowParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceRequestTimeWindow> serviceRequestTimeWindows;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestLocationParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceRequestOrigin> serviceRequestLocations;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestDestinationParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceRequestDestination> serviceRequestDestinations;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestTxParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceRequestTx> serviceRequestTxs;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestActivityParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceRequestActivity> serviceRequestActivities;
+	
+}

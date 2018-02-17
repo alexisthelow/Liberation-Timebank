@@ -1,0 +1,71 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_transfer_offer")
+public class ItemTransferOffer {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemTransferOfferTimebank;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User itemTransferOfferUser;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemTransferOfferCategory;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_subcategory_id")
+	private ItemSubcategory itemTransferOfferSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "created")
+	private Timestamp created;
+	
+	@Column(name = "provider_accept")
+	private Timestamp providerAccept;
+	
+	@Column(name = "provider_reject")
+	private Timestamp providerReject;
+	
+	@Column(name = "provider_complete")
+	private Timestamp providerComplete;
+	
+	@Column(name = "recipient_complete")
+	private Timestamp recipientComplete;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+	
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+	
+}

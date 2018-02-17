@@ -1,0 +1,236 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_borrow_request")
+public class ItemBorrowRequest {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemBorrowRequestTimebank;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "borrower_id")
+	private User itemBorrowRequestUser;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemBorrowRequestCategory;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_subcategory_id")
+	private ItemSubcategory itemBorrowRequestSubcategory;
+	
+	@Column(name = "borrow_days_requested")
+	private int borrowDaysRequested;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_timestamp")
+	private Timestamp createTimestamp;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	private Boolean active;
+	
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+	
+	@JsonIgnore
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "itemBorrowRequestActivityParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ItemBorrowRequestActivity itemBorrowRequestActivity;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "itemBorrowRequestTxParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ItemBorrowRequestTx itemBorrowRequestTx;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Timebank getItemBorrowRequestTimebank() {
+		return itemBorrowRequestTimebank;
+	}
+
+	public void setItemBorrowRequestTimebank(Timebank itemBorrowRequestTimebank) {
+		this.itemBorrowRequestTimebank = itemBorrowRequestTimebank;
+	}
+
+	public User getItemBorrowRequestUser() {
+		return itemBorrowRequestUser;
+	}
+
+	public void setItemBorrowRequestUser(User itemBorrowRequestUser) {
+		this.itemBorrowRequestUser = itemBorrowRequestUser;
+	}
+
+	public ItemCategory getItemBorrowRequestCategory() {
+		return itemBorrowRequestCategory;
+	}
+
+	public void setItemBorrowRequestCategory(ItemCategory itemBorrowRequestCategory) {
+		this.itemBorrowRequestCategory = itemBorrowRequestCategory;
+	}
+
+	public ItemSubcategory getItemBorrowRequestSubcategory() {
+		return itemBorrowRequestSubcategory;
+	}
+
+	public void setItemBorrowRequestSubcategory(ItemSubcategory itemBorrowRequestSubcategory) {
+		this.itemBorrowRequestSubcategory = itemBorrowRequestSubcategory;
+	}
+
+	public int getBorrowDaysRequested() {
+		return borrowDaysRequested;
+	}
+
+	public void setBorrowDaysRequested(int borrowDaysRequested) {
+		this.borrowDaysRequested = borrowDaysRequested;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Timestamp getCreateTimestamp() {
+		return createTimestamp;
+	}
+
+	public void setCreateTimestamp(Timestamp createTimestamp) {
+		this.createTimestamp = createTimestamp;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Boolean getModeratorClosed() {
+		return moderatorClosed;
+	}
+
+	public void setModeratorClosed(Boolean moderatorClosed) {
+		this.moderatorClosed = moderatorClosed;
+	}
+
+	public User getClosingModerator() {
+		return closingModerator;
+	}
+
+	public void setClosingModerator(User closingModerator) {
+		this.closingModerator = closingModerator;
+	}
+
+	public ItemBorrowRequestActivity getItemBorrowRequestActivity() {
+		return itemBorrowRequestActivity;
+	}
+
+	public void setItemBorrowRequestActivity(ItemBorrowRequestActivity itemBorrowRequestActivity) {
+		this.itemBorrowRequestActivity = itemBorrowRequestActivity;
+	}
+
+	public ItemBorrowRequestTx getItemBorrowRequestTx() {
+		return itemBorrowRequestTx;
+	}
+
+	public void setItemBorrowRequestTx(ItemBorrowRequestTx itemBorrowRequestTx) {
+		this.itemBorrowRequestTx = itemBorrowRequestTx;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemLoanRequest other = (ItemLoanRequest) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemBorrowRequest [id=").append(id).append(", title=").append(title)
+				.append(", createTimestamp=").append(createTimestamp).append(", active=").append(active).append("]");
+		return builder.toString();
+	}
+	
+ }

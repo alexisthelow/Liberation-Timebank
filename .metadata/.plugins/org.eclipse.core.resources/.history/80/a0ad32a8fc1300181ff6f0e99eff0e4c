@@ -1,0 +1,168 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "user_account")
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "first_name")
+	private String firstName;
+	
+	@Column(name = "last_name")
+	private String lastName;
+	
+	@JsonIgnore
+	@JoinColumn(name = "address_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Address userAddress;
+	
+	private String email;
+	
+	@Column(name = "password")
+	private String hashedPassword;
+	
+	@Column(name = "password_salt")
+	private String passwordSalt;
+	
+	@Column(name = "password_hash")
+	private String passwordHash;
+	
+	private Boolean active;
+	
+	private Boolean moderatorBan;
+	
+	private User banningModerator;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+	//service offers
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceOfferUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ServiceOffer> userServiceOffers;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceOfferRecipient", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceOfferTx> userServiceOfferTxs;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceOfferActivityUser", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ServiceOfferActivity> userServiceOfferActivities;
+	
+	//service requests
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ServiceRequest> userServiceRequests;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestProvider", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ServiceRequestTx> userServiceRequestTxs;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "serviceRequestActivityUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ServiceRequestActivity> userServiceRequestActivities;
+	
+	//item transfer offers
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferOfferUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemTransferOffer> userItemTransferOffers;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferOfferTxRecipient", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemTransferOfferTx> userItemTransferOfferTxs;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferOfferActivityUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemTransferOfferActivity> userItemTransferOfferActivities;
+	
+	//item transfer requests
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferRequestUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemTransferRequest> userItemTransferRequests;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferRequestTxProvider", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemTransferRequestTx> userItemTransferRequestTxs;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferRequestActivityUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemTransferRequestActivity> userItemTransferRequestActivities;
+	
+	//item loan requests
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanRequestUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemLoanRequest> userItemLoanRequests;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanRequestActivityUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemLoanRequestActivity> userItemLoanRequestActivities;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanRequestTxUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemLoanRequestTx> userItemLoanRequestTxs;
+
+	// item loan offers
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemLoanOffer> userItemLoanOffers;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferActivityUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemLoanOfferActivity> userItemLoanOfferActivities;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferTxUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<ItemLoanOfferTx> userItemLoanOfferTxs;
+	
+	//timebank
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<Timebank> userTimebanks;
+	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<User> userModeratorTimebanks;
+	
+	//intra user messaging
+	
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<MessageThread> userMessageThreads;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "participantUser", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<Reply> userMessageThreadReplies;
+	
+	
+	
+
+}

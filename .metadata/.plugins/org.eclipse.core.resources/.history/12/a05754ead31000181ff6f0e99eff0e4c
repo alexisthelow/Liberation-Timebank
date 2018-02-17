@@ -1,0 +1,18 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "generic_destination")
+public class GenericDestination {
+	
+	private int id;
+	
+	private String title;
+	
+	private String description;
+	
+	
+
+}

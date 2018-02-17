@@ -1,0 +1,85 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_loan_offer_tx")
+public class ItemLoanOfferTx {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_loan_offer_id")
+	private ItemLoanOffer itemLoanOfferTxParent;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "borrower_id")
+	private User itemLoanOfferTxBorrower;
+	
+	@Column(name = "created")
+	private Timestamp created;
+	
+	@Column(name = "days_requested")
+	private int daysRequested;
+	
+	@Column(name = "lender_accept")
+	private Timestamp lenderAccept;
+	
+	@Column(name = "days_provided")
+	private int daysProvided;
+	
+	@Column(name = "lender_reject")
+	private Timestamp lenderReject;
+	
+	@Column(name = "borrower_start")
+	private Timestamp borrowerStart;
+	
+	@Column(name = "lender_start")
+	private Timestamp lenderStart;
+	
+	@Column(name = "begin_date")
+	private Date beginDate;
+	
+	@Column(name = "renew_count")
+	private int renewCount;
+	
+	@Column(name = "due_date")
+	private Date dueDate;
+	
+	@Column(name = "borrower_complete")
+	private Timestamp borrowerComplete;
+	
+	@Column(name = "lender_complete")
+	private Timestamp lenderComplete;
+	
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+
+}

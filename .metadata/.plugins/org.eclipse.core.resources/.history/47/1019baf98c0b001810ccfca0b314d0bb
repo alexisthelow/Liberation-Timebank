@@ -1,0 +1,80 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "request")
+public class ServiceRequest {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User requestUser;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private ServiceCategory serviceRequestCategory;
+
+	@ManyToOne
+	@JoinColumn(name = "subcategory_id")
+	private ServiceSubcategory serviceRequestSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_date")
+	private Date createDate;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdateTimestamp;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+
+	@Override
+	public String toString() {
+		return "Request [id=" + id + ", title=" + title + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ServiceRequest other = (ServiceRequest) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+}

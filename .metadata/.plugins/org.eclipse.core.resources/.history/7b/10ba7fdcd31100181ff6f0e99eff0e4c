@@ -1,0 +1,22 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "message_thread")
+public class MessageThread {
+
+	private int id;
+	
+	private Timestamp created;
+	
+	@ManyToMany()
+	private List<User> messageThreadParticipants;
+	
+	private List<MessageThreadReply> messageThreadReplies;
+	
+}

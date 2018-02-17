@@ -1,0 +1,43 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Time;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_request_time_window")
+public class ServiceRequestTimeWindow {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "service_request_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ServiceRequest serviceRequestTimeWindowParent;
+	
+	@Column(name = "begin_date")
+	private Date requestBeginDate;
+	
+	@Column(name = "begin_time")
+	private Time requestBeginTime;
+	
+	@Column(name = "end_date")
+	private Date requestEndDate;
+	
+	@Column(name = "end_time")
+	private Time requestEndTime;
+	
+	
+
+}

@@ -1,0 +1,27 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "message_thread")
+public class MessageThread {
+
+	private int id;
+	
+	private Timestamp created;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<User> messageThreadParticipants;
+	
+	@JsonManagedReference(value = "messageThreadReplies")
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<MessageThreadReply> messageThreadReplies;
+	
+}

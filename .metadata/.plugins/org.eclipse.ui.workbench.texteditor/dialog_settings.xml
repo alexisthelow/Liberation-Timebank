@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="Loan" key="selection"/>
+		<item value="true" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="Lend"/>
+			<item value="Borrow"/>
+			<item value="ItemRequest"/>
+			<item value="itemRequest"/>
+			<item value="ItemOffer"/>
+			<item value="itemOffer"/>
+			<item value="borrow"/>
+			<item value="lend"/>
+		</list>
+		<list key="replacehistory">
+			<item value="Loan"/>
+			<item value="ItemTransferRequest"/>
+			<item value="itemTransferRequest"/>
+			<item value="ItemTransferOffer"/>
+			<item value="itemTransferOffer"/>
+			<item value="loan"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="290" key="DIALOG_WIDTH"/>
+		<item value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont" key="DIALOG_FONT_NAME"/>
+		<item value="409" key="DIALOG_HEIGHT"/>
+		<item value="1000" key="DIALOG_X_ORIGIN"/>
+		<item value="76" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

@@ -1,0 +1,47 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_offer")
+public class ItemOffer {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemOfferTimebank;
+
+	@JoinColumn(name = "user_id")
+	private User itemOfferUser;
+	
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemOfferCategory;
+	
+	@JoinColumn(name = "item_subcategory_id")
+	private ItemSubcategory itemOfferSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_date")
+	private Date createDate;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+	private Boolean isLend;
+	
+
+}

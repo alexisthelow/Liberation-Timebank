@@ -1,0 +1,33 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_tx")
+public class ServiceOfferTx {
+
+	private int id;
+	
+	private ServiceOffer serviceOfferTxParent;
+	
+	private User serviceOfferRecipient;
+	
+	private Timestamp recipientAcceptTimestamp;
+	
+	private int recipientHourExchangeOffer;
+	
+	private Timestamp providerAcceptTimestamp;
+	
+	private int providerHourExchangeRequest;
+	
+	private int hoursExchanged;
+	
+	private Boolean moderatorClosed;
+	
+	private User closingModerator;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+}

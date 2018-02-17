@@ -1,0 +1,225 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_loan_offer")
+public class ItemLoanOffer {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@JoinColumn(name = "timebank_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Timebank itemLoanOfferTimebank;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "lender_id")
+	private User itemLoanOfferLender;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemLoanOfferCategory;
+	
+	@JoinColumn(name = "item_subcategory_id")
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ItemSubcategory itemLoanOfferSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_timestamp")
+	private Timestamp createTimestamp;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	private Boolean active;
+
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+	
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferActivityParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemLoanOfferActivity> itemLoanOfferActivities;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "itemLoanOfferTxParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private ItemLoanOfferTx itemLoanOfferTx;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Timebank getItemLoanOfferTimebank() {
+		return itemLoanOfferTimebank;
+	}
+
+	public void setItemLoanOfferTimebank(Timebank itemLoanOfferTimebank) {
+		this.itemLoanOfferTimebank = itemLoanOfferTimebank;
+	}
+
+	public User getItemLoanOfferLender() {
+		return itemLoanOfferLender;
+	}
+
+	public void setItemLoanOfferLender(User itemLoanOfferLender) {
+		this.itemLoanOfferLender = itemLoanOfferLender;
+	}
+
+	public ItemCategory getItemLoanOfferCategory() {
+		return itemLoanOfferCategory;
+	}
+
+	public void setItemLoanOfferCategory(ItemCategory itemLoanOfferCategory) {
+		this.itemLoanOfferCategory = itemLoanOfferCategory;
+	}
+
+	public ItemSubcategory getItemLoanOfferSubcategory() {
+		return itemLoanOfferSubcategory;
+	}
+
+	public void setItemLoanOfferSubcategory(ItemSubcategory itemLoanOfferSubcategory) {
+		this.itemLoanOfferSubcategory = itemLoanOfferSubcategory;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Timestamp getCreateTimestamp() {
+		return createTimestamp;
+	}
+
+	public void setCreateTimestamp(Timestamp createTimestamp) {
+		this.createTimestamp = createTimestamp;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Boolean getModeratorClosed() {
+		return moderatorClosed;
+	}
+
+	public void setModeratorClosed(Boolean moderatorClosed) {
+		this.moderatorClosed = moderatorClosed;
+	}
+
+	public User getClosingModerator() {
+		return closingModerator;
+	}
+
+	public void setClosingModerator(User closingModerator) {
+		this.closingModerator = closingModerator;
+	}
+
+	public ItemLoanOfferActivity getItemLoanOfferActivity() {
+		return itemLoanOfferActivity;
+	}
+
+	public void setItemLoanOfferActivity(ItemLoanOfferActivity itemLoanOfferActivity) {
+		this.itemLoanOfferActivity = itemLoanOfferActivity;
+	}
+
+	public ItemLoanOfferTx getItemLoanOfferTx() {
+		return itemLoanOfferTx;
+	}
+
+	public void setItemLoanOfferTx(ItemLoanOfferTx itemLoanOfferTx) {
+		this.itemLoanOfferTx = itemLoanOfferTx;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemLoanOffer other = (ItemLoanOffer) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemLoanOffer [id=").append(id).append(", title=").append(title).append(", description=")
+				.append(description).append(", active=").append(active).append("]");
+		return builder.toString();
+	}
+	
+}

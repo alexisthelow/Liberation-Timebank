@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ctrl.PingCtrlTest" tests="0" skipped="0" failures="0" errors="0" timestamp="1970-01-01T00:00:00" hostname="Ravel.local" time="0.0">
+  <properties/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Feb 17, 2018 2:43:52 PM org.springframework.test.context.web.WebTestContextBootstrapper getDefaultTestExecutionListenerClassNames
+INFO: Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+Feb 17, 2018 2:43:52 PM org.springframework.test.context.web.WebTestContextBootstrapper getTestExecutionListeners
+INFO: Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@75e17556, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7f943196, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@492386b9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@144192b4, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6af40eaf, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@34b29ae6]
+]]></system-err>
+</testsuite>

@@ -1,0 +1,10 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_request_tx")
+public class ServiceRequestTx {
+
+}

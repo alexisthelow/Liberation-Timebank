@@ -1,0 +1,175 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_transfer_offer")
+public class ItemTransferOffer {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemOfferTimebank;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User itemOfferUser;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemOfferCategory;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_subcategory_id")
+	private ItemSubcategory itemOfferSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_date")
+	private Date createDate;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	@Column(name = "is_lend")
+	private Boolean isLend;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Timebank getItemOfferTimebank() {
+		return itemOfferTimebank;
+	}
+
+	public void setItemOfferTimebank(Timebank itemOfferTimebank) {
+		this.itemOfferTimebank = itemOfferTimebank;
+	}
+
+	public User getItemOfferUser() {
+		return itemOfferUser;
+	}
+
+	public void setItemOfferUser(User itemOfferUser) {
+		this.itemOfferUser = itemOfferUser;
+	}
+
+	public ItemCategory getItemOfferCategory() {
+		return itemOfferCategory;
+	}
+
+	public void setItemOfferCategory(ItemCategory itemOfferCategory) {
+		this.itemOfferCategory = itemOfferCategory;
+	}
+
+	public ItemSubcategory getItemOfferSubcategory() {
+		return itemOfferSubcategory;
+	}
+
+	public void setItemOfferSubcategory(ItemSubcategory itemOfferSubcategory) {
+		this.itemOfferSubcategory = itemOfferSubcategory;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+
+	public Boolean getIsLend() {
+		return isLend;
+	}
+
+	public void setIsLend(Boolean isLend) {
+		this.isLend = isLend;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemTransferOffer other = (ItemTransferOffer) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemOffer [id=").append(id).append(", title=").append(title).append(", createDate=")
+				.append(createDate).append("]");
+		return builder.toString();
+	}
+	
+}

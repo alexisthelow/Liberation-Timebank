@@ -1,0 +1,46 @@
+package entities;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_category")
+public class ItemCategory {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private String title;
+	
+	private String description;
+	
+	@OneToMany(mappedBy = "itemSubcategoryCategory", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemSubcategory> itemCategorySubcategories;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferOfferCategory", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemTransferOffer> itemCategoryTransferOffers;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemTransferRequestCategory", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemTransferRequest> itemCategoryTransferRequests;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferCategory", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemLoanOffer> itemCategoryLoanOffers;
+	
+	@OneToMany(mappedBy = "itemLoanRequestCategory", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemLoanRequest> itemCategoryLoanRequests;
+	
+}

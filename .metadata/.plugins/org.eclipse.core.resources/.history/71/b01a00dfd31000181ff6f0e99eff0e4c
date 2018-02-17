@@ -1,0 +1,10 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "generic_destination")
+public class GenericDestination {
+
+}

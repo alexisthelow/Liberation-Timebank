@@ -1,0 +1,29 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_request_location")
+public class ServiceRequestLocation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "service_request_id")
+	private ServiceRequest serviceRequestLocationParent;
+	
+	@JoinColumn(name = "generic_location_id")
+	private GenericLocation serviceRequestLocationGenericLocation;
+	
+	@JoinColumn(name = "address_id")
+	private Address serviceRequestLocationAddress;
+	
+	
+	
+}

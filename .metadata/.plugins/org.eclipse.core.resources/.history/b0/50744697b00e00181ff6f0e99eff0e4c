@@ -1,0 +1,167 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_transfer_request")
+public class ItemTransferRequest {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemTransferRequestTimebank;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
+	private User itemTransferRequestUser;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_category_id")
+	private ItemCategory itemTransferRequestCategory;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_subcategory_id")
+	private ItemSubcategory itemTransferRequestSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "create_date")
+	private Date createDate;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	@OneToMany(mappedBy = "itemTransferRequestActivityParent")
+	private ItemTransferRequestActivity itemTransferRequestActivity;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Timebank getItemTransferRequestTimebank() {
+		return itemTransferRequestTimebank;
+	}
+
+	public void setItemTransferRequestTimebank(Timebank itemTransferRequestTimebank) {
+		this.itemTransferRequestTimebank = itemTransferRequestTimebank;
+	}
+
+	public User getItemTransferRequestUser() {
+		return itemTransferRequestUser;
+	}
+
+	public void setItemTransferRequestUser(User itemTransferRequestUser) {
+		this.itemTransferRequestUser = itemTransferRequestUser;
+	}
+
+	public ItemCategory getItemTransferRequestCategory() {
+		return itemTransferRequestCategory;
+	}
+
+	public void setItemTransferRequestCategory(ItemCategory itemTransferRequestCategory) {
+		this.itemTransferRequestCategory = itemTransferRequestCategory;
+	}
+
+	public ItemSubcategory getItemTransferRequestSubcategory() {
+		return itemTransferRequestSubcategory;
+	}
+
+	public void setItemTransferRequestSubcategory(ItemSubcategory itemTransferRequestSubcategory) {
+		this.itemTransferRequestSubcategory = itemTransferRequestSubcategory;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemTransferRequest other = (ItemTransferRequest) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemTransferRequest [id=").append(id).append(", title=").append(title).append(", createDate=")
+				.append(createDate).append("]");
+		return builder.toString();
+	}
+
+}

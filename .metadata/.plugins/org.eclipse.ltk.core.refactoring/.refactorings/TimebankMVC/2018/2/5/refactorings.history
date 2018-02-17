@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;TimebankMVC/WebContent/WEB-INF/skeleton-servlet.xml&apos; to &apos;timebank-servlet.xml&apos;" description="Rename resource &apos;skeleton-servlet.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/WEB-INF/skeleton-servlet.xml" name="timebank-servlet.xml" stamp="1517522259535" updateReferences="true"/>
+</session>

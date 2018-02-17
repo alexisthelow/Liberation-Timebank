@@ -1,0 +1,82 @@
+package entities;
+
+import java.sql.Date;
+import java.sql.Time;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "service_offer_schedule")
+public class ServiceOfferSchedule {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "service_offer_id")
+	private ServiceOffer serviceOfferScheduleParent;
+	
+	@Column(name = "begin_date")
+	private Date serviceOfferBeginDate;
+	
+	@Column(name = "end_date")
+	private Date serviceOfferEndDate;
+	
+	@Column(name = "day_1_time_begin")
+	private Time dayOneTimeBegin;
+	
+	@Column(name = "day_1_time_end")
+	private Time dayOneTimeEnd;
+	
+	@Column(name = "day_2_time_begin")
+	private Time dayTwoTimeBegin;
+	
+	@Column(name = "day_2_time_end")
+	private Time dayTwoTimeEnd;
+
+	@Column(name = "day_3_time_begin")
+	private Time dayThreeTimeBegin;
+	
+	@Column(name = "day_3_time_end")
+	private Time dayThreeTimeEnd;
+	
+	@Column(name = "day_4_time_begin")
+	private Time dayFourTimeBegin;
+	
+	@Column(name = "day_4_time_end")
+	private Time dayFourTimeEnd;
+	
+	@Column(name = "day_5_time_begin")
+	private Time dayFiveTimeBegin;
+	
+	@Column(name = "day_5_time_end")
+	private Time dayFiveTimeEnd;
+	
+	@Column(name = "day_6_time_begin")
+	private Time daySixTimeBegin;
+	
+	@Column(name = "day_6_time_end")
+	private Time daySixTimeEnd;
+	
+	@Column(name = "day_7_time_begin")
+	private Time daySevenTimeBegin;
+	
+	@Column(name = "day_7_time_end")
+	private Time daySevenTimeEnd;
+	
+	private Boolean active;
+
+}

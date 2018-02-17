@@ -1,0 +1,78 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "item_loan_offer")
+public class ItemLoanOffer {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "timebank_id")
+	private Timebank itemLoanOfferTimebank;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "lender_id")
+	private User itemLoanOfferLender;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private ItemCategory itemLoanOfferCategory;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "subcategory_id")
+	private ItemSubcategory itemLoanOfferSubcategory;
+	
+	private String title;
+	
+	private String description;
+	
+	@Column(name = "created")
+	private Timestamp created;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	private Boolean active;
+	
+	private Boolean available;
+
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+	
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferActivityParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemLoanOfferActivity> itemLoanOfferActivities;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "itemLoanOfferTxParent", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private List<ItemLoanOfferTx> itemLoanOfferTxs;
+
+	
+	
+}

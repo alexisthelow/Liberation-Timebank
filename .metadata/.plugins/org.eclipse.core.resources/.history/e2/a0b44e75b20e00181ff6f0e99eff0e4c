@@ -1,0 +1,25 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "")
+public class ItemTransferRequestTx {
+
+	
+	@Column(name = "create_timestamp")
+	private Timestamp createTimestamp;
+	
+	@Column(name = "recipient_accept_timestamp")
+	private Timestamp recipientAcceptTimestamp;
+	
+	@Column(name = "provider_accept_timestamp")
+	private Timestamp providerAcceptTimestamp;
+	
+	@Column(name = "complete_timestamp")
+	private Timestamp completeTimestamp;
+}

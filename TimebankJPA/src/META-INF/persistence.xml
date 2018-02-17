@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="timebank">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Shared data entities -->
+        <class>entities.Address</class>
+        <class>entities.ItemCategory</class>
+        <class>entities.ItemSubcategory</class>
+		<class>entities.LocationCategory</class>
+        <class>entities.ServiceCategory</class>
+        <class>entities.ServiceSubcategory</class>
+        
+        <!-- User data entities -->
+        <class>entities.User</class>
+		<class>entities.MessageThread</class>
+		<class>entities.Reply</class>
+		
+		<!-- Timebank -->
+		<class>entities.Timebank</class>
+		
+		<!-- Service offer entities -->
+		<class>entities.ServiceOffer</class>
+		<class>entities.ServiceOfferActivity</class>
+		<class>entities.ServiceOfferDestination</class>
+		<class>entities.ServiceOfferOrigin</class>
+		<class>entities.ServiceOfferSchedule</class>
+		<class>entities.ServiceOfferTx</class>
+		
+		<!-- Service request entities -->
+		<class>entities.ServiceRequest</class>
+		<class>entities.ServiceRequestActivity</class>
+		<class>entities.ServiceRequestDestination</class>
+		<class>entities.ServiceRequestOrigin</class>
+		<class>entities.ServiceRequestTimeWindow</class>
+		<class>entities.ServiceRequestTx</class>
+		
+		<!-- Item transfer offer entities -->		
+		<class>entities.ItemTransferOffer</class>
+		<class>entities.ItemTransferOfferActivity</class>
+		<class>entities.ItemTransferOfferTx</class>
+		
+		<!-- Item transfer request entities -->
+		<class>entities.ItemTransferRequest</class>
+		<class>entities.ItemTransferRequestActivity</class>
+		<class>entities.ItemTransferRequestTx</class>
+		
+		<!-- Item loan offer entities -->
+		<class>entities.ItemLoanOffer</class>
+		<class>entities.ItemLoanOfferActivity</class>
+		<class>entities.ItemLoanOfferTx</class>
+		
+		<!-- Item loan request entities -->
+		<class>entities.ItemLoanRequest</class>
+		<class>entities.ItemLoanRequestActivity</class>
+		<class>entities.ItemLoanRequestTx</class>
+
+        <properties>
+        		<!-- Configure your connection to the database -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/timebankdb" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="root" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+			<!-- Flip values to true for debugging Hibernate's SQL queries -->
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.connection.zeroDateTimeBehavior" value="convertToNull"></property>
+            <property name="hibernate.connection.provider_class"
+                value="org.hibernate.connection.C3P0ConnectionProvider" />
+            <property name="hibernate.c3p0.max_size" value="5" />
+            <property name="hibernate.c3p0.min_size" value="0" />
+            <property name="hibernate.c3p0.acquire_increment" value="1" />
+            <property name="hibernate.c3p0.idle_test_period" value="300" />
+            <property name="hibernate.c3p0.max_statements" value="0" />
+            <property name="hibernate.c3p0.timeout" value="60" />
+        </properties>
+    </persistence-unit>
+</persistence>

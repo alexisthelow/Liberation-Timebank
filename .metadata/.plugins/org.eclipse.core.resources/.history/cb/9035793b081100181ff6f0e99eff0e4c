@@ -1,0 +1,23 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_request_destination")
+public class ServiceRequestDestination {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private ServiceRequest serviceRequestDestinationParent;
+	
+	private GenericDestination serviceRequestDestinationGenericDestination;
+	
+	private Address serviceRequestDestinationAddress;
+
+}

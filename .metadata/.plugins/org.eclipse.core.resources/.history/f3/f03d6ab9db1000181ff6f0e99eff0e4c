@@ -1,0 +1,26 @@
+package entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "service_offer_destination")
+public class ServiceOfferDestination {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "service_offer_idO")
+	private ServiceOffer serviceOfferDestinationParent;
+	
+	private GenericDestination serviceOfferDestinationGenericDestination;
+	
+	private Address serviceOfferDestinationAddress;
+	
+	
+
+}

@@ -1,0 +1,45 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item_lend_offer_activity")
+public class ItemLendOfferActivity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "item_lend_offer_id")
+	private ItemLendOffer itemLendOfferActivityParent;
+	
+	
+	private User itemLendOfferActivityUser;
+	
+	private String message;
+	
+	private Timestamp postTimestamp;
+	
+	private Timestamp lastUpdate;
+	
+	private User lastUpdateUser;
+	
+	private Boolean moderatorHide;
+	
+	private User hidingModerator;
+	
+	
+	
+	
+}
