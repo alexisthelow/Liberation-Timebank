@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -77,12 +77,12 @@ public class ItemLoanOffer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferActivityParent", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOfferActivity> itemLoanOfferActivities;
+	private Set<ItemLoanOfferActivity> itemLoanOfferActivities;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferTxParent", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOfferTx> itemLoanOfferTxs;
+	private Set<ItemLoanOfferTx> itemLoanOfferTxs;
 
 	public int getId() {
 		return id;
@@ -196,19 +196,19 @@ public class ItemLoanOffer {
 		this.closingModerator = closingModerator;
 	}
 
-	public List<ItemLoanOfferActivity> getItemLoanOfferActivities() {
+	public Set<ItemLoanOfferActivity> getItemLoanOfferActivities() {
 		return itemLoanOfferActivities;
 	}
 
-	public void setItemLoanOfferActivities(List<ItemLoanOfferActivity> itemLoanOfferActivities) {
+	public void setItemLoanOfferActivities(Set<ItemLoanOfferActivity> itemLoanOfferActivities) {
 		this.itemLoanOfferActivities = itemLoanOfferActivities;
 	}
 
-	public List<ItemLoanOfferTx> getItemLoanOfferTxs() {
+	public Set<ItemLoanOfferTx> getItemLoanOfferTxs() {
 		return itemLoanOfferTxs;
 	}
 
-	public void setItemLoanOfferTxs(List<ItemLoanOfferTx> itemLoanOfferTxs) {
+	public void setItemLoanOfferTxs(Set<ItemLoanOfferTx> itemLoanOfferTxs) {
 		this.itemLoanOfferTxs = itemLoanOfferTxs;
 	}
 

@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,12 +37,12 @@ public class ServiceSubcategory {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferSubcategory", cascade = CascadeType.PERSIST)
-	private List<ServiceOffer> serviceSubcategoryOffers;
+	private Set<ServiceOffer> serviceSubcategoryOffers;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestSubcategory", cascade = CascadeType.PERSIST)
-	private List<ServiceRequest> serviceSubcategoryRequests;
+	private Set<ServiceRequest> serviceSubcategoryRequests;
 
 	public int getId() {
 		return id;
@@ -76,19 +76,19 @@ public class ServiceSubcategory {
 		this.description = description;
 	}
 
-	public List<ServiceOffer> getServiceSubcategoryOffers() {
+	public Set<ServiceOffer> getServiceSubcategoryOffers() {
 		return serviceSubcategoryOffers;
 	}
 
-	public void setServiceSubcategoryOffers(List<ServiceOffer> serviceSubcategoryOffers) {
+	public void setServiceSubcategoryOffers(Set<ServiceOffer> serviceSubcategoryOffers) {
 		this.serviceSubcategoryOffers = serviceSubcategoryOffers;
 	}
 
-	public List<ServiceRequest> getServiceSubcategoryRequests() {
+	public Set<ServiceRequest> getServiceSubcategoryRequests() {
 		return serviceSubcategoryRequests;
 	}
 
-	public void setServiceSubcategoryRequests(List<ServiceRequest> serviceSubcategoryRequests) {
+	public void setServiceSubcategoryRequests(Set<ServiceRequest> serviceSubcategoryRequests) {
 		this.serviceSubcategoryRequests = serviceSubcategoryRequests;
 	}
 

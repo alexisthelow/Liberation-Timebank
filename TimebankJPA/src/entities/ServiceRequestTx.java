@@ -39,29 +39,22 @@ public class ServiceRequestTx {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User serviceRequestProvider;
 	
-	@Column(name = "provider_accept_request")
-	private Timestamp providerAcceptRequest;
+	private Timestamp created;
 	
-	@Column(name = "recipient_accept_provider")
-	private Timestamp recipientAcceptProvider;
+	@Column(name = "recipient_accept")
+	private Timestamp recipientAccept;
 	
-	@Column(name = "recipient_reject_provider")
-	private Timestamp recipientRejectProvider;
+	@Column(name = "recipient_reject")
+	private Timestamp recipientReject;
 	
-	@Column(name = "recipient_cancel")
-	private Timestamp recipientCancel;
-	
-	@Column(name = "provider_cancel")
-	private Timestamp providerCancel;
-	
-	@Column(name = "recipient_service_complete")
-	private Timestamp recipientServiceComplete;
+	@Column(name = "recipient_complete")
+	private Timestamp recipientComplete;
 	
 	@Column(name = "recipient_hour_offer")
 	private double recipientHourOffer;
 
-	@Column(name = "provider_service_complete")
-	private Timestamp providerServiceComplete;
+	@Column(name = "provider_complete")
+	private Timestamp providerComplete;
 	
 	@Column(name = "provider_hour_request")
 	private double providerHourRequest;
@@ -117,52 +110,36 @@ public class ServiceRequestTx {
 		this.serviceRequestProvider = serviceRequestProvider;
 	}
 
-	public Timestamp getProviderAcceptRequest() {
-		return providerAcceptRequest;
+	public Timestamp getCreated() {
+		return created;
 	}
 
-	public void setProviderAcceptRequest(Timestamp providerAcceptRequest) {
-		this.providerAcceptRequest = providerAcceptRequest;
+	public void setCreated(Timestamp created) {
+		this.created = created;
 	}
 
-	public Timestamp getRecipientAcceptProvider() {
-		return recipientAcceptProvider;
+	public Timestamp getRecipientAccept() {
+		return recipientAccept;
 	}
 
-	public void setRecipientAcceptProvider(Timestamp recipientAcceptProvider) {
-		this.recipientAcceptProvider = recipientAcceptProvider;
+	public void setRecipientAccept(Timestamp recipientAccept) {
+		this.recipientAccept = recipientAccept;
 	}
 
-	public Timestamp getRecipientRejectProvider() {
-		return recipientRejectProvider;
+	public Timestamp getRecipientReject() {
+		return recipientReject;
 	}
 
-	public void setRecipientRejectProvider(Timestamp recipientRejectProvider) {
-		this.recipientRejectProvider = recipientRejectProvider;
+	public void setRecipientReject(Timestamp recipientReject) {
+		this.recipientReject = recipientReject;
 	}
 
-	public Timestamp getRecipientCancel() {
-		return recipientCancel;
+	public Timestamp getRecipientComplete() {
+		return recipientComplete;
 	}
 
-	public void setRecipientCancel(Timestamp recipientCancel) {
-		this.recipientCancel = recipientCancel;
-	}
-
-	public Timestamp getProviderCancel() {
-		return providerCancel;
-	}
-
-	public void setProviderCancel(Timestamp providerCancel) {
-		this.providerCancel = providerCancel;
-	}
-
-	public Timestamp getRecipientServiceComplete() {
-		return recipientServiceComplete;
-	}
-
-	public void setRecipientServiceComplete(Timestamp recipientServiceComplete) {
-		this.recipientServiceComplete = recipientServiceComplete;
+	public void setRecipientComplete(Timestamp recipientComplete) {
+		this.recipientComplete = recipientComplete;
 	}
 
 	public double getRecipientHourOffer() {
@@ -173,12 +150,12 @@ public class ServiceRequestTx {
 		this.recipientHourOffer = recipientHourOffer;
 	}
 
-	public Timestamp getProviderServiceComplete() {
-		return providerServiceComplete;
+	public Timestamp getProviderComplete() {
+		return providerComplete;
 	}
 
-	public void setProviderServiceComplete(Timestamp providerServiceComplete) {
-		this.providerServiceComplete = providerServiceComplete;
+	public void setProviderComplete(Timestamp providerComplete) {
+		this.providerComplete = providerComplete;
 	}
 
 	public double getProviderHourRequest() {

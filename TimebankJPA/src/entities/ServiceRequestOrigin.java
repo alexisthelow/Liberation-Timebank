@@ -28,7 +28,7 @@ public class ServiceRequestOrigin {
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "location_category_id")
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private LocationCategory locationCategory;
+	private LocationCategory serviceRequestOriginLocationCategory;
 	
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "address_id")
@@ -51,12 +51,12 @@ public class ServiceRequestOrigin {
 		this.serviceRequestOriginParent = serviceRequestOriginParent;
 	}
 
-	public LocationCategory getLocationCategory() {
-		return locationCategory;
+	public LocationCategory getServiceRequestOriginLocationCategory() {
+		return serviceRequestOriginLocationCategory;
 	}
 
-	public void setLocationCategory(LocationCategory locationCategory) {
-		this.locationCategory = locationCategory;
+	public void setServiceRequestOriginLocationCategory(LocationCategory serviceRequestOriginLocationCategory) {
+		this.serviceRequestOriginLocationCategory = serviceRequestOriginLocationCategory;
 	}
 
 	public Address getAddress() {
@@ -92,9 +92,8 @@ public class ServiceRequestOrigin {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ServiceRequestOrigin [id=").append(id).append(", locationCategory=").append(locationCategory)
-				.append(", getAddress().getTitle()=").append(getAddress().getTitle()).append("]");
+		builder.append("ServiceRequestOrigin [id=").append(id).append("]");
 		return builder.toString();
 	}
-	
+
 }

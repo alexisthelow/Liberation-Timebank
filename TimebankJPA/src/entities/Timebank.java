@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,12 +33,12 @@ public class Timebank {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@ManyToMany(mappedBy = "userTimebanks", cascade = CascadeType.PERSIST)
-	private List<User> timebankUsers;
+	private Set<User> timebankUsers;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@ManyToMany(mappedBy = "userModeratorTimebanks", cascade = CascadeType.PERSIST)
-	private List<User> timebankModeratorUsers;
+	private Set<User> timebankModeratorUsers;
 	
 	@Fetch(FetchMode.JOIN)
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
@@ -50,42 +50,42 @@ public class Timebank {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferTimebank", cascade = CascadeType.PERSIST)
-	private List<ServiceOffer> timebankServiceOffers;
+	private Set<ServiceOffer> timebankServiceOffers;
 	
 	//service requests
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestTimebank", cascade = CascadeType.PERSIST)
-	private List<ServiceRequest> timebankServiceRequest;
+	private Set<ServiceRequest> timebankServiceRequest;
 	
 	//item loan offers
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferTimebank", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOffer> timebankItemLoanOffers;
+	private Set<ItemLoanOffer> timebankItemLoanOffers;
 	
 	//item loan request
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestTimebank", cascade = CascadeType.PERSIST)
-	private List<ItemLoanRequest> timebankItemLoanRequests;
+	private Set<ItemLoanRequest> timebankItemLoanRequests;
 	
 	//item transfer offers
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferTimebank", cascade = CascadeType.PERSIST)
-	private List<ItemTransferOffer> timebankItemOffers;
+	private Set<ItemTransferOffer> timebankItemOffers;
 
 	//item transfer requests
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestTimebank", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequest> timebankItemRequests;
+	private Set<ItemTransferRequest> timebankItemRequests;
 
 	public int getId() {
 		return id;
@@ -111,19 +111,19 @@ public class Timebank {
 		this.description = description;
 	}
 
-	public List<User> getTimebankUsers() {
+	public Set<User> getTimebankUsers() {
 		return timebankUsers;
 	}
 
-	public void setTimebankUsers(List<User> timebankUsers) {
+	public void setTimebankUsers(Set<User> timebankUsers) {
 		this.timebankUsers = timebankUsers;
 	}
 
-	public List<User> getTimebankModeratorUsers() {
+	public Set<User> getTimebankModeratorUsers() {
 		return timebankModeratorUsers;
 	}
 
-	public void setTimebankModeratorUsers(List<User> timebankModeratorUsers) {
+	public void setTimebankModeratorUsers(Set<User> timebankModeratorUsers) {
 		this.timebankModeratorUsers = timebankModeratorUsers;
 	}
 
@@ -135,51 +135,51 @@ public class Timebank {
 		this.timebankOwner = timebankOwner;
 	}
 
-	public List<ServiceOffer> getTimebankServiceOffers() {
+	public Set<ServiceOffer> getTimebankServiceOffers() {
 		return timebankServiceOffers;
 	}
 
-	public void setTimebankServiceOffers(List<ServiceOffer> timebankServiceOffers) {
+	public void setTimebankServiceOffers(Set<ServiceOffer> timebankServiceOffers) {
 		this.timebankServiceOffers = timebankServiceOffers;
 	}
 
-	public List<ServiceRequest> getTimebankServiceRequest() {
+	public Set<ServiceRequest> getTimebankServiceRequest() {
 		return timebankServiceRequest;
 	}
 
-	public void setTimebankServiceRequest(List<ServiceRequest> timebankServiceRequest) {
+	public void setTimebankServiceRequest(Set<ServiceRequest> timebankServiceRequest) {
 		this.timebankServiceRequest = timebankServiceRequest;
 	}
 
-	public List<ItemLoanOffer> getTimebankItemLoanOffers() {
+	public Set<ItemLoanOffer> getTimebankItemLoanOffers() {
 		return timebankItemLoanOffers;
 	}
 
-	public void setTimebankItemLoanOffers(List<ItemLoanOffer> timebankItemLoanOffers) {
+	public void setTimebankItemLoanOffers(Set<ItemLoanOffer> timebankItemLoanOffers) {
 		this.timebankItemLoanOffers = timebankItemLoanOffers;
 	}
 
-	public List<ItemLoanRequest> getTimebankItemLoanRequests() {
+	public Set<ItemLoanRequest> getTimebankItemLoanRequests() {
 		return timebankItemLoanRequests;
 	}
 
-	public void setTimebankItemLoanRequests(List<ItemLoanRequest> timebankItemLoanRequests) {
+	public void setTimebankItemLoanRequests(Set<ItemLoanRequest> timebankItemLoanRequests) {
 		this.timebankItemLoanRequests = timebankItemLoanRequests;
 	}
 
-	public List<ItemTransferOffer> getTimebankItemOffers() {
+	public Set<ItemTransferOffer> getTimebankItemOffers() {
 		return timebankItemOffers;
 	}
 
-	public void setTimebankItemOffers(List<ItemTransferOffer> timebankItemOffers) {
+	public void setTimebankItemOffers(Set<ItemTransferOffer> timebankItemOffers) {
 		this.timebankItemOffers = timebankItemOffers;
 	}
 
-	public List<ItemTransferRequest> getTimebankItemRequests() {
+	public Set<ItemTransferRequest> getTimebankItemRequests() {
 		return timebankItemRequests;
 	}
 
-	public void setTimebankItemRequests(List<ItemTransferRequest> timebankItemRequests) {
+	public void setTimebankItemRequests(Set<ItemTransferRequest> timebankItemRequests) {
 		this.timebankItemRequests = timebankItemRequests;
 	}
 

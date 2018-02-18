@@ -16,7 +16,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "message_thread_reply")
+@Table(name = "reply")
 public class Reply {
 	
 	@Id

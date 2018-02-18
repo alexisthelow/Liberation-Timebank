@@ -1,15 +1,13 @@
 package entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -28,24 +26,20 @@ public class LocationCategory {
 	private String description;
 	
 	@Fetch(FetchMode.JOIN)
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "service_request_origin", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_request_id"))
-	private List<ServiceRequest> originatingServiceRequests;
+	@OneToMany(mappedBy = "serviceRequestOriginLocationCategory", cascade = CascadeType.PERSIST)
+	private Set<ServiceRequestOrigin> serviceRequestOrigins;
 	
 	@Fetch(FetchMode.JOIN)
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "service_request_destination", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_request_id"))
-	private List<ServiceRequest> terminatingServiceRequests;
+	@OneToMany(mappedBy = "serviceRequestDestinationLocationCategory", cascade = CascadeType.PERSIST)
+	private Set<ServiceRequestDestination> serviceRequestDestinations;
 	
 	@Fetch(FetchMode.JOIN)
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "service_offer_origin", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_offer_id"))
-	private List<ServiceOffer> originatingServiceOffers;
+	@OneToMany(mappedBy = "serviceOfferOriginLocationCategory", cascade = CascadeType.PERSIST)
+	private Set<ServiceOfferOrigin> serviceOfferOrigins;
 	
 	@Fetch(FetchMode.JOIN)
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "service_offer_destination", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_offer_id"))
-	private List<ServiceOffer> terminatingServiceOffers;
+	@OneToMany(mappedBy = "serviceOfferDestinationLocationCategory", cascade = CascadeType.PERSIST)
+	private Set<ServiceOfferDestination> serviceOfferDestinations;
 	
 	public int getId() {
 		return id;
@@ -71,36 +65,36 @@ public class LocationCategory {
 		this.description = description;
 	}
 
-	public List<ServiceRequest> getOriginatingServiceRequests() {
-		return originatingServiceRequests;
+	public Set<ServiceRequestOrigin> getServiceRequestOrigins() {
+		return serviceRequestOrigins;
 	}
 
-	public void setOriginatingServiceRequests(List<ServiceRequest> originatingServiceRequests) {
-		this.originatingServiceRequests = originatingServiceRequests;
+	public void setServiceRequestOrigins(Set<ServiceRequestOrigin> serviceRequestOrigins) {
+		this.serviceRequestOrigins = serviceRequestOrigins;
 	}
 
-	public List<ServiceRequest> getTerminatingServiceRequests() {
-		return terminatingServiceRequests;
+	public Set<ServiceRequestDestination> getServiceRequestDestinations() {
+		return serviceRequestDestinations;
 	}
 
-	public void setTerminatingServiceRequests(List<ServiceRequest> terminatingServiceRequests) {
-		this.terminatingServiceRequests = terminatingServiceRequests;
+	public void setServiceRequestDestinations(Set<ServiceRequestDestination> serviceRequestDestinations) {
+		this.serviceRequestDestinations = serviceRequestDestinations;
 	}
 
-	public List<ServiceOffer> getOriginatingServiceOffers() {
-		return originatingServiceOffers;
+	public Set<ServiceOfferOrigin> getServiceOfferOrigins() {
+		return serviceOfferOrigins;
 	}
 
-	public void setOriginatingServiceOffers(List<ServiceOffer> originatingServiceOffers) {
-		this.originatingServiceOffers = originatingServiceOffers;
+	public void setServiceOfferOrigins(Set<ServiceOfferOrigin> serviceOfferOrigins) {
+		this.serviceOfferOrigins = serviceOfferOrigins;
 	}
 
-	public List<ServiceOffer> getTerminatingServiceOffers() {
-		return terminatingServiceOffers;
+	public Set<ServiceOfferDestination> getServiceOfferDestinations() {
+		return serviceOfferDestinations;
 	}
 
-	public void setTerminatingServiceOffers(List<ServiceOffer> terminatingServiceOffers) {
-		this.terminatingServiceOffers = terminatingServiceOffers;
+	public void setServiceOfferDestinations(Set<ServiceOfferDestination> serviceOfferDestinations) {
+		this.serviceOfferDestinations = serviceOfferDestinations;
 	}
 
 	@Override

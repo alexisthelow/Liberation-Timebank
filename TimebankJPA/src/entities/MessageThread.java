@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,12 +35,12 @@ public class MessageThread {
 	@Fetch(FetchMode.JOIN)
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "message_thread_participant", joinColumns = @JoinColumn(name = "message_thread_id"), inverseJoinColumns = @JoinColumn(name = "participant_id"))
-	private List<User> messageThreadParticipants;
+	private Set<User> messageThreadParticipants;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "parentMessageThread", cascade = CascadeType.PERSIST)
-	private List<Reply> messageThreadReplies;
+	private Set<Reply> messageThreadReplies;
 
 	public int getId() {
 		return id;
@@ -58,19 +58,19 @@ public class MessageThread {
 		this.created = created;
 	}
 
-	public List<User> getMessageThreadParticipants() {
+	public Set<User> getMessageThreadParticipants() {
 		return messageThreadParticipants;
 	}
 
-	public void setMessageThreadParticipants(List<User> messageThreadParticipants) {
+	public void setMessageThreadParticipants(Set<User> messageThreadParticipants) {
 		this.messageThreadParticipants = messageThreadParticipants;
 	}
 
-	public List<Reply> getMessageThreadReplies() {
+	public Set<Reply> getMessageThreadReplies() {
 		return messageThreadReplies;
 	}
 
-	public void setMessageThreadReplies(List<Reply> messageThreadReplies) {
+	public void setMessageThreadReplies(Set<Reply> messageThreadReplies) {
 		this.messageThreadReplies = messageThreadReplies;
 	}
 

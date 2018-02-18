@@ -43,13 +43,13 @@ public class ItemLoanOfferTx {
 	private Timestamp created;
 	
 	@Column(name = "days_requested")
-	private int daysRequested;
+	private Integer daysRequested;
 	
 	@Column(name = "lender_accept")
 	private Timestamp lenderAccept;
 	
 	@Column(name = "days_provided")
-	private int daysProvided;
+	private Integer daysProvided;
 	
 	@Column(name = "lender_reject")
 	private Timestamp lenderReject;
@@ -123,11 +123,11 @@ public class ItemLoanOfferTx {
 		this.created = created;
 	}
 
-	public int getDaysRequested() {
+	public Integer getDaysRequested() {
 		return daysRequested;
 	}
 
-	public void setDaysRequested(int daysRequested) {
+	public void setDaysRequested(Integer daysRequested) {
 		this.daysRequested = daysRequested;
 	}
 
@@ -139,11 +139,11 @@ public class ItemLoanOfferTx {
 		this.lenderAccept = lenderAccept;
 	}
 
-	public int getDaysProvided() {
+	public Integer getDaysProvided() {
 		return daysProvided;
 	}
 
-	public void setDaysProvided(int daysProvided) {
+	public void setDaysProvided(Integer daysProvided) {
 		this.daysProvided = daysProvided;
 	}
 
@@ -179,11 +179,11 @@ public class ItemLoanOfferTx {
 		this.beginDate = beginDate;
 	}
 
-	public int getRenewCount() {
+	public Integer getRenewCount() {
 		return renewCount;
 	}
 
-	public void setRenewCount(int renewCount) {
+	public void setRenewCount(Integer renewCount) {
 		this.renewCount = renewCount;
 	}
 

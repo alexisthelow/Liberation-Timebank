@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,19 +34,19 @@ public class ItemSubcategory {
 	
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferSubcategory", cascade = CascadeType.PERSIST)
-	private List<ItemTransferOffer> itemSubcategoryTransferOffers;
+	private Set<ItemTransferOffer> itemSubcategoryTransferOffers;
 	
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestSubcategory", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequest> itemSubcategoryTransferRequests;
+	private Set<ItemTransferRequest> itemSubcategoryTransferRequests;
 	
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferSubcategory", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOffer> itemSubcategoryLoanOffers;
+	private Set<ItemLoanOffer> itemSubcategoryLoanOffers;
 	
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestSubcategory", cascade = CascadeType.PERSIST)
-	private List<ItemLoanRequest> itemSubcategoryLoanRequests;
+	private Set<ItemLoanRequest> itemSubcategoryLoanRequests;
 
 	public int getId() {
 		return id;
@@ -80,35 +80,35 @@ public class ItemSubcategory {
 		this.itemSubcategoryParent = itemSubcategoryParent;
 	}
 
-	public List<ItemTransferOffer> getItemSubcategoryTransferOffers() {
+	public Set<ItemTransferOffer> getItemSubcategoryTransferOffers() {
 		return itemSubcategoryTransferOffers;
 	}
 
-	public void setItemSubcategoryTransferOffers(List<ItemTransferOffer> itemSubcategoryTransferOffers) {
+	public void setItemSubcategoryTransferOffers(Set<ItemTransferOffer> itemSubcategoryTransferOffers) {
 		this.itemSubcategoryTransferOffers = itemSubcategoryTransferOffers;
 	}
 
-	public List<ItemTransferRequest> getItemSubcategoryTransferRequests() {
+	public Set<ItemTransferRequest> getItemSubcategoryTransferRequests() {
 		return itemSubcategoryTransferRequests;
 	}
 
-	public void setItemSubcategoryTransferRequests(List<ItemTransferRequest> itemSubcategoryTransferRequests) {
+	public void setItemSubcategoryTransferRequests(Set<ItemTransferRequest> itemSubcategoryTransferRequests) {
 		this.itemSubcategoryTransferRequests = itemSubcategoryTransferRequests;
 	}
 
-	public List<ItemLoanOffer> getItemSubcategoryLoanOffers() {
+	public Set<ItemLoanOffer> getItemSubcategoryLoanOffers() {
 		return itemSubcategoryLoanOffers;
 	}
 
-	public void setItemSubcategoryLoanOffers(List<ItemLoanOffer> itemSubcategoryLoanOffers) {
+	public void setItemSubcategoryLoanOffers(Set<ItemLoanOffer> itemSubcategoryLoanOffers) {
 		this.itemSubcategoryLoanOffers = itemSubcategoryLoanOffers;
 	}
 
-	public List<ItemLoanRequest> getItemSubcategoryLoanRequests() {
+	public Set<ItemLoanRequest> getItemSubcategoryLoanRequests() {
 		return itemSubcategoryLoanRequests;
 	}
 
-	public void setItemSubcategoryLoanRequests(List<ItemLoanRequest> itemSubcategoryLoanRequests) {
+	public void setItemSubcategoryLoanRequests(Set<ItemLoanRequest> itemSubcategoryLoanRequests) {
 		this.itemSubcategoryLoanRequests = itemSubcategoryLoanRequests;
 	}
 

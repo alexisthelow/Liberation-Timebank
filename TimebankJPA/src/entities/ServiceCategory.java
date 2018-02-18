@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,17 +29,17 @@ public class ServiceCategory {
 	
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceSubcategoryParent", cascade = CascadeType.PERSIST)
-	private List<ServiceSubcategory> serviceSubcategories;
+	private Set<ServiceSubcategory> serviceSubcategories;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferCategory", cascade = CascadeType.PERSIST)
-	private List<ServiceOffer> serviceCategoryOffers;
+	private Set<ServiceOffer> serviceCategoryOffers;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestCategory", cascade = CascadeType.PERSIST)
-	private List<ServiceRequest> serviceCategoryRequests;
+	private Set<ServiceRequest> serviceCategoryRequests;
 
 	public int getId() {
 		return id;
@@ -65,27 +65,27 @@ public class ServiceCategory {
 		this.description = description;
 	}
 
-	public List<ServiceSubcategory> getServiceSubcategories() {
+	public Set<ServiceSubcategory> getServiceSubcategories() {
 		return serviceSubcategories;
 	}
 
-	public void setServiceSubcategories(List<ServiceSubcategory> serviceSubcategories) {
+	public void setServiceSubcategories(Set<ServiceSubcategory> serviceSubcategories) {
 		this.serviceSubcategories = serviceSubcategories;
 	}
 
-	public List<ServiceOffer> getServiceCategoryOffers() {
+	public Set<ServiceOffer> getServiceCategoryOffers() {
 		return serviceCategoryOffers;
 	}
 
-	public void setServiceCategoryOffers(List<ServiceOffer> serviceCategoryOffers) {
+	public void setServiceCategoryOffers(Set<ServiceOffer> serviceCategoryOffers) {
 		this.serviceCategoryOffers = serviceCategoryOffers;
 	}
 
-	public List<ServiceRequest> getServiceCategoryRequests() {
+	public Set<ServiceRequest> getServiceCategoryRequests() {
 		return serviceCategoryRequests;
 	}
 
-	public void setServiceCategoryRequests(List<ServiceRequest> serviceCategoryRequests) {
+	public void setServiceCategoryRequests(Set<ServiceRequest> serviceCategoryRequests) {
 		this.serviceCategoryRequests = serviceCategoryRequests;
 	}
 

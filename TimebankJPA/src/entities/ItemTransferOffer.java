@@ -36,19 +36,18 @@ public class ItemTransferOffer {
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "item_category_id")
+	@JoinColumn(name = "category_id")
 	private ItemCategory itemTransferOfferCategory;
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "item_subcategory_id")
+	@JoinColumn(name = "subcategory_id")
 	private ItemSubcategory itemTransferOfferSubcategory;
 	
 	private String title;
 	
 	private String description;
 	
-	@Column(name = "created")
 	private Timestamp created;
 	
 	@Column(name = "last_update")

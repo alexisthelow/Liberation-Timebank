@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -82,102 +82,102 @@ public class User {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferUser", cascade = CascadeType.PERSIST)
-	private List<ServiceOffer> userServiceOffers;
+	private Set<ServiceOffer> userServiceOffers;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferRecipient", cascade = CascadeType.PERSIST)
-	private List<ServiceOfferTx> userServiceOfferTxs;
+	private Set<ServiceOfferTx> userServiceOfferTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferActivityUser", cascade = CascadeType.PERSIST)
-	private List<ServiceOfferActivity> userServiceOfferActivities;
+	private Set<ServiceOfferActivity> userServiceOfferActivities;
 	
 	//service requests
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestUser", cascade = CascadeType.PERSIST)
-	private List<ServiceRequest> userServiceRequests;
+	private Set<ServiceRequest> userServiceRequests;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestProvider", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestTx> userServiceRequestTxProvides;
+	private Set<ServiceRequestTx> userServiceRequestTxProvides;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestActivityUser", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestActivity> userServiceRequestActivities;
+	private Set<ServiceRequestActivity> userServiceRequestActivities;
 	
 	//item transfer offers
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferUser", cascade = CascadeType.PERSIST)
-	private List<ItemTransferOffer> userItemTransferOffers;
+	private Set<ItemTransferOffer> userItemTransferOffers;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferTxRecipient", cascade = CascadeType.PERSIST)
-	private List<ItemTransferOfferTx> userItemTransferOfferTxReceives;
+	private Set<ItemTransferOfferTx> userItemTransferOfferTxReceives;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferActivityUser", cascade = CascadeType.PERSIST)
-	private List<ItemTransferOfferActivity> userItemTransferOfferActivities;
+	private Set<ItemTransferOfferActivity> userItemTransferOfferActivities;
 	
 	//item transfer requests
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestUser", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequest> userItemTransferRequests;
+	private Set<ItemTransferRequest> userItemTransferRequests;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestTxProvider", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequestTx> userItemTransferRequestTxProvides;
+	private Set<ItemTransferRequestTx> userItemTransferRequestTxProvides;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestActivityUser", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequestActivity> userItemTransferRequestActivities;
+	private Set<ItemTransferRequestActivity> userItemTransferRequestActivities;
 	
 	//item loan requests
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestUser", cascade = CascadeType.PERSIST)
-	private List<ItemLoanRequest> userItemLoanRequests;
+	private Set<ItemLoanRequest> userItemLoanRequests;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestActivityUser", cascade = CascadeType.PERSIST)
-	private List<ItemLoanRequestActivity> userItemLoanRequestActivities;
+	private Set<ItemLoanRequestActivity> userItemLoanRequestActivities;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestTxLender", cascade = CascadeType.PERSIST)
-	private List<ItemLoanRequestTx> userItemLoanRequestTxLends;
+	private Set<ItemLoanRequestTx> userItemLoanRequestTxLends;
 
 	// item loan offers
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferUser", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOffer> userItemLoanOffers;
+	private Set<ItemLoanOffer> userItemLoanOffers;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferActivityUser", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOfferActivity> userItemLoanOfferActivities;
+	private Set<ItemLoanOfferActivity> userItemLoanOfferActivities;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferTxBorrower", cascade = CascadeType.PERSIST)
-	private List<ItemLoanOfferTx> userItemLoanOfferTxBorrows;
+	private Set<ItemLoanOfferTx> userItemLoanOfferTxBorrows;
 	
 	//timebank
 	
@@ -185,25 +185,25 @@ public class User {
 	@Fetch(FetchMode.JOIN)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "timebank_user", joinColumns=@JoinColumn(name = "user_id"), inverseJoinColumns=@JoinColumn(name = "timebank_id"))
-	private List<Timebank> userTimebanks;
+	private Set<Timebank> userTimebanks;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "timebank_moderator", joinColumns=@JoinColumn(name = "moderator_id"), inverseJoinColumns=@JoinColumn(name = "timebank_id"))
-	private List<Timebank> userModeratorTimebanks;
+	private Set<Timebank> userModeratorTimebanks;
 	
 	//intra user messaging
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<MessageThread> userMessageThreads;
+	@ManyToMany(mappedBy = "messageThreadParticipants", cascade = CascadeType.PERSIST)
+	private Set<MessageThread> userMessageThreads;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "participantUser", cascade = CascadeType.PERSIST)
-	private List<Reply> userMessageThreadReplies;
+	private Set<Reply> userMessageThreadReplies;
 
 	public int getId() {
 		return id;
@@ -325,179 +325,179 @@ public class User {
 		this.lastUpdateUser = lastUpdateUser;
 	}
 
-	public List<ServiceOffer> getUserServiceOffers() {
+	public Set<ServiceOffer> getUserServiceOffers() {
 		return userServiceOffers;
 	}
 
-	public void setUserServiceOffers(List<ServiceOffer> userServiceOffers) {
+	public void setUserServiceOffers(Set<ServiceOffer> userServiceOffers) {
 		this.userServiceOffers = userServiceOffers;
 	}
 
-	public List<ServiceOfferTx> getUserServiceOfferTxs() {
+	public Set<ServiceOfferTx> getUserServiceOfferTxs() {
 		return userServiceOfferTxs;
 	}
 
-	public void setUserServiceOfferTxs(List<ServiceOfferTx> userServiceOfferTxs) {
+	public void setUserServiceOfferTxs(Set<ServiceOfferTx> userServiceOfferTxs) {
 		this.userServiceOfferTxs = userServiceOfferTxs;
 	}
 
-	public List<ServiceOfferActivity> getUserServiceOfferActivities() {
+	public Set<ServiceOfferActivity> getUserServiceOfferActivities() {
 		return userServiceOfferActivities;
 	}
 
-	public void setUserServiceOfferActivities(List<ServiceOfferActivity> userServiceOfferActivities) {
+	public void setUserServiceOfferActivities(Set<ServiceOfferActivity> userServiceOfferActivities) {
 		this.userServiceOfferActivities = userServiceOfferActivities;
 	}
 
-	public List<ServiceRequest> getUserServiceRequests() {
+	public Set<ServiceRequest> getUserServiceRequests() {
 		return userServiceRequests;
 	}
 
-	public void setUserServiceRequests(List<ServiceRequest> userServiceRequests) {
+	public void setUserServiceRequests(Set<ServiceRequest> userServiceRequests) {
 		this.userServiceRequests = userServiceRequests;
 	}
 
-	public List<ServiceRequestTx> getUserServiceRequestTxProvides() {
+	public Set<ServiceRequestTx> getUserServiceRequestTxProvides() {
 		return userServiceRequestTxProvides;
 	}
 
-	public void setUserServiceRequestTxProvides(List<ServiceRequestTx> userServiceRequestTxProvides) {
+	public void setUserServiceRequestTxProvides(Set<ServiceRequestTx> userServiceRequestTxProvides) {
 		this.userServiceRequestTxProvides = userServiceRequestTxProvides;
 	}
 
-	public List<ServiceRequestActivity> getUserServiceRequestActivities() {
+	public Set<ServiceRequestActivity> getUserServiceRequestActivities() {
 		return userServiceRequestActivities;
 	}
 
-	public void setUserServiceRequestActivities(List<ServiceRequestActivity> userServiceRequestActivities) {
+	public void setUserServiceRequestActivities(Set<ServiceRequestActivity> userServiceRequestActivities) {
 		this.userServiceRequestActivities = userServiceRequestActivities;
 	}
 
-	public List<ItemTransferOffer> getUserItemTransferOffers() {
+	public Set<ItemTransferOffer> getUserItemTransferOffers() {
 		return userItemTransferOffers;
 	}
 
-	public void setUserItemTransferOffers(List<ItemTransferOffer> userItemTransferOffers) {
+	public void setUserItemTransferOffers(Set<ItemTransferOffer> userItemTransferOffers) {
 		this.userItemTransferOffers = userItemTransferOffers;
 	}
 
-	public List<ItemTransferOfferTx> getUserItemTransferOfferTxReceives() {
+	public Set<ItemTransferOfferTx> getUserItemTransferOfferTxReceives() {
 		return userItemTransferOfferTxReceives;
 	}
 
-	public void setUserItemTransferOfferTxReceives(List<ItemTransferOfferTx> userItemTransferOfferTxReceives) {
+	public void setUserItemTransferOfferTxReceives(Set<ItemTransferOfferTx> userItemTransferOfferTxReceives) {
 		this.userItemTransferOfferTxReceives = userItemTransferOfferTxReceives;
 	}
 
-	public List<ItemTransferOfferActivity> getUserItemTransferOfferActivities() {
+	public Set<ItemTransferOfferActivity> getUserItemTransferOfferActivities() {
 		return userItemTransferOfferActivities;
 	}
 
-	public void setUserItemTransferOfferActivities(List<ItemTransferOfferActivity> userItemTransferOfferActivities) {
+	public void setUserItemTransferOfferActivities(Set<ItemTransferOfferActivity> userItemTransferOfferActivities) {
 		this.userItemTransferOfferActivities = userItemTransferOfferActivities;
 	}
 
-	public List<ItemTransferRequest> getUserItemTransferRequests() {
+	public Set<ItemTransferRequest> getUserItemTransferRequests() {
 		return userItemTransferRequests;
 	}
 
-	public void setUserItemTransferRequests(List<ItemTransferRequest> userItemTransferRequests) {
+	public void setUserItemTransferRequests(Set<ItemTransferRequest> userItemTransferRequests) {
 		this.userItemTransferRequests = userItemTransferRequests;
 	}
 
-	public List<ItemTransferRequestTx> getUserItemTransferRequestTxProvides() {
+	public Set<ItemTransferRequestTx> getUserItemTransferRequestTxProvides() {
 		return userItemTransferRequestTxProvides;
 	}
 
-	public void setUserItemTransferRequestTxProvides(List<ItemTransferRequestTx> userItemTransferRequestTxProvides) {
+	public void setUserItemTransferRequestTxProvides(Set<ItemTransferRequestTx> userItemTransferRequestTxProvides) {
 		this.userItemTransferRequestTxProvides = userItemTransferRequestTxProvides;
 	}
 
-	public List<ItemTransferRequestActivity> getUserItemTransferRequestActivities() {
+	public Set<ItemTransferRequestActivity> getUserItemTransferRequestActivities() {
 		return userItemTransferRequestActivities;
 	}
 
-	public void setUserItemTransferRequestActivities(List<ItemTransferRequestActivity> userItemTransferRequestActivities) {
+	public void setUserItemTransferRequestActivities(Set<ItemTransferRequestActivity> userItemTransferRequestActivities) {
 		this.userItemTransferRequestActivities = userItemTransferRequestActivities;
 	}
 
-	public List<ItemLoanRequest> getUserItemLoanRequests() {
+	public Set<ItemLoanRequest> getUserItemLoanRequests() {
 		return userItemLoanRequests;
 	}
 
-	public void setUserItemLoanRequests(List<ItemLoanRequest> userItemLoanRequests) {
+	public void setUserItemLoanRequests(Set<ItemLoanRequest> userItemLoanRequests) {
 		this.userItemLoanRequests = userItemLoanRequests;
 	}
 
-	public List<ItemLoanRequestActivity> getUserItemLoanRequestActivities() {
+	public Set<ItemLoanRequestActivity> getUserItemLoanRequestActivities() {
 		return userItemLoanRequestActivities;
 	}
 
-	public void setUserItemLoanRequestActivities(List<ItemLoanRequestActivity> userItemLoanRequestActivities) {
+	public void setUserItemLoanRequestActivities(Set<ItemLoanRequestActivity> userItemLoanRequestActivities) {
 		this.userItemLoanRequestActivities = userItemLoanRequestActivities;
 	}
 
-	public List<ItemLoanRequestTx> getUserItemLoanRequestTxLends() {
+	public Set<ItemLoanRequestTx> getUserItemLoanRequestTxLends() {
 		return userItemLoanRequestTxLends;
 	}
 
-	public void setUserItemLoanRequestTxLends(List<ItemLoanRequestTx> userItemLoanRequestTxLends) {
+	public void setUserItemLoanRequestTxLends(Set<ItemLoanRequestTx> userItemLoanRequestTxLends) {
 		this.userItemLoanRequestTxLends = userItemLoanRequestTxLends;
 	}
 
-	public List<ItemLoanOffer> getUserItemLoanOffers() {
+	public Set<ItemLoanOffer> getUserItemLoanOffers() {
 		return userItemLoanOffers;
 	}
 
-	public void setUserItemLoanOffers(List<ItemLoanOffer> userItemLoanOffers) {
+	public void setUserItemLoanOffers(Set<ItemLoanOffer> userItemLoanOffers) {
 		this.userItemLoanOffers = userItemLoanOffers;
 	}
 
-	public List<ItemLoanOfferActivity> getUserItemLoanOfferActivities() {
+	public Set<ItemLoanOfferActivity> getUserItemLoanOfferActivities() {
 		return userItemLoanOfferActivities;
 	}
 
-	public void setUserItemLoanOfferActivities(List<ItemLoanOfferActivity> userItemLoanOfferActivities) {
+	public void setUserItemLoanOfferActivities(Set<ItemLoanOfferActivity> userItemLoanOfferActivities) {
 		this.userItemLoanOfferActivities = userItemLoanOfferActivities;
 	}
 
-	public List<ItemLoanOfferTx> getUserItemLoanOfferTxBorrows() {
+	public Set<ItemLoanOfferTx> getUserItemLoanOfferTxBorrows() {
 		return userItemLoanOfferTxBorrows;
 	}
 
-	public void setUserItemLoanOfferTxBorrows(List<ItemLoanOfferTx> userItemLoanOfferTxBorrows) {
+	public void setUserItemLoanOfferTxBorrows(Set<ItemLoanOfferTx> userItemLoanOfferTxBorrows) {
 		this.userItemLoanOfferTxBorrows = userItemLoanOfferTxBorrows;
 	}
 
-	public List<Timebank> getUserTimebanks() {
+	public Set<Timebank> getUserTimebanks() {
 		return userTimebanks;
 	}
 
-	public void setUserTimebanks(List<Timebank> userTimebanks) {
+	public void setUserTimebanks(Set<Timebank> userTimebanks) {
 		this.userTimebanks = userTimebanks;
 	}
 
-	public List<Timebank> getUserModeratorTimebanks() {
+	public Set<Timebank> getUserModeratorTimebanks() {
 		return userModeratorTimebanks;
 	}
 
-	public void setUserModeratorTimebanks(List<Timebank> userModeratorTimebanks) {
+	public void setUserModeratorTimebanks(Set<Timebank> userModeratorTimebanks) {
 		this.userModeratorTimebanks = userModeratorTimebanks;
 	}
 
-	public List<MessageThread> getUserMessageThreads() {
+	public Set<MessageThread> getUserMessageThreads() {
 		return userMessageThreads;
 	}
 
-	public void setUserMessageThreads(List<MessageThread> userMessageThreads) {
+	public void setUserMessageThreads(Set<MessageThread> userMessageThreads) {
 		this.userMessageThreads = userMessageThreads;
 	}
 
-	public List<Reply> getUserMessageThreadReplies() {
+	public Set<Reply> getUserMessageThreadReplies() {
 		return userMessageThreadReplies;
 	}
 
-	public void setUserMessageThreadReplies(List<Reply> userMessageThreadReplies) {
+	public void setUserMessageThreadReplies(Set<Reply> userMessageThreadReplies) {
 		this.userMessageThreadReplies = userMessageThreadReplies;
 	}
 

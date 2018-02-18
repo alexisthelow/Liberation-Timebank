@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -61,7 +61,7 @@ public class ServiceOffer {
 	private Boolean requiresSupplies;
 	
 	@Column(name = "supply_cost_estimate")
-	private int supplyCostEstimate;
+	private Integer supplyCostEstimate;
 	
 	@Column(name = "created")
 	private Timestamp created;
@@ -92,22 +92,22 @@ public class ServiceOffer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferOriginParent", cascade = CascadeType.PERSIST)
-	private List<ServiceOfferOrigin> serviceOfferOrigins;
+	private Set<ServiceOfferOrigin> serviceOfferOrigins;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferDestinationParent", cascade = CascadeType.PERSIST)
-	private List<ServiceOfferDestination> serviceOfferDestinations;
+	private Set<ServiceOfferDestination> serviceOfferDestinations;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferTxParent", cascade = CascadeType.PERSIST)
-	private List<ServiceOfferTx> serviceOfferTxs;
+	private Set<ServiceOfferTx> serviceOfferTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferActivityParent", cascade = CascadeType.PERSIST)
-	private List<ServiceOfferActivity> serviceOfferActivities;
+	private Set<ServiceOfferActivity> serviceOfferActivities;
 
 	public int getId() {
 		return id;
@@ -181,11 +181,11 @@ public class ServiceOffer {
 		this.requiresSupplies = requiresSupplies;
 	}
 
-	public int getSupplyCostEstimate() {
+	public Integer getSupplyCostEstimate() {
 		return supplyCostEstimate;
 	}
 
-	public void setSupplyCostEstimate(int supplyCostEstimate) {
+	public void setSupplyCostEstimate(Integer supplyCostEstimate) {
 		this.supplyCostEstimate = supplyCostEstimate;
 	}
 
@@ -245,35 +245,35 @@ public class ServiceOffer {
 		this.serviceOfferSchedule = serviceOfferSchedule;
 	}
 
-	public List<ServiceOfferOrigin> getServiceOfferOrigins() {
+	public Set<ServiceOfferOrigin> getServiceOfferOrigins() {
 		return serviceOfferOrigins;
 	}
 
-	public void setServiceOfferOrigins(List<ServiceOfferOrigin> serviceOfferOrigins) {
+	public void setServiceOfferOrigins(Set<ServiceOfferOrigin> serviceOfferOrigins) {
 		this.serviceOfferOrigins = serviceOfferOrigins;
 	}
 
-	public List<ServiceOfferDestination> getServiceOfferDestinations() {
+	public Set<ServiceOfferDestination> getServiceOfferDestinations() {
 		return serviceOfferDestinations;
 	}
 
-	public void setServiceOfferDestinations(List<ServiceOfferDestination> serviceOfferDestinations) {
+	public void setServiceOfferDestinations(Set<ServiceOfferDestination> serviceOfferDestinations) {
 		this.serviceOfferDestinations = serviceOfferDestinations;
 	}
 
-	public List<ServiceOfferTx> getServiceOfferTxs() {
+	public Set<ServiceOfferTx> getServiceOfferTxs() {
 		return serviceOfferTxs;
 	}
 
-	public void setServiceOfferTxs(List<ServiceOfferTx> serviceOfferTxs) {
+	public void setServiceOfferTxs(Set<ServiceOfferTx> serviceOfferTxs) {
 		this.serviceOfferTxs = serviceOfferTxs;
 	}
 
-	public List<ServiceOfferActivity> getServiceOfferActivities() {
+	public Set<ServiceOfferActivity> getServiceOfferActivities() {
 		return serviceOfferActivities;
 	}
 
-	public void setServiceOfferActivities(List<ServiceOfferActivity> serviceOfferActivities) {
+	public void setServiceOfferActivities(Set<ServiceOfferActivity> serviceOfferActivities) {
 		this.serviceOfferActivities = serviceOfferActivities;
 	}
 

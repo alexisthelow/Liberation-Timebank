@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -85,27 +85,27 @@ public class ServiceRequest {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestTimeWindowParent", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestTimeWindow> serviceRequestTimeWindows;
+	private Set<ServiceRequestTimeWindow> serviceRequestTimeWindows;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestOriginParent", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestOrigin> serviceRequestOrigins;
+	private Set<ServiceRequestOrigin> serviceRequestOrigins;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestDestinationParent", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestDestination> serviceRequestDestinations;
+	private Set<ServiceRequestDestination> serviceRequestDestinations;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestTxParent", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestTx> serviceRequestTxs;
+	private Set<ServiceRequestTx> serviceRequestTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestActivityParent", cascade = CascadeType.PERSIST)
-	private List<ServiceRequestActivity> serviceRequestActivities;
+	private Set<ServiceRequestActivity> serviceRequestActivities;
 
 	public int getId() {
 		return id;
@@ -235,43 +235,43 @@ public class ServiceRequest {
 		this.closingModerator = closingModerator;
 	}
 
-	public List<ServiceRequestTimeWindow> getServiceRequestTimeWindows() {
+	public Set<ServiceRequestTimeWindow> getServiceRequestTimeWindows() {
 		return serviceRequestTimeWindows;
 	}
 
-	public void setServiceRequestTimeWindows(List<ServiceRequestTimeWindow> serviceRequestTimeWindows) {
+	public void setServiceRequestTimeWindows(Set<ServiceRequestTimeWindow> serviceRequestTimeWindows) {
 		this.serviceRequestTimeWindows = serviceRequestTimeWindows;
 	}
 
-	public List<ServiceRequestOrigin> getServiceRequestOrigins() {
+	public Set<ServiceRequestOrigin> getServiceRequestOrigins() {
 		return serviceRequestOrigins;
 	}
 
-	public void setServiceRequestOrigins(List<ServiceRequestOrigin> serviceRequestOrigins) {
+	public void setServiceRequestOrigins(Set<ServiceRequestOrigin> serviceRequestOrigins) {
 		this.serviceRequestOrigins = serviceRequestOrigins;
 	}
 
-	public List<ServiceRequestDestination> getServiceRequestDestinations() {
+	public Set<ServiceRequestDestination> getServiceRequestDestinations() {
 		return serviceRequestDestinations;
 	}
 
-	public void setServiceRequestDestinations(List<ServiceRequestDestination> serviceRequestDestinations) {
+	public void setServiceRequestDestinations(Set<ServiceRequestDestination> serviceRequestDestinations) {
 		this.serviceRequestDestinations = serviceRequestDestinations;
 	}
 
-	public List<ServiceRequestTx> getServiceRequestTxs() {
+	public Set<ServiceRequestTx> getServiceRequestTxs() {
 		return serviceRequestTxs;
 	}
 
-	public void setServiceRequestTxs(List<ServiceRequestTx> serviceRequestTxs) {
+	public void setServiceRequestTxs(Set<ServiceRequestTx> serviceRequestTxs) {
 		this.serviceRequestTxs = serviceRequestTxs;
 	}
 
-	public List<ServiceRequestActivity> getServiceRequestActivities() {
+	public Set<ServiceRequestActivity> getServiceRequestActivities() {
 		return serviceRequestActivities;
 	}
 
-	public void setServiceRequestActivities(List<ServiceRequestActivity> serviceRequestActivities) {
+	public void setServiceRequestActivities(Set<ServiceRequestActivity> serviceRequestActivities) {
 		this.serviceRequestActivities = serviceRequestActivities;
 	}
 

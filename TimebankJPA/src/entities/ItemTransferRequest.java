@@ -1,8 +1,7 @@
 package entities;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,19 +40,19 @@ public class ItemTransferRequest {
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "item_category_id")
+	@JoinColumn(name = "category_id")
 	private ItemCategory itemTransferRequestCategory;
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "item_subcategory_id")
+	@JoinColumn(name = "subcategory_id")
 	private ItemSubcategory itemTransferRequestSubcategory;
 	
 	private String title;
 	
 	private String description;
 	
-	private Date created;
+	private Timestamp created;
 	
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
@@ -74,12 +73,12 @@ public class ItemTransferRequest {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestActivityParent", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequestActivity> itemTransferRequestActivity;
+	private Set<ItemTransferRequestActivity> itemTransferRequestActivity;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestTxParent", cascade = CascadeType.PERSIST)
-	private List<ItemTransferRequestTx> itemTransferRequestTx;
+	private Set<ItemTransferRequestTx> itemTransferRequestTx;
 
 	public int getId() {
 		return id;
@@ -137,11 +136,11 @@ public class ItemTransferRequest {
 		this.description = description;
 	}
 
-	public Date getCreated() {
+	public Timestamp getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 
@@ -177,19 +176,19 @@ public class ItemTransferRequest {
 		this.closingModerator = closingModerator;
 	}
 
-	public List<ItemTransferRequestActivity> getItemTransferRequestActivity() {
+	public Set<ItemTransferRequestActivity> getItemTransferRequestActivity() {
 		return itemTransferRequestActivity;
 	}
 
-	public void setItemTransferRequestActivity(List<ItemTransferRequestActivity> itemTransferRequestActivity) {
+	public void setItemTransferRequestActivity(Set<ItemTransferRequestActivity> itemTransferRequestActivity) {
 		this.itemTransferRequestActivity = itemTransferRequestActivity;
 	}
 
-	public List<ItemTransferRequestTx> getItemTransferRequestTx() {
+	public Set<ItemTransferRequestTx> getItemTransferRequestTx() {
 		return itemTransferRequestTx;
 	}
 
-	public void setItemTransferRequestTx(List<ItemTransferRequestTx> itemTransferRequestTx) {
+	public void setItemTransferRequestTx(Set<ItemTransferRequestTx> itemTransferRequestTx) {
 		this.itemTransferRequestTx = itemTransferRequestTx;
 	}
 

@@ -1,0 +1,136 @@
+package entities;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+@Entity
+@Table(name = "location_category")
+public class LocationCategory {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private String title;
+	
+	private String description;
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy = "serviceRequestOriginLocationCategory", cascade = CascadeType.PERSIST)
+	private Set<ServiceRequest> originatingServiceRequests;
+	
+	@Fetch(FetchMode.JOIN)
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "service_request_destination", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_request_id"))
+	private Set<ServiceRequest> terminatingServiceRequests;
+	
+	@Fetch(FetchMode.JOIN)
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "service_offer_origin", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_offer_id"))
+	private Set<ServiceOffer> originatingServiceOffers;
+	
+	@Fetch(FetchMode.JOIN)
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "service_offer_destination", joinColumns = @JoinColumn(name = "location_category_id"), inverseJoinColumns = @JoinColumn(name = "service_offer_id"))
+	private Set<ServiceOffer> terminatingServiceOffers;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<ServiceRequest> getOriginatingServiceRequests() {
+		return originatingServiceRequests;
+	}
+
+	public void setOriginatingServiceRequests(Set<ServiceRequest> originatingServiceRequests) {
+		this.originatingServiceRequests = originatingServiceRequests;
+	}
+
+	public Set<ServiceRequest> getTerminatingServiceRequests() {
+		return terminatingServiceRequests;
+	}
+
+	public void setTerminatingServiceRequests(Set<ServiceRequest> terminatingServiceRequests) {
+		this.terminatingServiceRequests = terminatingServiceRequests;
+	}
+
+	public Set<ServiceOffer> getOriginatingServiceOffers() {
+		return originatingServiceOffers;
+	}
+
+	public void setOriginatingServiceOffers(Set<ServiceOffer> originatingServiceOffers) {
+		this.originatingServiceOffers = originatingServiceOffers;
+	}
+
+	public Set<ServiceOffer> getTerminatingServiceOffers() {
+		return terminatingServiceOffers;
+	}
+
+	public void setTerminatingServiceOffers(Set<ServiceOffer> terminatingServiceOffers) {
+		this.terminatingServiceOffers = terminatingServiceOffers;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LocationCategory other = (LocationCategory) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("LocationCategory [id=").append(id).append(", title=").append(title).append(", description=")
+				.append(description).append("]");
+		return builder.toString();
+	}
+	
+}

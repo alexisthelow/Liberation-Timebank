@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,12 +42,12 @@ public class ItemLoanRequest {
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "item_category_id")
+	@JoinColumn(name = "category_id")
 	private ItemCategory itemLoanRequestCategory;
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "item_subcategory_id")
+	@JoinColumn(name = "subcategory_id")
 	private ItemSubcategory itemLoanRequestSubcategory;
 	
 	@Column(name = "days_requested")
@@ -81,7 +81,7 @@ public class ItemLoanRequest {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestActivityParent", cascade = CascadeType.PERSIST)
-	private List<ItemLoanRequestActivity> itemLoanRequestActivities;
+	private Set<ItemLoanRequestActivity> itemLoanRequestActivities;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
@@ -200,11 +200,11 @@ public class ItemLoanRequest {
 		this.closingModerator = closingModerator;
 	}
 
-	public List<ItemLoanRequestActivity> getItemLoanRequestActivities() {
+	public Set<ItemLoanRequestActivity> getItemLoanRequestActivities() {
 		return itemLoanRequestActivities;
 	}
 
-	public void setItemLoanRequestActivities(List<ItemLoanRequestActivity> itemLoanRequestActivities) {
+	public void setItemLoanRequestActivities(Set<ItemLoanRequestActivity> itemLoanRequestActivities) {
 		this.itemLoanRequestActivities = itemLoanRequestActivities;
 	}
 
