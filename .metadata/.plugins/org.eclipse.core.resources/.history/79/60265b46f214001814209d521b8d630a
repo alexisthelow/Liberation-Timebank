@@ -1,0 +1,33 @@
+package data;
+
+import entities.User;
+
+public interface ModeratorDAO {
+	
+	//users
+	public User promoteUser(int timebankId, int userId);
+	public User demoteUser(int timebankId, int userId);
+	public Boolean removeUserFromTimebank(int timebankId, int userId);
+	public Boolean banUser(int userId);
+	
+	//deactivate services + items
+	
+	public Boolean closeServiceOffer(int id, int userId);
+	public Boolean closeServiceRequest(int id, int userId);
+	public Boolean closeItemTransferOffer(int id, int userId);
+	public Boolean closeItemTransferRequest(int id, int userId);
+	public Boolean closeItemLoanOffer(int id, int userId);
+	public Boolean closeItemLoanRequest(int id, int userId);
+	
+	//hide activity
+	
+	public Boolean hideServiceOfferActivity(int activityId, int moderatorId);
+	public Boolean hideServiceRequestActivity(int activityId, int moderatorId);
+	public Boolean hideItemTransferOfferActivity(int activityId, int moderatorId);
+	public Boolean hideItemTransferRequestActivity(int activityId, int moderatorId);
+	public Boolean hideItemLoanOfferActivity(int activityId, int moderatorId);
+	public Boolean hideItemLoanRequestActivity(int activityId, int moderatorId);
+	
+	//close transactions
+	
+}

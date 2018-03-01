@@ -1,0 +1,64 @@
+package data;
+
+import java.util.List;
+
+import entities.ServiceOffer;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+
+public interface ServiceDAO {
+	
+	//create
+	
+		//service offer 
+	
+	public ServiceOffer createServiceOffer(int timebankId, int userId, String serviceOfferJson);
+	public ServiceOfferSchedule createServiceOfferSchedule(int serviceOfferId, String scheduleJson);
+	public ServiceOfferOrigin createServiceOfferOrigin(int serviceOfferId, String originJson);
+	public ServiceOfferDestination createServiceOfferDestination(int serviceOfferId, String destinationJson);
+
+		//service request 
+	
+	public ServiceRequest createServiceRequest(int timebankId, int userId, String serviceRequestJson);
+	public ServiceRequestTimeWindow createServiceOfferTimeWindow(int serviceRequestId, String timeWindowJson);
+	public ServiceRequestOrigin createServiceRequestOrigin(int serviceRequestId, String originJson);
+	public ServiceRequestDestination createServiceRequestDestination(int serviceRequestId, String destinationJson);
+	
+	//read
+	
+		//all global services
+
+	public List<ServiceOffer> getAllGlobalServiceOffers();
+	public List<ServiceRequest> getAllGlobalServiceRequests();
+	
+		//all services by timebank
+		
+	public List<ServiceOffer> getAllServiceOffersByTimebank(int timebankId);
+	public List<ServiceRequest> getAllServiceRequestsByTimebank(int timebankId);
+	
+	//specific ones
+	
+	public ServiceOffer showServiceOffer(int serviceOfferId);
+	public ServiceRequest showServiceRequest(int serviceRequestId);
+		//origins
+		//destinations
+	
+	//update
+		//service offer 
+			//schedule
+			//origin
+			//destination
+		//service request 
+			//time window
+			//origin
+			//destination
+	
+	//destroy
+		//just deactivate
+
+}

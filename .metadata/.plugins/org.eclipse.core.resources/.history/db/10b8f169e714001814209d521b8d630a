@@ -1,0 +1,31 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOfferActivity;
+import entities.ServiceRequestActivity;
+
+public interface ActivityDAO {
+	
+	//create
+		//all posts per service / item
+	public List<ItemTransferOfferActivity> getAllItemTransferOfferActivityById(int itemTransferOfferId);
+	public List<ItemTransferRequestActivity> getAllItemTransferRequestActivityById(int itemTransferRequestId);
+	public List<ItemLoanOfferActivity> getAllItemLoanOfferActivityById(int itemLoanOfferId);
+	public List<ItemLoanRequestActivity> getAllItemLoanRequestActivityById(int itemLoanRequestId);
+	public List<ServiceOfferActivity> getAllServiceOfferActivityById(int serviceOfferId);
+	public List<ServiceRequestActivity> getAllServiceRequestActivityById(int serviceRequestId);
+	
+	
+	
+	//read
+	
+	//update
+	
+	//destroy
+
+}

@@ -1,0 +1,20 @@
+package data;
+
+public interface TransactionDAO {
+	
+	//create
+	//make each transaction
+	
+	
+	//read
+		//specific tx
+		//tx index by type
+		//tx index by user
+		//tx index by timebank
+	
+	//update
+	
+	
+	//destroy
+
+}

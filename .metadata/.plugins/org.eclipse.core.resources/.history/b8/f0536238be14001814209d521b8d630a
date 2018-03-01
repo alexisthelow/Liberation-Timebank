@@ -1,0 +1,51 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+
+public interface ItemDAO {
+	
+	//ITEM TRANSFERS
+	//create
+	public ItemTransferOffer createItemTransferOffer(int timebankId, String itemTransferOfferJson);
+	public ItemTransferRequest createItemTransferRequest(int timebankId, String itemTransferRequestJson);
+	public ItemLoanOffer createItemLoanOffer(int timebankId, String itemLoanOfferJson);
+	public ItemLoanRequest createItemLoanRequest(int timebankId, String itemLoanRequestJson);
+	
+	
+	//read
+		//indices
+	public List<ItemTransferOffer> getAllItemTransferOffers(int timebankId);
+	public List<ItemTransferRequest> getAllItemTransferRequests(int timebankId);
+	public List<ItemLoanOffer> getAllItemLoanOffers(int timebankId);
+	public List<ItemLoanRequest> getAllItemLoanRequests(int timebankId);
+
+		//single objects
+	public ItemTransferOffer getItemTransferOfferById(int timebankId, int itemTransferOfferId);
+	public ItemTransferRequest getItemTransferRequestById(int timebankId, int itemTransferRequestId);
+	public ItemLoanOffer getItemLoanOfferById(int timebankId, int itemLoanOfferId);
+	public ItemLoanRequest getItemLoanRequestById(int timebankId, int itemLoanRequestId);
+		//global objects
+	
+	
+	//update
+	//update all things
+	
+	//destroy
+	//deactivate all things
+	
+	//ITEM LOANS
+	//create
+	
+	//read
+	
+	//update
+	
+	//destroy
+	
+
+}

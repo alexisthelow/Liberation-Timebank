@@ -1,0 +1,22 @@
+package interfaces;
+
+import java.sql.Timestamp;
+
+import entities.ItemCategory;
+import entities.ItemSubcategory;
+import entities.Timebank;
+import entities.User;
+
+public interface Offer {
+	
+	public int getId();
+	public Timebank getTimebank();
+	public User getOwner();
+	public ItemCategory getItemCategory();
+	public ItemSubcategory getItemSubcategory();
+	public String getTitle();
+	public String getDescription();
+	public Timestamp getCreated();
+	
+
+}

@@ -1,0 +1,73 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOffer;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestTx;
+import entities.User;
+
+public interface UserDAO {
+	
+	//create
+
+		//user
+	
+	public User createUser(int timebankId, int addressId, String userJson);
+	
+	//read 
+	
+		//check login
+
+	public User login(String email, String password);
+	
+		//indices
+	
+	public List<User> getUsersByTimebank(int timebankId);
+	public List<User> getModeratorsByTimebank(int timebankId);
+	
+		//single objects
+	
+	public User showUser(int userId);
+	public Double showUserHoursByUserId(int timebankId, int userId);
+	
+		//offers + requests
+	
+	public List<ServiceOffer> indexUserServiceOffers(int timebankId, int userId);
+	public List<ServiceRequest> indexUserServiceRequests(int timebankId, int userId);
+	public List<ItemTransferOffer> indexUserItemTransferOffers(int timebankId, int userId);
+	public List<ItemTransferRequest> indexUserItemTransferRequests(int timebankId, int userId);
+	public List<ItemLoanOffer> indexUserItemLoanOffers(int timebankId, int userId);
+	public List<ItemLoanRequest> indexUserItemLoanRequests(int timebankId, int userId);
+	
+		//transactions
+	
+	public List<ServiceOfferTx> indexUserServiceOfferTxs(int timebankId, int userId);
+	public List<ServiceRequestTx> indexUserServiceRequestTxs(int timebankId, int userId); 
+	public List<ItemTransferOfferTx> indexUserItemTransferOfferTxs(int timebankId, int userId);
+	public List<ItemTransferRequestTx> indexUserItemTransferRequestTxs(int timebankId, int userId);
+	public List<ItemLoanOfferTx> indexUserItemLoanOfferTxs(int timebankId, int userId);
+	public List<ItemLoanRequestTx> indexUserItemLoanRequestTxs(int timebankId, int userId);
+	
+	//update
+	
+	public Boolean updatePassword(int actingUserId, int userId, String oldPassword, String newPassword);
+	public Boolean recoverPassword(String email);
+	public Boolean updateEmail(int actingUserId, int userId, String email);
+	public User updateUser(int actingUserId, int userId, int addressId, String userJson);
+	public Double updateUserHours(int timebankId, int userId, Double hourDifference);
+	
+	//destroy
+	
+	public Boolean deactivateUser(int userId, int actingUserId);
+
+}

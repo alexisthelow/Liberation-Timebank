@@ -1,0 +1,192 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import interfaces.Activity;
+
+@Entity
+@Table(name = "item_loan_request_activity")
+public class ItemLoanRequestActivity implements Activity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "item_loan_request_id")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private ItemLoanRequest itemLoanRequestActivityParent;
+	
+	@JoinColumn(name = "user_id")
+	@Fetch(FetchMode.JOIN)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private User itemLoanRequestActivityUser;
+	
+	private String message;
+	
+	@Column(name = "posted")
+	private Timestamp posted;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	@Column(name = "moderator_hide")
+	private Boolean moderatorHide;
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "hiding_moderator_id")
+	private User hidingModerator;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public ItemLoanRequest getItemLoanRequestActivityParent() {
+		return itemLoanRequestActivityParent;
+	}
+
+	public void setItemLoanRequestActivityParent(ItemLoanRequest itemLoanRequestActivityParent) {
+		this.itemLoanRequestActivityParent = itemLoanRequestActivityParent;
+	}
+
+	public User getItemLoanRequestActivityUser() {
+		return itemLoanRequestActivityUser;
+	}
+
+	public void setItemLoanRequestActivityUser(User itemLoanRequestActivityUser) {
+		this.itemLoanRequestActivityUser = itemLoanRequestActivityUser;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Timestamp getPosted() {
+		return posted;
+	}
+
+	public void setPosted(Timestamp posted) {
+		this.posted = posted;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+
+	public Boolean getModeratorHide() {
+		return moderatorHide;
+	}
+
+	public void setModeratorHide(Boolean moderatorHide) {
+		this.moderatorHide = moderatorHide;
+	}
+
+	public User getHidingModerator() {
+		return hidingModerator;
+	}
+
+	public void setHidingModerator(User hidingModerator) {
+		this.hidingModerator = hidingModerator;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemLoanRequestActivityParent;
+	}
+
+	@Override
+	public User getUser() {
+		return this.itemLoanRequestActivityUser;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemLoanRequestActivityParent = (ItemLoanRequest) parent;
+	}
+
+	@Override
+	public void setUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemLoanRequestActivity other = (ItemLoanRequestActivity) obj;
+		if (id != other.id)
+			return false;
+		if (lastUpdate == null) {
+			if (other.lastUpdate != null)
+				return false;
+		} else if (!lastUpdate.equals(other.lastUpdate))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemLoanRequestActivity [id=").append(id).append(", message=").append(message)
+				.append(", lastUpdate=").append(lastUpdate).append("]");
+		return builder.toString();
+	}
+	
+}

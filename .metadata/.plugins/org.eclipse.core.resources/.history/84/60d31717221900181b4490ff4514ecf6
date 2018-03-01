@@ -1,0 +1,540 @@
+package entities;
+
+import java.sql.Timestamp;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "user_account")
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "first_name")
+	private String firstName;
+	
+	@Column(name = "last_name")
+	private String lastName;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "address_id")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private Address userAddress;
+	
+	private String email;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Column(name = "password_salt")
+	private String passwordSalt;
+	
+	@Column(name = "hash_algorithm")
+	private String passwordHashAlgorithm;
+	
+	private Timestamp created;
+	
+	private Boolean active;
+	
+	@Column(name = "last_login")
+	private Timestamp lastLogin;
+	
+	@Column(name = "moderator_ban")
+	private Boolean moderatorBan;
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "banning_moderator_id")
+	private User banningModerator;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+	
+	//service offers
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "serviceOfferUser", cascade = CascadeType.PERSIST)
+	private Set<ServiceOffer> userServiceOffers;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "serviceOfferRecipient", cascade = CascadeType.PERSIST)
+	private Set<ServiceOfferTx> userServiceOfferTxs;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "serviceOfferActivityUser", cascade = CascadeType.PERSIST)
+	private Set<ServiceOfferActivity> userServiceOfferActivities;
+	
+	//service requests
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "serviceRequestUser", cascade = CascadeType.PERSIST)
+	private Set<ServiceRequest> userServiceRequests;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "serviceRequestProvider", cascade = CascadeType.PERSIST)
+	private Set<ServiceRequestTx> userServiceRequestTxProvides;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "serviceRequestActivityUser", cascade = CascadeType.PERSIST)
+	private Set<ServiceRequestActivity> userServiceRequestActivities;
+	
+	//item transfer offers
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemTransferOfferUser", cascade = CascadeType.PERSIST)
+	private Set<ItemTransferOffer> userItemTransferOffers;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemTransferOfferTxRecipient", cascade = CascadeType.PERSIST)
+	private Set<ItemTransferOfferTx> userItemTransferOfferTxReceives;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemTransferOfferActivityUser", cascade = CascadeType.PERSIST)
+	private Set<ItemTransferOfferActivity> userItemTransferOfferActivities;
+	
+	//item transfer requests
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemTransferRequestUser", cascade = CascadeType.PERSIST)
+	private Set<ItemTransferRequest> userItemTransferRequests;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemTransferRequestTxProvider", cascade = CascadeType.PERSIST)
+	private Set<ItemTransferRequestTx> userItemTransferRequestTxProvides;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemTransferRequestActivityUser", cascade = CascadeType.PERSIST)
+	private Set<ItemTransferRequestActivity> userItemTransferRequestActivities;
+	
+	//item loan requests
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemLoanRequestUser", cascade = CascadeType.PERSIST)
+	private Set<ItemLoanRequest> userItemLoanRequests;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemLoanRequestActivityUser", cascade = CascadeType.PERSIST)
+	private Set<ItemLoanRequestActivity> userItemLoanRequestActivities;
+
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemLoanRequestTxLender", cascade = CascadeType.PERSIST)
+	private Set<ItemLoanRequestTx> userItemLoanRequestTxLends;
+
+	// item loan offers
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemLoanOfferUser", cascade = CascadeType.PERSIST)
+	private Set<ItemLoanOffer> userItemLoanOffers;
+
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemLoanOfferActivityUser", cascade = CascadeType.PERSIST)
+	private Set<ItemLoanOfferActivity> userItemLoanOfferActivities;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "itemLoanOfferTxBorrower", cascade = CascadeType.PERSIST)
+	private Set<ItemLoanOfferTx> userItemLoanOfferTxBorrows;
+	
+	//timebank
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "timebank_user", joinColumns=@JoinColumn(name = "user_id"), inverseJoinColumns=@JoinColumn(name = "timebank_id"))
+	private Set<Timebank> userTimebanks;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "timebank_moderator", joinColumns=@JoinColumn(name = "moderator_id"), inverseJoinColumns=@JoinColumn(name = "timebank_id"))
+	private Set<Timebank> userModeratorTimebanks;
+	
+	//intra user messaging
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(mappedBy = "messageThreadParticipants", cascade = CascadeType.PERSIST)
+	private Set<MessageThread> userMessageThreads;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	@OneToMany(mappedBy = "participantUser", cascade = CascadeType.PERSIST)
+	private Set<Reply> userMessageThreadReplies;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Address getUserAddress() {
+		return userAddress;
+	}
+
+	public void setUserAddress(Address userAddress) {
+		this.userAddress = userAddress;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getHashedPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordSalt() {
+		return passwordSalt;
+	}
+
+	public void setPasswordSalt(String passwordSalt) {
+		this.passwordSalt = passwordSalt;
+	}
+
+	public String getPasswordHashAlgorithm() {
+		return passwordHashAlgorithm;
+	}
+
+	public void setPasswordHashAlgorithm(String passwordHashAlgorithm) {
+		this.passwordHashAlgorithm = passwordHashAlgorithm;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public Boolean getModeratorBan() {
+		return moderatorBan;
+	}
+
+	public void setModeratorBan(Boolean moderatorBan) {
+		this.moderatorBan = moderatorBan;
+	}
+
+	public User getBanningModerator() {
+		return banningModerator;
+	}
+
+	public void setBanningModerator(User banningModerator) {
+		this.banningModerator = banningModerator;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+
+	public Set<ServiceOffer> getUserServiceOffers() {
+		return userServiceOffers;
+	}
+
+	public void setUserServiceOffers(Set<ServiceOffer> userServiceOffers) {
+		this.userServiceOffers = userServiceOffers;
+	}
+
+	public Set<ServiceOfferTx> getUserServiceOfferTxs() {
+		return userServiceOfferTxs;
+	}
+
+	public void setUserServiceOfferTxs(Set<ServiceOfferTx> userServiceOfferTxs) {
+		this.userServiceOfferTxs = userServiceOfferTxs;
+	}
+
+	public Set<ServiceOfferActivity> getUserServiceOfferActivities() {
+		return userServiceOfferActivities;
+	}
+
+	public void setUserServiceOfferActivities(Set<ServiceOfferActivity> userServiceOfferActivities) {
+		this.userServiceOfferActivities = userServiceOfferActivities;
+	}
+
+	public Set<ServiceRequest> getUserServiceRequests() {
+		return userServiceRequests;
+	}
+
+	public void setUserServiceRequests(Set<ServiceRequest> userServiceRequests) {
+		this.userServiceRequests = userServiceRequests;
+	}
+
+	public Set<ServiceRequestTx> getUserServiceRequestTxProvides() {
+		return userServiceRequestTxProvides;
+	}
+
+	public void setUserServiceRequestTxProvides(Set<ServiceRequestTx> userServiceRequestTxProvides) {
+		this.userServiceRequestTxProvides = userServiceRequestTxProvides;
+	}
+
+	public Set<ServiceRequestActivity> getUserServiceRequestActivities() {
+		return userServiceRequestActivities;
+	}
+
+	public void setUserServiceRequestActivities(Set<ServiceRequestActivity> userServiceRequestActivities) {
+		this.userServiceRequestActivities = userServiceRequestActivities;
+	}
+
+	public Set<ItemTransferOffer> getUserItemTransferOffers() {
+		return userItemTransferOffers;
+	}
+
+	public void setUserItemTransferOffers(Set<ItemTransferOffer> userItemTransferOffers) {
+		this.userItemTransferOffers = userItemTransferOffers;
+	}
+
+	public Set<ItemTransferOfferTx> getUserItemTransferOfferTxReceives() {
+		return userItemTransferOfferTxReceives;
+	}
+
+	public void setUserItemTransferOfferTxReceives(Set<ItemTransferOfferTx> userItemTransferOfferTxReceives) {
+		this.userItemTransferOfferTxReceives = userItemTransferOfferTxReceives;
+	}
+
+	public Set<ItemTransferOfferActivity> getUserItemTransferOfferActivities() {
+		return userItemTransferOfferActivities;
+	}
+
+	public void setUserItemTransferOfferActivities(Set<ItemTransferOfferActivity> userItemTransferOfferActivities) {
+		this.userItemTransferOfferActivities = userItemTransferOfferActivities;
+	}
+
+	public Set<ItemTransferRequest> getUserItemTransferRequests() {
+		return userItemTransferRequests;
+	}
+
+	public void setUserItemTransferRequests(Set<ItemTransferRequest> userItemTransferRequests) {
+		this.userItemTransferRequests = userItemTransferRequests;
+	}
+
+	public Set<ItemTransferRequestTx> getUserItemTransferRequestTxProvides() {
+		return userItemTransferRequestTxProvides;
+	}
+
+	public void setUserItemTransferRequestTxProvides(Set<ItemTransferRequestTx> userItemTransferRequestTxProvides) {
+		this.userItemTransferRequestTxProvides = userItemTransferRequestTxProvides;
+	}
+
+	public Set<ItemTransferRequestActivity> getUserItemTransferRequestActivities() {
+		return userItemTransferRequestActivities;
+	}
+
+	public void setUserItemTransferRequestActivities(Set<ItemTransferRequestActivity> userItemTransferRequestActivities) {
+		this.userItemTransferRequestActivities = userItemTransferRequestActivities;
+	}
+
+	public Set<ItemLoanRequest> getUserItemLoanRequests() {
+		return userItemLoanRequests;
+	}
+
+	public void setUserItemLoanRequests(Set<ItemLoanRequest> userItemLoanRequests) {
+		this.userItemLoanRequests = userItemLoanRequests;
+	}
+
+	public Set<ItemLoanRequestActivity> getUserItemLoanRequestActivities() {
+		return userItemLoanRequestActivities;
+	}
+
+	public void setUserItemLoanRequestActivities(Set<ItemLoanRequestActivity> userItemLoanRequestActivities) {
+		this.userItemLoanRequestActivities = userItemLoanRequestActivities;
+	}
+
+	public Set<ItemLoanRequestTx> getUserItemLoanRequestTxLends() {
+		return userItemLoanRequestTxLends;
+	}
+
+	public void setUserItemLoanRequestTxLends(Set<ItemLoanRequestTx> userItemLoanRequestTxLends) {
+		this.userItemLoanRequestTxLends = userItemLoanRequestTxLends;
+	}
+
+	public Set<ItemLoanOffer> getUserItemLoanOffers() {
+		return userItemLoanOffers;
+	}
+
+	public void setUserItemLoanOffers(Set<ItemLoanOffer> userItemLoanOffers) {
+		this.userItemLoanOffers = userItemLoanOffers;
+	}
+
+	public Set<ItemLoanOfferActivity> getUserItemLoanOfferActivities() {
+		return userItemLoanOfferActivities;
+	}
+
+	public void setUserItemLoanOfferActivities(Set<ItemLoanOfferActivity> userItemLoanOfferActivities) {
+		this.userItemLoanOfferActivities = userItemLoanOfferActivities;
+	}
+
+	public Set<ItemLoanOfferTx> getUserItemLoanOfferTxBorrows() {
+		return userItemLoanOfferTxBorrows;
+	}
+
+	public void setUserItemLoanOfferTxBorrows(Set<ItemLoanOfferTx> userItemLoanOfferTxBorrows) {
+		this.userItemLoanOfferTxBorrows = userItemLoanOfferTxBorrows;
+	}
+
+	public Set<Timebank> getUserTimebanks() {
+		return userTimebanks;
+	}
+
+	public void setUserTimebanks(Set<Timebank> userTimebanks) {
+		this.userTimebanks = userTimebanks;
+	}
+
+	public Set<Timebank> getUserModeratorTimebanks() {
+		return userModeratorTimebanks;
+	}
+
+	public void setUserModeratorTimebanks(Set<Timebank> userModeratorTimebanks) {
+		this.userModeratorTimebanks = userModeratorTimebanks;
+	}
+
+	public Set<MessageThread> getUserMessageThreads() {
+		return userMessageThreads;
+	}
+
+	public void setUserMessageThreads(Set<MessageThread> userMessageThreads) {
+		this.userMessageThreads = userMessageThreads;
+	}
+
+	public Set<Reply> getUserMessageThreadReplies() {
+		return userMessageThreadReplies;
+	}
+
+	public void setUserMessageThreadReplies(Set<Reply> userMessageThreadReplies) {
+		this.userMessageThreadReplies = userMessageThreadReplies;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		if (lastUpdate == null) {
+			if (other.lastUpdate != null)
+				return false;
+		} else if (!lastUpdate.equals(other.lastUpdate))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=").append(id).append(", created=").append(created).append(", active=").append(active)
+				.append(", moderatorBan=").append(moderatorBan).append("]");
+		return builder.toString();
+	}
+	
+}

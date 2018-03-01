@@ -19,9 +19,12 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Loan;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "item_loan_offer_tx")
-public class ItemLoanOfferTx {
+public class ItemLoanOfferTx implements Loan, Transaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -241,6 +244,86 @@ public class ItemLoanOfferTx {
 
 	public void setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemLoanOfferTxParent;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemLoanOfferTxBorrower;
+	}
+
+	@Override
+	public Timestamp getParentUserAccept() {
+		return this.lenderAccept;
+	}
+
+	@Override
+	public Timestamp getParentUserReject() {
+		return this.lenderReject;
+	}
+
+	@Override
+	public Timestamp getOwnerComplete() {
+		return this.borrowerComplete;
+	}
+
+	@Override
+	public Timestamp getParentUserComplete() {
+		return this.lenderComplete;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemLoanOfferTxParent = (ItemLoanOffer) parent;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemLoanOfferTxBorrower = owner;
+	}
+
+	@Override
+	public void setParentUserAccept(Timestamp accept) {
+		this.lenderAccept = accept;
+	}
+
+	@Override
+	public void setParentUserReject(Timestamp reject) {
+		this.lenderReject = reject;
+	}
+
+	@Override
+	public void setOwnerComplete(Timestamp complete) {
+		this.borrowerComplete = complete;
+	}
+
+	@Override
+	public void setParentUserComplete(Timestamp complete) {
+		this.lenderComplete = complete;
+	}
+	
+	@Override
+	public Timestamp getParentUserStart() {
+		return this.lenderStart;
+	}
+
+	@Override
+	public void setParentUserStart(Timestamp start) {
+		this.lenderStart = start;
+	}
+
+	@Override
+	public Timestamp getOwnerStart() {
+		return this.borrowerStart;
+	}
+
+	@Override
+	public void setOwnerStart(Timestamp start) {
+		this.borrowerStart = start;
 	}
 
 	@Override

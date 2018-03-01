@@ -1,0 +1,94 @@
+package controllers;
+
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import entities.ServiceOffer;
+import entities.ServiceOfferActivity;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+import entities.ServiceRequestTx;
+
+public interface ServiceControllerInterface {
+	
+	//create
+	
+	public ServiceOffer createServiceOffer(HttpSession session, HttpServletResponse res, @RequestBody String offerJson);
+	public ServiceOfferSchedule createServiceOfferSchedule(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String scheduleJson);
+	public ServiceOfferOrigin createServiceOfferOrigin(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @PathVariable int addressId, @RequestBody String originJson);
+	public ServiceOfferDestination createServiceOfferDestination(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @PathVariable int addressId, @RequestBody String destinationJson);
+	public ServiceOfferTx createServiceOfferTx(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String txJson);
+	public ServiceOfferActivity createServiceRequestActivity(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String activityJson); //TODO
+	
+	public ServiceRequest createServiceRequest(HttpSession session, HttpServletResponse res, @RequestBody String requestJson);
+	public ServiceRequestTimeWindow createServiceRequestTimeWindow(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String windowJson);
+	public ServiceRequestOrigin createServiceRequestOrigin(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @PathVariable int addressId, @RequestBody String originJson);
+	public ServiceRequestDestination createServiceRequestDestination(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @PathVariable int addressId, @RequestBody String destinationJson);
+	public ServiceRequestTx createServiceRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String txJson);
+	public ServiceRequestActivity createServiceRequestActivity(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String activityJson);
+	
+	//read
+	
+		//just one
+	
+	public ServiceOffer showServiceOffer(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+	public ServiceRequest showServiceRequest(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		
+		//index by user
+	
+	public Set<ServiceOffer> getServiceOffersByUser(HttpSession session, HttpServletResponse res, @PathVariable int userId);
+	public Set<ServiceRequest> getServiceRequestsByUser(HttpSession session, HttpServletResponse res, @PathVariable int userId);
+	
+		//index by timebank
+	
+	public Set<ServiceOffer> getServiceOffersByTimebank(HttpSession session, HttpServletResponse res, @PathVariable int timebankId);
+	public Set<ServiceRequest> getServiceRequestsByTimebank(HttpSession session, HttpServletResponse res, @PathVariable int timebankId);
+	
+		//global index
+	
+	public Set<ServiceOffer> getGlobalServiceOffers(HttpSession session, HttpServletResponse res);
+	public Set<ServiceRequest> getGlobalServiceRequests(HttpSession session, HttpServletResponse res);
+
+	//update
+	
+		//service offer stuff
+	
+	public ServiceOffer updateServiceOffer(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String offerJson);
+	public ServiceOfferSchedule updateServiceOfferSchedule(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String scheduleJson);
+	public ServiceOfferOrigin updateServiceOfferOrigin(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @PathVariable int addressId, @RequestBody String originJson);
+	public ServiceOfferDestination updateServiceOfferDestination(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @PathVariable int addressId, @RequestBody String destinationJson);
+	
+	public ServiceOfferTx serviceOfferProviderAccept(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+	public ServiceOfferTx serviceOfferProviderReject(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+	public ServiceOfferTx serviceOfferRecipientComplete(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String txJson);
+	public ServiceOfferTx serviceOfferProviderComplete(HttpSession session, HttpServletResponse res, @PathVariable int offerId, @RequestBody String txJson);
+	
+		//service request stuff
+	
+	public ServiceRequest updateServiceRequest(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String requestJson);
+	public ServiceRequestTimeWindow updateServiceRequestTimeWindow(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String windowJson);
+	public ServiceRequestOrigin updateServiceRequestOrigin(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @PathVariable int addressId, @RequestBody String originJson);
+	public ServiceRequestDestination updateServiceRequestDestination(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @PathVariable int addressId, @RequestBody String destinationJson);
+	
+	public ServiceRequestTx serviceRequestRecipientAccept(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+	public ServiceRequestTx serviceRequestRecipientReject(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+	public ServiceRequestTx serviceRequestRecipientComplete(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String txJson);
+	public ServiceRequestTx serviceRequestProviderComplete(HttpSession session, HttpServletResponse res, @PathVariable int requestId, @RequestBody String txJson);
+	
+	//destroy
+
+	public Boolean deactivateServiceOffer(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+	public Boolean deactivateServiceRequest(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+	
+}

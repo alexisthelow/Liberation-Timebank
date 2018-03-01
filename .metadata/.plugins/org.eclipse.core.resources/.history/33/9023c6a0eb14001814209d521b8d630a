@@ -1,0 +1,56 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOfferTx;
+import entities.ServiceRequestTx;
+
+public interface TransactionDAO {
+	
+	//create
+	
+		//tx
+	
+	public ItemTransferOfferTx createItemTransferOfferTx(String txJson);
+	public ItemTransferRequestTx createItemTransferRequestTx(String txJson);
+	public ItemLoanOfferTx createItemLoanOfferTx(String txJson);
+	public ItemLoanRequestTx createItemLoanRequestTx(String txJson);
+	public ServiceOfferTx createServiceOfferTx(String txJson);
+	public ServiceRequestTx createServiceRequestTx(String txJson);
+	
+	
+	//read
+	
+		//specific tx
+	
+	public ItemTransferOfferTx getItemTransferOfferTx(int txId);
+	public ItemTransferRequestTx getItemTransferRequestTx(int txId);
+	public ItemLoanOfferTx getItemLoanOfferTx(int txId);
+	public ItemLoanRequestTx getItemLoanRequestTx(int txId);
+	public ServiceOfferTx getServiceOfferTx(int txId);
+	public ServiceRequestTx getServiceRequestTx(int txId);
+	
+		//tx index by type
+	
+	public List<ItemTransferOfferTx> getAllItemTransferOfferTxs(String txJson);
+	public List<ItemTransferRequestTx> getAllItemTransferRequestTxs(String txJson);
+	public List<ItemLoanOfferTx> getAllItemLoanOfferTxs(String txJson);
+	public List<ItemLoanRequestTx> getAllItemLoanRequestTxs(String txJson);
+	public List<ServiceOfferTx> getAllServiceOfferTxs(String txJson);
+	public List<ServiceRequestTx> getAllServiceRequestTxs(String txJson);
+	
+		//tx index by user
+		//tx index by timebank
+	
+	//update
+		//specific tx
+	
+	
+	//destroy
+		//TODO -- user should be able to cancel transactions
+
+}

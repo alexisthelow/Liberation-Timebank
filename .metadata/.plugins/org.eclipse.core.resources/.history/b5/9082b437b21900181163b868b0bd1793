@@ -1,0 +1,100 @@
+package data;
+
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOffer;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestTx;
+import entities.User;
+
+@Transactional
+@Repository
+public class TransactionDAOImpl implements TransactionDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public ItemTransferOfferTx createItemTransferOfferTx(int userId, int offerId) {
+		
+	}
+
+	@Override
+	public ItemTransferRequestTx createItemTransferRequestTx(int userId, int requestId) {
+		
+	}
+
+	@Override
+	public ItemLoanOfferTx createItemLoanOfferTx(int userId, int offerId) {
+		
+	}
+
+	@Override
+	public ItemLoanRequestTx createItemLoanRequestTx(int userId, int requestId) {
+		
+	}
+
+	@Override
+	public ServiceOfferTx createServiceOfferTx(int userId, int offerId) {
+		
+	}
+
+	@Override
+	public ServiceRequestTx createServiceRequestTx(int userId, int requestId) {
+		
+	}
+
+	@Override
+	public ItemTransferOfferTx getItemTransferOfferTx(int txId) {
+		
+	}
+
+	@Override
+	public ItemTransferRequestTx getItemTransferRequestTx(int txId) {
+		
+	}
+
+	@Override
+	public ItemLoanOfferTx getItemLoanOfferTx(int txId) {
+		
+	}
+
+	@Override
+	public ItemLoanRequestTx getItemLoanRequestTx(int txId) {
+		
+	}
+
+	@Override
+	public ServiceOfferTx getServiceOfferTx(int txId) {
+		
+	}
+
+	@Override
+	public ServiceRequestTx getServiceRequestTx(int txId) {
+		
+	}
+
+}

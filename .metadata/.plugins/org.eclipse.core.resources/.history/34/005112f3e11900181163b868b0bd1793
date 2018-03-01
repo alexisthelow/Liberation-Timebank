@@ -1,0 +1,47 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOfferActivity;
+import entities.ServiceRequestActivity;
+
+public interface ActivityDAO {
+	
+	//create
+	
+	public ItemTransferOfferActivity createItemTransferOfferActivity(int offerId, String activityJson);
+	public ItemTransferRequestActivity createItemTransferRequestActivity(int requestId, String activityJson);
+	public ItemLoanOfferActivity createItemLoanOfferActivity(int offerId, String activityJson);
+	public ItemLoanRequestActivity createItemLoanRequestActivity(int requestId, String activityJson);
+	public ServiceOfferActivity createServiceOfferActivity(int offerId, String activityJson);
+	public ServiceRequestActivity createServiceRequestActivity(int requestId, String activityJson);
+	
+	//read
+	
+		//all posts per service / item
+	
+	public List<ItemTransferOfferActivity> getAllItemTransferOfferActivity(int itemTransferOfferId);
+	public List<ItemTransferRequestActivity> getAllItemTransferRequestActivity(int itemTransferRequestId);
+	public List<ItemLoanOfferActivity> getAllItemLoanOfferActivity(int itemLoanOfferId);
+	public List<ItemLoanRequestActivity> getAllItemLoanRequestActivity(int itemLoanRequestId);
+	public List<ServiceOfferActivity> getAllServiceOfferActivity(int serviceOfferId);
+	public List<ServiceRequestActivity> getAllServiceRequestActivity(int serviceRequestId);
+	
+	//update
+	
+	public ItemTransferOfferActivity updateItemTransferOfferActivity(int userId, int activityId, String activityJson);
+	public ItemTransferRequestActivity updateItemTransferRequestActivity(int userId, int activityId, String activityJson);
+	public ItemLoanOfferActivity updateItemLoanOfferActivity(int userId, int activityId, String activityJson);
+	public ItemLoanRequestActivity updateItemLoanRequestActivity(int userId, int activityId, String activityJson);
+	public ServiceOfferActivity updateServiceOfferActivity(int userId, int activityId, String activityJson);
+	public ServiceRequestActivity updateServiceRequestActivity(int userId, int activityId, String activityJson);
+
+	//destroy
+	
+		//TODO -- users should be able to hide posts and that should be tracked separate from mod hides
+
+}

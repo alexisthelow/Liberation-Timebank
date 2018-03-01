@@ -31,16 +31,16 @@ public class Timebank {
 	private String description;
 
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "userTimebanks", cascade = CascadeType.PERSIST)
 	private Set<User> timebankUsers;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "userModeratorTimebanks", cascade = CascadeType.PERSIST)
 	private Set<User> timebankModeratorUsers;
 	
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "owner_id")
 	private User timebankOwner;
@@ -48,42 +48,42 @@ public class Timebank {
 	//service offers
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceOfferTimebank", cascade = CascadeType.PERSIST)
 	private Set<ServiceOffer> timebankServiceOffers;
 	
 	//service requests
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceRequestTimebank", cascade = CascadeType.PERSIST)
-	private Set<ServiceRequest> timebankServiceRequest;
+	private Set<ServiceRequest> timebankServiceRequests;
 	
 	//item loan offers
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanOfferTimebank", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanOffer> timebankItemLoanOffers;
 	
 	//item loan request
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanRequestTimebank", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanRequest> timebankItemLoanRequests;
 	
 	//item transfer offers
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferOfferTimebank", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferOffer> timebankItemOffers;
 
 	//item transfer requests
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferRequestTimebank", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferRequest> timebankItemRequests;
 
@@ -143,12 +143,12 @@ public class Timebank {
 		this.timebankServiceOffers = timebankServiceOffers;
 	}
 
-	public Set<ServiceRequest> getTimebankServiceRequest() {
-		return timebankServiceRequest;
+	public Set<ServiceRequest> getTimebankServiceRequests() {
+		return timebankServiceRequests;
 	}
 
-	public void setTimebankServiceRequest(Set<ServiceRequest> timebankServiceRequest) {
-		this.timebankServiceRequest = timebankServiceRequest;
+	public void setTimebankServiceRequests(Set<ServiceRequest> timebankServiceRequests) {
+		this.timebankServiceRequests = timebankServiceRequests;
 	}
 
 	public Set<ItemLoanOffer> getTimebankItemLoanOffers() {

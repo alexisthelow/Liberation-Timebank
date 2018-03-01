@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import interfaces.Activity;
+
 @Entity
 @Table(name = "service_offer_activity")
-public class ServiceOfferActivity {
+public class ServiceOfferActivity implements Activity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,6 +126,26 @@ public class ServiceOfferActivity {
 
 	public void setHidingModerator(User hidingModerator) {
 		this.hidingModerator = hidingModerator;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.serviceOfferActivityParent;
+	}
+
+	@Override
+	public User getUser() {
+		return this.serviceOfferActivityUser;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.serviceOfferActivityParent = (ServiceOffer) parent;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.serviceOfferActivityUser = user;
 	}
 
 	@Override

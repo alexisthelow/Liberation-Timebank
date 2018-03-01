@@ -1,0 +1,19 @@
+package data;
+
+import entities.User;
+
+public interface ModeratorDAO {
+	
+	//users
+	public User promoteUser(int timebankId, int userId);
+	public User demoteUser(int timebankId, int userId);
+	public Boolean removeUserFromTimebank(int timebankId, int userId);
+	public Boolean banUser(int userId);
+	
+	//deactivate services + items
+	
+	//hide activity
+	
+	//close transactions
+	
+}

@@ -1,6 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,15 +11,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import interfaces.Activity;
+import interfaces.Item;
+import interfaces.Offer;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "item_transfer_offer")
-public class ItemTransferOffer {
+public class ItemTransferOffer implements Item, Offer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +59,9 @@ public class ItemTransferOffer {
 	
 	private Timestamp created;
 	
+	@Column(name = "global_visibility")
+	private Boolean globalVisibility;
+	
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 	
@@ -67,6 +79,16 @@ public class ItemTransferOffer {
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "closing_moderator_id")
 	private User closingModerator;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy = "itemTransferOfferActivityParent", cascade = CascadeType.PERSIST)
+	private Set<Activity> itemTransferOfferActivity;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy = "itemTransferOfferTxParent", cascade = CascadeType.PERSIST)
+	private Set<Transaction> itemTransferOfferTx;
 
 	public int getId() {
 		return id;
@@ -131,6 +153,14 @@ public class ItemTransferOffer {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+	
+	public Boolean getGlobalVisibility() {
+		return globalVisibility;
+	}
+
+	public void setGlobalVisibility(Boolean globalVisibility) {
+		this.globalVisibility = globalVisibility;
+	}
 
 	public Timestamp getLastUpdate() {
 		return lastUpdate;
@@ -170,6 +200,82 @@ public class ItemTransferOffer {
 
 	public void setClosingModerator(User closingModerator) {
 		this.closingModerator = closingModerator;
+	}
+	
+	public Set<Activity> getItemTransferOfferActivity() {
+		return itemTransferOfferActivity;
+	}
+
+	public void setItemTransferOfferActivity(Set<Activity> itemTransferOfferActivity) {
+		this.itemTransferOfferActivity = itemTransferOfferActivity;
+	}
+
+	public Set<Transaction> getItemTransferOfferTx() {
+		return itemTransferOfferTx;
+	}
+
+	public void setItemTransferOfferTx(Set<Transaction> itemTransferOfferTx) {
+		this.itemTransferOfferTx = itemTransferOfferTx;
+	}
+	
+	@Override
+	public Timebank getTimebank() {
+		return this.itemTransferOfferTimebank;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemTransferOfferUser;
+	}
+
+	@Override
+	public Set<Activity> getActivity() {
+		return this.itemTransferOfferActivity;
+	}
+
+	@Override
+	public Set<Transaction> getTransactions() {
+		return this.itemTransferOfferTx;
+	}
+	
+	@Override
+	public void setTimebank(Timebank timebank) {
+		this.itemTransferOfferTimebank = timebank;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemTransferOfferUser = owner;
+	}
+
+	@Override
+	public ItemCategory getCategory() {
+		return this.itemTransferOfferCategory;
+	}
+
+	@Override
+	public void setItemCategory(ItemCategory category) {
+		this.itemTransferOfferCategory = category;
+	}
+
+	@Override
+	public ItemSubcategory getSubcategory() {
+		return this.itemTransferOfferSubcategory;
+	}
+
+	@Override
+	public void setItemSubcategory(ItemSubcategory subcategory) {
+		this.itemTransferOfferSubcategory = subcategory;
+	}
+
+	@Override
+	public void setActivity(Set<Activity> activity) {
+		this.itemTransferOfferActivity = activity;
+	}
+
+	@Override
+	public void setTransactions(Set<Transaction> transactions) {
+		this.itemTransferOfferTx = transactions;
 	}
 
 	@Override

@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item value="false" key="isRegEx"/>
-		<item value="Loan" key="selection"/>
+		<item value="true" key="isRegEx"/>
+		<item value="int timebankId, " key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
-		<item value="true" key="wrap"/>
+		<item value="false" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Lend"/>
-			<item value="Borrow"/>
-			<item value="ItemRequest"/>
-			<item value="itemRequest"/>
-			<item value="ItemOffer"/>
-			<item value="itemOffer"/>
-			<item value="borrow"/>
-			<item value="lend"/>
+			<item value="List"/>
+			<item value="int timebankId, "/>
+			<item value="get"/>
+			<item value="getAll"/>
+			<item value="(@Override)"/>
+			<item value="@RequestMapping(path = &quot;&quot;, method = RequestMethod.)"/>
+			<item value="{requestId}"/>
+			<item value="Borrower"/>
+			<item value="Loan"/>
+			<item value="Lender"/>
+			<item value="Offer"/>
+			<item value="show"/>
+			<item value="create"/>
+			<item value=", String txJson"/>
+			<item value="Origin"/>
 		</list>
 		<list key="replacehistory">
-			<item value="Loan"/>
-			<item value="ItemTransferRequest"/>
-			<item value="itemTransferRequest"/>
-			<item value="ItemTransferOffer"/>
-			<item value="itemTransferOffer"/>
-			<item value="loan"/>
+			<item value="Set "/>
+			<item value=""/>
+			<item value="Set"/>
+			<item value="index"/>
+			<item value="$1\n\t@RequestMapping(path = &quot;&quot;, method = RequestMethod.)"/>
+			<item value="$1\n@RequestMapping(path = &quot;&quot;, method = RequestMethod.)"/>
+			<item value="{offerId}"/>
+			<item value="Recipient"/>
+			<item value="Transfer"/>
+			<item value="Borrower"/>
+			<item value="Request"/>
+			<item value="update"/>
+			<item value="showAll"/>
+			<item value="show"/>
+			<item value="Seven"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="290" key="DIALOG_WIDTH"/>
 		<item value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont" key="DIALOG_FONT_NAME"/>
 		<item value="409" key="DIALOG_HEIGHT"/>
-		<item value="1000" key="DIALOG_X_ORIGIN"/>
-		<item value="76" key="DIALOG_Y_ORIGIN"/>
+		<item value="1063" key="DIALOG_X_ORIGIN"/>
+		<item value="0" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

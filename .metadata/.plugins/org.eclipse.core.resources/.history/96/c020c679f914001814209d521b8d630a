@@ -1,0 +1,249 @@
+package data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOfferActivity;
+import entities.ServiceRequestActivity;
+
+@Transactional
+@Repository
+public class ActivityDAOImpl implements ActivityDAO {
+
+	@PersistenceContext
+	EntityManager em;
+	
+	@Override
+	public ItemTransferOfferActivity createItemTransferOfferActivity(int offerId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemTransferOfferActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ItemTransferRequestActivity createItemTransferRequestActivity(int requestId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemTransferRequestActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;	}
+
+	@Override
+	public ItemLoanOfferActivity createItemLoanOfferActivity(int offerId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemLoanOfferActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;	}
+
+	@Override
+	public ItemLoanRequestActivity createItemLoanRequestActivity(int requestId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemLoanRequestActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ServiceOfferActivity createServiceOfferActivity(int offerId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ServiceOfferActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ServiceRequestActivity createServiceRequestActivity(int requestId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ServiceRequestActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public List<ItemTransferOfferActivity> getAllItemTransferOfferActivity(int itemTransferOfferId) {
+		ItemTransferOffer managed = em.find(ItemTransferOffer.class, itemTransferOfferId);
+		return new ArrayList<ItemTransferOfferActivity>(managed.getItemTransferOfferActivity());
+	}
+
+	@Override
+	public List<ItemTransferRequestActivity> getAllItemTransferRequestActivity(int itemTransferRequestId) {
+		ItemTransferRequest managed = em.find(ItemTransferRequest.class, itemTransferRequestId);
+		return new ArrayList<ItemTransferRequestActivity>(managed.getItemTransferRequestActivity());
+	}
+
+	@Override
+	public List<ItemLoanOfferActivity> getAllItemLoanOfferActivity(int itemLoanOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequestActivity> getAllItemLoanRequestActivity(int itemLoanRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferActivity> getAllServiceOfferActivity(int serviceOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequestActivity> getAllServiceRequestActivity(int serviceRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferOfferActivity updateItemTransferOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			= mapper.readValue(,);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequestActivity updateItemTransferRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			= mapper.readValue(,);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ItemLoanOfferActivity updateItemLoanOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			= mapper.readValue(,);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequestActivity updateItemLoanRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			= mapper.readValue(,);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ServiceOfferActivity updateServiceOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			= mapper.readValue(,);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ServiceRequestActivity updateServiceRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			= mapper.readValue(,);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

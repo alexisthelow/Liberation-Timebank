@@ -20,9 +20,15 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Activity;
+import interfaces.Location;
+import interfaces.Offer;
+import interfaces.Service;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "service_offer")
-public class ServiceOffer {
+public class ServiceOffer implements Service, Offer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,22 +98,22 @@ public class ServiceOffer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferOriginParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceOfferOrigin> serviceOfferOrigins;
+	private Set<Location> serviceOfferOrigins;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferDestinationParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceOfferDestination> serviceOfferDestinations;
+	private Set<Location> serviceOfferDestinations;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferTxParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceOfferTx> serviceOfferTxs;
+	private Set<Transaction> serviceOfferTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferActivityParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceOfferActivity> serviceOfferActivities;
+	private Set<Activity> serviceOfferActivities;
 
 	public int getId() {
 		return id;
@@ -245,36 +251,116 @@ public class ServiceOffer {
 		this.serviceOfferSchedule = serviceOfferSchedule;
 	}
 
-	public Set<ServiceOfferOrigin> getServiceOfferOrigins() {
+	public Set<Location> getServiceOfferOrigins() {
 		return serviceOfferOrigins;
 	}
 
-	public void setServiceOfferOrigins(Set<ServiceOfferOrigin> serviceOfferOrigins) {
+	public void setServiceOfferOrigins(Set<Location> serviceOfferOrigins) {
 		this.serviceOfferOrigins = serviceOfferOrigins;
 	}
 
-	public Set<ServiceOfferDestination> getServiceOfferDestinations() {
+	public Set<Location> getServiceOfferDestinations() {
 		return serviceOfferDestinations;
 	}
 
-	public void setServiceOfferDestinations(Set<ServiceOfferDestination> serviceOfferDestinations) {
+	public void setServiceOfferDestinations(Set<Location> serviceOfferDestinations) {
 		this.serviceOfferDestinations = serviceOfferDestinations;
 	}
 
-	public Set<ServiceOfferTx> getServiceOfferTxs() {
+	public Set<Transaction> getServiceOfferTxs() {
 		return serviceOfferTxs;
 	}
 
-	public void setServiceOfferTxs(Set<ServiceOfferTx> serviceOfferTxs) {
+	public void setServiceOfferTxs(Set<Transaction> serviceOfferTxs) {
 		this.serviceOfferTxs = serviceOfferTxs;
 	}
 
-	public Set<ServiceOfferActivity> getServiceOfferActivities() {
+	public Set<Activity> getServiceOfferActivities() {
 		return serviceOfferActivities;
 	}
 
-	public void setServiceOfferActivities(Set<ServiceOfferActivity> serviceOfferActivities) {
+	public void setServiceOfferActivities(Set<Activity> serviceOfferActivities) {
 		this.serviceOfferActivities = serviceOfferActivities;
+	}
+	
+	@Override
+	public Timebank getTimebank() {
+		return this.serviceOfferTimebank;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.serviceOfferUser;
+	}
+
+	@Override
+	public Set<Activity> getActivity() {
+		return this.getActivity();
+	}
+
+	@Override
+	public Set<Transaction> getTransactions() {
+		return this.getTransactions();
+	}
+	
+	@Override
+	public ServiceCategory getCategory() {
+		return this.serviceOfferCategory;
+	}
+
+	@Override
+	public ServiceSubcategory getSubcategory() {
+		return this.serviceOfferSubcategory;
+	}
+
+	@Override
+	public Set<Location> getOrigins() {
+		return this.serviceOfferOrigins;
+	}
+
+	@Override
+	public Set<Location> getDestinations() {
+		return this.serviceOfferDestinations;
+	}
+	
+	@Override
+	public void setTimebank(Timebank timebank) {
+		this.serviceOfferTimebank = timebank;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.serviceOfferUser = owner;
+	}
+
+	@Override
+	public void setActivity(Set<Activity> activity) {
+		this.serviceOfferActivities = activity;
+	}
+
+	@Override
+	public void setTransactions(Set<Transaction> transactions) {
+		this.serviceOfferTxs = transactions;
+	}
+
+	@Override
+	public void setCategory(ServiceCategory category) {
+		this.serviceOfferCategory = category;
+	}
+
+	@Override
+	public void setSubcategory(ServiceSubcategory subcategory) {
+		this.serviceOfferSubcategory = subcategory;
+	}
+
+	@Override
+	public void setOrigins(Set<Location> origins) {
+		this.serviceOfferOrigins = origins;
+	}
+
+	@Override
+	public void setDestinations(Set<Location> destinations) {
+		this.serviceOfferDestinations = destinations;
 	}
 
 	@Override

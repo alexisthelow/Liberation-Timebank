@@ -18,9 +18,11 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Activity;
+
 @Entity
 @Table(name = "item_transfer_offer_activity")
-public class ItemTransferOfferActivity {
+public class ItemTransferOfferActivity implements Activity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,6 +129,26 @@ public class ItemTransferOfferActivity {
 
 	public void setHidingModerator(User hidingModerator) {
 		this.hidingModerator = hidingModerator;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemTransferOfferActivityParent;
+	}
+
+	@Override
+	public User getUser() {
+		return this.itemTransferOfferActivityUser;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemTransferOfferActivityParent = (ItemTransferOffer) parent;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.itemTransferOfferActivityUser = user;
 	}
 
 	@Override

@@ -20,9 +20,14 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Activity;
+import interfaces.Item;
+import interfaces.Request;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "item_transfer_request")
-public class ItemTransferRequest {
+public class ItemTransferRequest implements Item, Request {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +59,9 @@ public class ItemTransferRequest {
 	
 	private Timestamp created;
 	
+	@Column(name = "global_visibility")
+	private Boolean globalVisibility;
+	
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 	
@@ -61,6 +69,8 @@ public class ItemTransferRequest {
 	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "last_update_user_id")
 	private User lastUpdateUser;
+	
+	private Boolean active;
 	
 	@Column(name = "moderator_closed")
 	private Boolean moderatorClosed;
@@ -73,12 +83,12 @@ public class ItemTransferRequest {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestActivityParent", cascade = CascadeType.PERSIST)
-	private Set<ItemTransferRequestActivity> itemTransferRequestActivity;
+	private Set<Activity> itemTransferRequestActivity;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestTxParent", cascade = CascadeType.PERSIST)
-	private Set<ItemTransferRequestTx> itemTransferRequestTx;
+	private Set<Transaction> itemTransferRequestTx;
 
 	public int getId() {
 		return id;
@@ -143,6 +153,14 @@ public class ItemTransferRequest {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+	
+	public Boolean getGlobalVisibility() {
+		return globalVisibility;
+	}
+
+	public void setGlobalVisibility(Boolean globalVisibility) {
+		this.globalVisibility = globalVisibility;
+	}
 
 	public Timestamp getLastUpdate() {
 		return lastUpdate;
@@ -158,6 +176,14 @@ public class ItemTransferRequest {
 
 	public void setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	public Boolean getModeratorClosed() {
@@ -176,20 +202,80 @@ public class ItemTransferRequest {
 		this.closingModerator = closingModerator;
 	}
 
-	public Set<ItemTransferRequestActivity> getItemTransferRequestActivity() {
+	public Set<Activity> getItemTransferRequestActivity() {
 		return itemTransferRequestActivity;
 	}
 
-	public void setItemTransferRequestActivity(Set<ItemTransferRequestActivity> itemTransferRequestActivity) {
+	public void setItemTransferRequestActivity(Set<Activity> itemTransferRequestActivity) {
 		this.itemTransferRequestActivity = itemTransferRequestActivity;
 	}
 
-	public Set<ItemTransferRequestTx> getItemTransferRequestTx() {
+	public Set<Transaction> getItemTransferRequestTx() {
 		return itemTransferRequestTx;
 	}
 
-	public void setItemTransferRequestTx(Set<ItemTransferRequestTx> itemTransferRequestTx) {
+	public void setItemTransferRequestTx(Set<Transaction> itemTransferRequestTx) {
 		this.itemTransferRequestTx = itemTransferRequestTx;
+	}
+	
+	@Override
+	public Timebank getTimebank() {
+		return this.itemTransferRequestTimebank;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemTransferRequestUser;
+	}
+
+	@Override
+	public Set<Transaction> getTransactions() {
+		return this.itemTransferRequestTx;
+	}
+
+	@Override
+	public Set<Activity> getActivity() {
+		return this.itemTransferRequestActivity;
+	}
+	
+	@Override
+	public void setTimebank(Timebank timebank) {
+		this.itemTransferRequestTimebank = timebank;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemTransferRequestUser = owner;
+	}
+
+	@Override
+	public ItemCategory getCategory() {
+		return this.itemTransferRequestCategory;
+	}
+
+	@Override
+	public void setItemCategory(ItemCategory category) {
+		this.itemTransferRequestCategory = category;
+	}
+
+	@Override
+	public ItemSubcategory getSubcategory() {
+		return this.itemTransferRequestSubcategory;
+	}
+
+	@Override
+	public void setItemSubcategory(ItemSubcategory subcategory) {
+		this.itemTransferRequestSubcategory = subcategory;
+	}
+
+	@Override
+	public void setActivity(Set<Activity> activity) {
+		this.itemTransferRequestActivity = activity;
+	}
+
+	@Override
+	public void setTransactions(Set<Transaction> transactions) {
+		this.itemTransferRequestTx = transactions;
 	}
 
 	@Override
@@ -220,4 +306,12 @@ public class ItemTransferRequest {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemTransferRequest [id=").append(id).append(", title=").append(title).append(", created=")
+				.append(created).append(", active=").append(active).append("]");
+		return builder.toString();
+	}
+	
 }

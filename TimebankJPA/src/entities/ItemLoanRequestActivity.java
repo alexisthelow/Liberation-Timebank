@@ -18,9 +18,11 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Activity;
+
 @Entity
 @Table(name = "item_loan_request_activity")
-public class ItemLoanRequestActivity {
+public class ItemLoanRequestActivity implements Activity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,6 +130,26 @@ public class ItemLoanRequestActivity {
 
 	public void setHidingModerator(User hidingModerator) {
 		this.hidingModerator = hidingModerator;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemLoanRequestActivityParent;
+	}
+
+	@Override
+	public User getUser() {
+		return this.itemLoanRequestActivityUser;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemLoanRequestActivityParent = (ItemLoanRequest) parent;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.itemLoanRequestActivityUser = user;
 	}
 
 	@Override

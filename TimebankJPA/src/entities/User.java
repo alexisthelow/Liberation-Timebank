@@ -46,13 +46,13 @@ public class User {
 	private String email;
 	
 	@Column(name = "password")
-	private String hashedPassword;
+	private String password;
 	
 	@Column(name = "password_salt")
 	private String passwordSalt;
 	
-	@Column(name = "password_hash")
-	private String passwordHash;
+	@Column(name = "hash_algorithm")
+	private String passwordHashAlgorithm;
 	
 	private Timestamp created;
 	
@@ -80,115 +80,115 @@ public class User {
 	//service offers
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceOfferUser", cascade = CascadeType.PERSIST)
 	private Set<ServiceOffer> userServiceOffers;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceOfferRecipient", cascade = CascadeType.PERSIST)
 	private Set<ServiceOfferTx> userServiceOfferTxs;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceOfferActivityUser", cascade = CascadeType.PERSIST)
 	private Set<ServiceOfferActivity> userServiceOfferActivities;
 	
 	//service requests
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceRequestUser", cascade = CascadeType.PERSIST)
 	private Set<ServiceRequest> userServiceRequests;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceRequestProvider", cascade = CascadeType.PERSIST)
 	private Set<ServiceRequestTx> userServiceRequestTxProvides;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "serviceRequestActivityUser", cascade = CascadeType.PERSIST)
 	private Set<ServiceRequestActivity> userServiceRequestActivities;
 	
 	//item transfer offers
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferOfferUser", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferOffer> userItemTransferOffers;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferOfferTxRecipient", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferOfferTx> userItemTransferOfferTxReceives;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferOfferActivityUser", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferOfferActivity> userItemTransferOfferActivities;
 	
 	//item transfer requests
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferRequestUser", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferRequest> userItemTransferRequests;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferRequestTxProvider", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferRequestTx> userItemTransferRequestTxProvides;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemTransferRequestActivityUser", cascade = CascadeType.PERSIST)
 	private Set<ItemTransferRequestActivity> userItemTransferRequestActivities;
 	
 	//item loan requests
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanRequestUser", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanRequest> userItemLoanRequests;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanRequestActivityUser", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanRequestActivity> userItemLoanRequestActivities;
 
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanRequestTxLender", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanRequestTx> userItemLoanRequestTxLends;
 
 	// item loan offers
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanOfferUser", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanOffer> userItemLoanOffers;
 
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanOfferActivityUser", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanOfferActivity> userItemLoanOfferActivities;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "itemLoanOfferTxBorrower", cascade = CascadeType.PERSIST)
 	private Set<ItemLoanOfferTx> userItemLoanOfferTxBorrows;
 	
 	//timebank
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "timebank_user", joinColumns=@JoinColumn(name = "user_id"), inverseJoinColumns=@JoinColumn(name = "timebank_id"))
 	private Set<Timebank> userTimebanks;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "timebank_moderator", joinColumns=@JoinColumn(name = "moderator_id"), inverseJoinColumns=@JoinColumn(name = "timebank_id"))
 	private Set<Timebank> userModeratorTimebanks;
@@ -196,12 +196,12 @@ public class User {
 	//intra user messaging
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@ManyToMany(mappedBy = "messageThreadParticipants", cascade = CascadeType.PERSIST)
 	private Set<MessageThread> userMessageThreads;
 	
 	@JsonIgnore
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SELECT)
 	@OneToMany(mappedBy = "participantUser", cascade = CascadeType.PERSIST)
 	private Set<Reply> userMessageThreadReplies;
 
@@ -245,12 +245,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getHashedPassword() {
-		return hashedPassword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setHashedPassword(String hashedPassword) {
-		this.hashedPassword = hashedPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getPasswordSalt() {
@@ -261,12 +261,12 @@ public class User {
 		this.passwordSalt = passwordSalt;
 	}
 
-	public String getPasswordHash() {
-		return passwordHash;
+	public String getPasswordHashAlgorithm() {
+		return passwordHashAlgorithm;
 	}
 
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+	public void setPasswordHashAlgorithm(String passwordHashAlgorithm) {
+		this.passwordHashAlgorithm = passwordHashAlgorithm;
 	}
 
 	public Timestamp getCreated() {

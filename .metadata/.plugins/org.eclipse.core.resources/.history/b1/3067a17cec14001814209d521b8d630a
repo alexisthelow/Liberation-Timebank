@@ -1,0 +1,21 @@
+package data;
+
+public interface LoginDAO {
+	
+	//create
+		//new login
+	
+	//read
+		//check login
+		//recover username
+	
+	//update
+		//change password
+		//change email
+		//recover password
+	
+	//destroy
+		//nothing here i think
+
+
+}

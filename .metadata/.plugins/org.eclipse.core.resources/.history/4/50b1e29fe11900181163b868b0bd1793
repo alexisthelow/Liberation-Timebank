@@ -1,0 +1,71 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+import entities.ServiceOffer;
+import entities.ServiceRequest;
+import entities.User;
+import interfaces.Transaction;
+
+public interface UserDAO {
+	
+	//create
+
+		//user
+	
+	public User createUser(int timebankId, int addressId, String userJson);
+	
+	//read 
+	
+		//check login
+
+	public User login(String email, String password);
+	
+		//indices
+	
+	public List<User> getUsersByTimebank(int timebankId);
+	public List<User> getModeratorsByTimebank(int timebankId);
+	
+		//single objects
+	
+	public User showUser(int userId);
+	public Double showUserHoursByUserId(int timebankId, int userId);
+	
+		//offers + requests
+	
+	public Set<Offer> indexUserOffers(int userId);
+	public Set<Request> indexUserRequests(int userId);
+	
+	public List<ServiceOffer> indexUserServiceOffers(int userId);
+	public List<ServiceRequest> indexUserServiceRequests(int userId);
+	public List<ItemTransferOffer> indexUserItemTransferOffers(int userId);
+	public List<ItemTransferRequest> indexUserItemTransferRequests(int userId);
+	public List<ItemLoanOffer> indexUserItemLoanOffers(int userId);
+	public List<ItemLoanRequest> indexUserItemLoanRequests(int userId);
+	
+		//transactions
+	
+	public List<Transaction> indexUserServiceOfferTxs(int timebankId, int userId);
+	public List<Transaction> indexUserServiceRequestTxs(int timebankId, int userId); 
+	public List<Transaction> indexUserItemTransferOfferTxs(int timebankId, int userId);
+	public List<Transaction> indexUserItemTransferRequestTxs(int timebankId, int userId);
+	public List<Transaction> indexUserItemLoanOfferTxs(int timebankId, int userId);
+	public List<Transaction> indexUserItemLoanRequestTxs(int timebankId, int userId);
+	
+	//update
+	
+	public Boolean updatePassword(int actingUserId, int userId, String oldPassword, String newPassword);
+	public Boolean recoverPassword(String email);
+	public Boolean updateEmail(int actingUserId, int userId, String email);
+	public User updateUser(int actingUserId, int userId, int addressId, String userJson);
+	public Double updateUserHours(int timebankId, int userId, Double hourDifference);
+	
+	//destroy
+	
+	public Boolean deactivateUser(int userId, int actingUserId);
+
+}

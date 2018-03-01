@@ -1,0 +1,269 @@
+package entities;
+
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import interfaces.Transaction;
+
+@Entity
+@Table(name = "item_transfer_offer_tx")
+public class ItemTransferOfferTx implements Transaction {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JsonIgnore
+	@Fetch(FetchMode.JOIN)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "item_transfer_offer_id")
+	private ItemTransferOffer itemTransferOfferTxParent;
+	
+	@Fetch(FetchMode.JOIN)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "recipient_user_id")
+	private User itemTransferOfferTxRecipient;
+	
+	private Timestamp created;
+	
+	@Column(name = "provider_accept")
+	private Timestamp providerAccept;
+	
+	@Column(name = "provider_reject")
+	private Timestamp providerReject;
+	
+	@Column(name = "provider_complete")
+	private Timestamp providerComplete;
+	
+	@Column(name = "recipient_complete")
+	private Timestamp recipientComplete;
+	
+	@Column(name = "moderator_closed")
+	private Boolean moderatorClosed;
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "closing_moderator_id")
+	private User closingModerator;
+	
+	@Column(name = "last_update")
+	private Timestamp lastUpdate;
+
+	@Fetch(FetchMode.JOIN)
+	@OneToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "last_update_user_id")
+	private User lastUpdateUser;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public ItemTransferOffer getItemTransferOfferTxParent() {
+		return itemTransferOfferTxParent;
+	}
+
+	public void setItemTransferOfferTxParent(ItemTransferOffer itemTransferOfferTxParent) {
+		this.itemTransferOfferTxParent = itemTransferOfferTxParent;
+	}
+
+	public User getItemTransferOfferTxRecipient() {
+		return itemTransferOfferTxRecipient;
+	}
+
+	public void setItemTransferOfferTxRecipient(User itemTransferOfferTxRecipient) {
+		this.itemTransferOfferTxRecipient = itemTransferOfferTxRecipient;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public Timestamp getProviderAccept() {
+		return providerAccept;
+	}
+
+	public void setProviderAccept(Timestamp providerAccept) {
+		this.providerAccept = providerAccept;
+	}
+
+	public Timestamp getProviderReject() {
+		return providerReject;
+	}
+
+	public void setProviderReject(Timestamp providerReject) {
+		this.providerReject = providerReject;
+	}
+
+	public Timestamp getProviderComplete() {
+		return providerComplete;
+	}
+
+	public void setProviderComplete(Timestamp providerComplete) {
+		this.providerComplete = providerComplete;
+	}
+
+	public Timestamp getRecipientComplete() {
+		return recipientComplete;
+	}
+
+	public void setRecipientComplete(Timestamp recipientComplete) {
+		this.recipientComplete = recipientComplete;
+	}
+
+	public Boolean getModeratorClosed() {
+		return moderatorClosed;
+	}
+
+	public void setModeratorClosed(Boolean moderatorClosed) {
+		this.moderatorClosed = moderatorClosed;
+	}
+
+	public User getClosingModerator() {
+		return closingModerator;
+	}
+
+	public void setClosingModerator(User closingModerator) {
+		this.closingModerator = closingModerator;
+	}
+
+	public Timestamp getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Timestamp lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	public void setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemTransferOfferTxParent;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemTransferOfferTxRecipient;
+	}
+
+	@Override
+	public Timestamp getParentUserAccept() {
+		return this.providerAccept;
+	}
+
+	@Override
+	public Timestamp getParentUserReject() {
+		return this.providerReject;
+	}
+
+	@Override
+	public Timestamp getOwnerComplete() {
+		return this.recipientComplete;
+	}
+
+	@Override
+	public Timestamp getParentUserComplete() {
+		return this.providerComplete;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemTransferOfferTxParent = (ItemTransferOffer) parent;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemTransferOfferTxRecipient = owner;
+	}
+
+	@Override
+	public void setParentUserAccept(Timestamp accept) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParentUserReject(Timestamp reject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOwnerComplete(Timestamp complete) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParentUserComplete(Timestamp complete) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemTransferOfferTx other = (ItemTransferOfferTx) obj;
+		if (id != other.id)
+			return false;
+		if (lastUpdate == null) {
+			if (other.lastUpdate != null)
+				return false;
+		} else if (!lastUpdate.equals(other.lastUpdate))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ItemTransferOfferTx [id=").append(id).append(", created=").append(created)
+				.append(", providerAccept=").append(providerAccept).append(", providerReject=").append(providerReject)
+				.append("]");
+		return builder.toString();
+	}
+
+}

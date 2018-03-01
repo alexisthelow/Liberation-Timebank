@@ -1,0 +1,241 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOffer;
+import entities.ServiceOfferActivity;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestActivity;
+import entities.ServiceRequestTx;
+import entities.Timebank;
+import entities.User;
+
+@Transactional
+@Repository
+public class ModeratorDAOImpl implements ModeratorDAO {
+	
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public User promoteUser(int timebankId, int userId) {
+		String query = "INSERT INTO timebank_moderator (moderator_id, timebank_id) VALUES (:userId, :timebankId)";
+		em.createNativeQuery(query).setParameter("userId", userId).setParameter("timebankId", timebankId).executeUpdate();
+		return em.find(User.class, userId); //TODO why am i returning a user here
+	}
+
+	@Override
+	public User demoteUser(int timebankId, int userId) {
+		String query = "DELETE FROM timebank_moderator WHERE moderator_id = :userId";
+		em.createNativeQuery(query).setParameter("userId", userId).executeUpdate() ;
+		return em.find(User.class, userId);	//TODO why?
+	}
+
+	@Override
+	public Boolean removeUserFromTimebank(int timebankId, int userId) {
+		String query = "DELETE FROM timebank_user WHERE user_id = :userId";
+		em.createNativeQuery(query).setParameter("userId", userId).executeUpdate();
+		return !em.find(User.class, userId).getUserTimebanks().contains(em.find(Timebank.class, timebankId));		//returns true if the user doesn't have this timebank
+	}
+
+	@Override
+	public Boolean banUser(int userId) {
+		String query = "INSERT INTO user_account (active) VALUES (0) WHERE user_id = :userId";
+		em.createNativeQuery(query).setParameter("userId", userId).executeUpdate();
+		return !em.find(User.class, userId).getActive();			//returns true if user is not active
+	}
+
+	@Override
+	public Double alterUserHours(int timebankId, int userId, Double hourDifference) {
+		String url = "jdbc:mysql://localhost:3306/timebankdb";
+		String user = "root";
+		String pass = "root";
+		Double userHours = null;
+		
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT hours FROM timebank_user WHERE user_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, userId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				userHours = rs.getDouble(3);
+				userHours += hourDifference;
+				sql = "INSERT INTO timebank_user (hours) VALUES (?)";
+				conn.setAutoCommit(false);
+				stmt = conn.prepareStatement(sql);
+				stmt.setDouble(1, userHours);
+				stmt.execute();
+				conn.commit();
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return userHours;
+	}
+
+	@Override
+	public Boolean closeServiceOffer(int offerId, int userId) {
+		ServiceOffer managedOffer = em.find(ServiceOffer.class, offerId);
+		managedOffer.setModeratorClosed(true);
+		managedOffer.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ServiceOffer.class, offerId).getModeratorClosed();		//returns true if close was successful
+	}
+
+	@Override
+	public Boolean closeServiceRequest(int requestId, int userId) {
+		ServiceRequest managedRequest = em.find(ServiceRequest.class, requestId);
+		managedRequest.setModeratorClosed(true);
+		managedRequest.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ServiceRequest.class, requestId).getModeratorClosed();		//returns true if close was successful
+	}
+
+	@Override
+	public Boolean closeItemTransferOffer(int offerId, int userId) {
+		ItemTransferOffer managedOffer = em.find(ItemTransferOffer.class, offerId);
+		managedOffer.setModeratorClosed(true);
+		managedOffer.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemTransferOffer.class, offerId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemTransferRequest(int requestId, int userId) {
+		ItemTransferRequest managedRequest = em.find(ItemTransferRequest.class, requestId);
+		managedRequest.setModeratorClosed(true);
+		managedRequest.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemTransferRequest.class, requestId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemLoanOffer(int offerId, int userId) {
+		ItemLoanOffer managedOffer = em.find(ItemLoanOffer.class, offerId);
+		managedOffer.setModeratorClosed(true);
+		managedOffer.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemLoanOffer.class, offerId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemLoanRequest(int requestId, int userId) {
+		ItemLoanRequest managedRequest = em.find(ItemLoanRequest.class, requestId);
+		managedRequest.setModeratorClosed(true);
+		managedRequest.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemLoanRequest.class, requestId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean hideServiceOfferActivity(int activityId, int moderatorId) {
+		ServiceOfferActivity managedActivity = em.find(ServiceOfferActivity.class, activityId);
+		managedActivity.setModeratorHide(true);
+		managedActivity.setHidingModerator(em.find(User.class, moderatorId));
+		return !em.find(ServiceOfferActivity.class, activityId).getModeratorHide();
+	}
+
+	@Override
+	public Boolean hideServiceRequestActivity(int activityId, int moderatorId) {
+		ServiceRequestActivity managedActivity = em.find(ServiceRequestActivity.class, activityId);
+		managedActivity.setModeratorHide(true);
+		managedActivity.setHidingModerator(em.find(User.class, moderatorId));
+		return !em.find(ServiceRequestActivity.class, activityId).getModeratorHide();
+	}
+
+	@Override
+	public Boolean hideItemTransferOfferActivity(int activityId, int moderatorId) {
+		ItemTransferOfferActivity managedActivity = em.find(ItemTransferOfferActivity.class, activityId);
+		managedActivity.setModeratorHide(true);
+		managedActivity.setHidingModerator(em.find(User.class, moderatorId));
+		return !em.find(ItemTransferOfferActivity.class, activityId).getModeratorHide();
+	}
+
+	@Override
+	public Boolean hideItemTransferRequestActivity(int activityId, int moderatorId) {
+		ItemTransferRequestActivity managedActivity = em.find(ItemTransferRequestActivity.class, activityId);
+		managedActivity.setModeratorHide(true);
+		managedActivity.setHidingModerator(em.find(User.class, moderatorId));
+		return !em.find(ItemTransferRequestActivity.class, activityId).getModeratorHide();
+	}
+
+	@Override
+	public Boolean hideItemLoanOfferActivity(int activityId, int moderatorId) {
+		ItemLoanOfferActivity managedActivity = em.find(ItemLoanOfferActivity.class, activityId);
+		managedActivity.setModeratorHide(true);
+		managedActivity.setHidingModerator(em.find(User.class, moderatorId));
+		return !em.find(ItemLoanOfferActivity.class, activityId).getModeratorHide();
+	}
+
+	@Override
+	public Boolean hideItemLoanRequestActivity(int activityId, int moderatorId) {
+		ItemLoanRequestActivity managedActivity = em.find(ItemLoanRequestActivity.class, activityId);
+		managedActivity.setModeratorHide(true);
+		managedActivity.setHidingModerator(em.find(User.class, moderatorId));
+		return !em.find(ItemLoanRequestActivity.class, activityId).getModeratorHide();
+	}
+
+	@Override
+	public Boolean closeServiceOfferTx(int offerTxId, int userId) {
+		ServiceOfferTx managedTx = em.find(ServiceOfferTx.class, offerTxId);
+		managedTx.setModeratorClosed(true);
+		managedTx.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ServiceOfferTx.class, offerTxId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeServiceRequestTx(int requestTxId, int userId) {
+		ServiceRequestTx managedTx = em.find(ServiceRequestTx.class, requestTxId);
+		managedTx.setModeratorClosed(true);
+		managedTx.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ServiceRequestTx.class, requestTxId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemTransferOfferTx(int offerTxId, int userId) {
+		ItemTransferOfferTx managedTx = em.find(ItemTransferOfferTx.class, offerTxId);
+		managedTx.setModeratorClosed(true);
+		managedTx.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemTransferOfferTx.class, offerTxId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemTransferRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanOfferTx(int offerTxId, int userId) {
+		ItemLoanOfferTx managedTx = em.find(ItemLoanOfferTx.class, offerTxId);
+		managedTx.setModeratorClosed(true);
+		managedTx.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemLoanOfferTx.class, offerTxId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemLoanRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

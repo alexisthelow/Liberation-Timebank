@@ -19,9 +19,12 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Loan;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "item_loan_request_tx")
-public class ItemLoanRequestTx {
+public class ItemLoanRequestTx implements Loan, Transaction {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +41,6 @@ public class ItemLoanRequestTx {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User itemLoanRequestTxLender;
 	
-	@Column(name = "created")
 	private Timestamp created;
 	
 	@Column(name = "borrower_accept")
@@ -156,7 +158,7 @@ public class ItemLoanRequestTx {
 		this.beginDate = beginDate;
 	}
 
-	public int getRenewCount() {
+	public Integer getRenewCount() {
 		return renewCount;
 	}
 
@@ -218,6 +220,116 @@ public class ItemLoanRequestTx {
 
 	public void setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemLoanRequestTxParent;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemLoanRequestTxLender;
+	}
+
+	@Override
+	public Timestamp getParentUserAccept() {
+		return this.borrowerAccept;
+	}
+
+	@Override
+	public Timestamp getParentUserReject() {
+		return this.borrowerReject;
+	}
+
+	@Override
+	public Timestamp getOwnerComplete() {
+		return this.lenderComplete;
+	}
+
+	@Override
+	public Timestamp getParentUserComplete() {
+		return this.borrowerComplete;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemLoanRequestTxParent = (ItemLoanRequest) parent;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemLoanRequestTxLender = owner;
+	}
+
+	@Override
+	public void setParentUserAccept(Timestamp accept) {
+		this.borrowerAccept = accept;
+	}
+
+	@Override
+	public void setParentUserReject(Timestamp reject) {
+		this.borrowerReject = reject;
+	}
+
+	@Override
+	public void setOwnerComplete(Timestamp complete) {
+		this.lenderComplete = complete;
+	}
+
+	@Override
+	public void setParentUserComplete(Timestamp complete) {
+		this.borrowerComplete = complete;
+	}
+	
+	@Override
+	public Integer getDaysRequested() {
+		return this.itemLoanRequestTxParent.getDaysRequested();
+	}
+
+	@Override
+	public void setDaysRequested(Integer days) {
+		throw new UnsupportedOperationException("Cannot set days requested on a loan request.");
+	}
+
+	@Override
+	public Integer getDaysProvided() {
+		return this.itemLoanRequestTxParent.getDaysRequested();
+	}
+
+	@Override
+	public void setDaysProvided(Integer days) {
+		throw new UnsupportedOperationException("Cannot set days provided on a loan request.");
+	}
+
+	@Override
+	public Timestamp getParentUserStart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setParentUserStart(Timestamp start) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Timestamp getOwnerStart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setOwnerStart(Timestamp start) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRenewCount(Integer count) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

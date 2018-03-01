@@ -1,0 +1,136 @@
+package data;
+
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOfferActivity;
+import entities.ServiceRequestActivity;
+
+public class ActivityDaoImpl implements ActivityDAO {
+
+	@Override
+	public ItemTransferOfferActivity createItemTransferOfferActivity(String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequestActivity createItemTransferRequestActivity(String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ItemLoanOfferActivity createItemLoanOfferActivity(String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequestActivity createItemLoanRequestActivity(String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ServiceOfferActivity createServiceOfferActivity(String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ServiceRequestActivity createServiceRequestActivity(String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOfferActivity> getAllItemTransferOfferActivity(int itemTransferOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequestActivity> getAllItemTransferRequestActivity(int itemTransferRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOfferActivity> getAllItemLoanOfferActivity(int itemLoanOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequestActivity> getAllItemLoanRequestActivity(int itemLoanRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferActivity> getAllServiceOfferActivity(int serviceOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequestActivity> getAllServiceRequestActivity(int serviceRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferOfferActivity updateItemTransferOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequestActivity updateItemTransferRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ItemLoanOfferActivity updateItemLoanOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequestActivity updateItemLoanRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ServiceOfferActivity updateServiceOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public ServiceRequestActivity updateServiceRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+}

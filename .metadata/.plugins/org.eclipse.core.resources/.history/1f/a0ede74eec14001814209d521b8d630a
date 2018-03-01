@@ -1,0 +1,33 @@
+package data;
+
+import java.util.List;
+
+import entities.Timebank;
+
+public interface TimebankDAO {
+	
+	//create
+	
+	public Timebank create(String timebankJson);
+	
+	//read
+	
+		//specific timebank
+	
+	public Timebank getTimebankById(int timebankId);
+	
+		//all timebanks
+	
+	public List<Timebank> getAllTimebanks();
+	
+	//update
+	
+		//specific timebank
+	
+	public Timebank update(int timebankId, String timebankJson);
+	
+	//destroy
+	
+		//TODO -- just deactivate them, i think
+
+}

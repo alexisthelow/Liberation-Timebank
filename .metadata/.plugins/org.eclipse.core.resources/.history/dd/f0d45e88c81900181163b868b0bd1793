@@ -1,0 +1,13 @@
+package interfaces;
+
+import entities.Address;
+import entities.LocationCategory;
+
+public interface Location {
+	
+	public int getId();
+	public Object getParent();
+	public LocationCategory getLocationCategory();
+	public Address getAddress();
+
+}

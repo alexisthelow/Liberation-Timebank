@@ -1,0 +1,328 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+import entities.User;
+
+@Transactional
+@Repository
+public class ItemDAOImpl implements ItemDAO {
+
+	@PersistenceContext
+	EntityManager em;
+	
+	@Override
+	public ItemTransferOffer createItemTransferOffer(int userId, int timebankId, String itemTransferOfferJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferOffer newItemTransferOffer = null;
+		
+		try {
+			newItemTransferOffer = mapper.readValue(itemTransferOfferJson, ItemTransferOffer.class);
+			newItemTransferOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemTransferOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemTransferOffer;
+	}
+
+	@Override
+	public ItemTransferRequest createItemTransferRequest(int userId, int timebankId, String itemTransferRequestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferRequest newItemTransferRequest = null;
+		
+		try {
+			newItemTransferRequest = mapper.readValue(itemTransferRequestJson, ItemTransferRequest.class);
+			newItemTransferRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemTransferRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemTransferRequest;
+	}
+
+	@Override
+	public ItemLoanOffer createItemLoanOffer(int userId, int timebankId, String itemLoanOfferJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanOffer newItemLoanOffer = null;
+		
+		try {
+			newItemLoanOffer = mapper.readValue(itemLoanOfferJson, ItemLoanOffer.class);
+			newItemLoanOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemLoanOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemLoanOffer;
+	}
+
+	@Override
+	public ItemLoanRequest createItemLoanRequest(int userId, int timebankId, String itemLoanRequestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanRequest newItemLoanRequest = null;
+		
+		try {
+			newItemLoanRequest = mapper.readValue(itemLoanRequestJson, ItemLoanRequest.class);
+			newItemLoanRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemLoanRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemLoanRequest;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getAllItemTransferOffers(int timebankId) {
+		String query = "SELECT i FROM ItemTransferOffer i WHERE timebankId = :id";
+		return em.createQuery(query, ItemTransferOffer.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequest> getAllItemTransferRequests(int timebankId) {
+		String query = "SELECT i FROM ItemTransferRequest i WHERE timebankId = :id";
+		return em.createQuery(query, ItemTransferRequest.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOffer> getAllItemLoanOffers(int timebankId) {
+		String query = "SELECT i FROM ItemLoanOffer i WHERE timebankId = :id";
+		return em.createQuery(query, ItemLoanOffer.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequest> getAllItemLoanRequests(int timebankId) {
+		String query = "SELECT i FROM ItemLoanRequest i WHERE timebankId = :id";
+		return em.createQuery(query, ItemLoanRequest.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferOffer> getGlobalItemTransferOffers() {
+		String query = "SELECT i FROM ItemTransferOffer i WHERE globalVisibility = 1";
+		return em.createQuery(query, ItemTransferOffer.class).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequest> getGlobalItemTransferRequests() {
+		String query = "SELECT i FROM ItemTransferRequest i WHERE globalVisibility = 1";
+		return em.createQuery(query, ItemTransferRequest.class).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOffer> getGlobalItemLoanOffers() {
+		String query = "SELECT i FROM ItemLoanOffer i WHERE globalVisibility = 1";
+		return em.createQuery(query, ItemLoanOffer.class).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequest> getGlobalItemLoanRequests() {
+		String query = "SELECT i FROM ItemLoanRequest i WHERE globalVisibility = 1";
+		return em.createQuery(query, ItemLoanRequest.class).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferOffer> getItemTransferOffersByCategory(int timebankId, int categoryId) {
+		String query = "SELECT i FROM ItemTransferOffer i WHERE itemTransferOfferCategory = :id";
+		return em.createQuery(query, ItemTransferOffer.class).setParameter("id", categoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequest> getItemTransferRequestsByCategory(int timebankId, int categoryId) {
+		String query = "SELECT i FROM ItemTransferRequest i WHERE itemTransferRequestCategory = :id";
+		return em.createQuery(query, ItemTransferRequest.class).setParameter("id", categoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOffer> getItemLoanOffersByCategory(int timebankId, int categoryId) {
+		String query = "SELECT i FROM ItemLoanOffer i WHERE itemLoanOfferCategory = :id";
+		return em.createQuery(query, ItemLoanOffer.class).setParameter("id", categoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequest> getItemLoanRequestByCategory(int timebankId, int categoryId) {
+		String query = "SELECT i FROM ItemLoanRequest i WHERE itemLoanRequestCategory = :id";
+		return em.createQuery(query, ItemLoanRequest.class).setParameter("id", categoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferOffer> getItemTransferOfferBySubcategory(int timebankId, int subcategoryId) {
+		String query = "SELECT i FROM ItemTransferOffer i WHERE itemTransferOfferSubcategory = :id";
+		return em.createQuery(query, ItemTransferOffer.class).setParameter("id", subcategoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequest> getItemTransferRequestBySubcategory(int timebankId, int subcategoryId) {
+		String query = "SELECT i FROM ItemTransferRequest i WHERE itemTransferRequestSubcategory = :id";
+		return em.createQuery(query, ItemTransferRequest.class).setParameter("id", subcategoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOffer> getItemLoanOfferBySubcategory(int timebankId, int subcategoryId) {
+		String query = "SELECT i FROM ItemLoanOffer i WHERE itemLoanOfferSubcategory = :id";
+		return em.createQuery(query, ItemLoanOffer.class).setParameter("id", subcategoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequest> getItemLoanRequestBySubcategory(int timebankId, int subcategoryId) {
+		String query = "SELECT i FROM ItemLoanRequest i WHERE itemLoanRequestSubcategory = :id";
+		return em.createQuery(query, ItemLoanRequest.class).setParameter("id", subcategoryId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferOffer> searchItemTransferOffers(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> searchItemTransferRequests(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> searchItemLoanOffers(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> searchItemLoanRequests(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferOffer getItemTransferOfferById(int itemTransferOfferId) {
+		return em.find(ItemTransferOffer.class, itemTransferOfferId);
+	}
+
+	@Override
+	public ItemTransferRequest getItemTransferRequestById(int itemTransferRequestId) {
+		return em.find(ItemTransferRequest.class, itemTransferRequestId);
+	}
+
+	@Override
+	public ItemLoanOffer getItemLoanOfferById(int itemLoanOfferId) {
+		return em.find(ItemLoanOffer.class, itemLoanOfferId);
+	}
+
+	@Override
+	public ItemLoanRequest getItemLoanRequestById(int itemLoanRequestId) {
+		return em.find(ItemLoanRequest.class, itemLoanRequestId);
+	}
+
+	@Override
+	public ItemTransferOffer updateItemTransferOffer(int userId, int itemTransferOfferId, String itemTransferOfferJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferOffer managedOffer = em.find(ItemTransferOffer.class, itemTransferOfferId);
+		ItemTransferOffer newOffer = null;
+		
+		try {
+			newOffer = mapper.readValue(itemTransferOfferJson, ItemTransferOffer.class);
+			managedOffer.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedOffer.setLastUpdateUser(em.find(User.class, userId));
+			managedOffer.setItemTransferOfferCategory(newOffer.getItemTransferOfferCategory());
+			managedOffer.setItemTransferOfferSubcategory(newOffer.getItemTransferOfferSubcategory());
+			managedOffer.setTitle(newOffer.getTitle());
+			managedOffer.setDescription(newOffer.getDescription());
+			managedOffer.setActive(newOffer.getActive());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedOffer;
+	}
+
+	@Override
+	public ItemTransferRequest updateItemTransferRequest(int userId, int itemTransferRequestId, String itemTransferRequestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferRequest managedRequest = em.find(ItemTransferRequest.class, itemTransferRequestId);
+		ItemTransferRequest newRequest = null;
+		
+		try {
+			newRequest = mapper.readValue(itemTransferRequestJson, ItemTransferRequest.class);
+			managedRequest.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedRequest.setLastUpdateUser(em.find(User.class, userId));
+			managedRequest.setItemTransferRequestCategory(newRequest.getItemTransferRequestCategory());
+			managedRequest.setItemTransferRequestSubcategory(newRequest.getItemTransferRequestSubcategory());
+			managedRequest.setTitle(newRequest.getTitle());
+			managedRequest.setDescription(newRequest.getDescription());
+			managedRequest.setActive(newRequest.getActive());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return managedRequest;
+	}
+
+	@Override
+	public ItemLoanOffer updateItemLoanOffer(int userId, int itemLoanOfferId, String itemLoanOfferJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public ItemLoanRequest updateItemLoanRequest(int userId, int itemLoanRequestId, String itemLoanRequestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Boolean deactivateItemTransferOffer(int userId, int itemTransferOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemTransferRequest(int userId, int itemTransferRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemLoanOffer(int userId, int itemLoanOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemLoanRequest(int userId, int itemLoanRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+ 
+}

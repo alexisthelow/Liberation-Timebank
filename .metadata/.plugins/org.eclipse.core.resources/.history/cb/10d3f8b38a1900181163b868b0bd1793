@@ -1,0 +1,217 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+import entities.ServiceOffer;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestTx;
+import entities.Timebank;
+import entities.User;
+
+@Transactional
+@Repository
+public class UserDAOImpl implements UserDAO {
+	
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public User createUser(int timebankId, String userJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		String pwSalt = BCrypt.gensalt();
+		Timestamp current = new Timestamp(System.currentTimeMillis());
+		User newUser = null;
+		
+		try {
+			newUser = mapper.readValue(userJson, User.class);
+			
+			//check for duplicates
+			String query = "SELECT u FROM User u WHERE email = :email";
+			List<User> duplicateCheck = em.createQuery(query, User.class).setParameter("email", newUser.getEmail()).getResultList();
+			if (duplicateCheck.size() > 0) {
+				System.err.println("That email is already registered. Email: " + newUser.getEmail());
+				return null;
+			}
+			
+			//no duplicates found
+			newUser.setCreated(current);
+			newUser.setLastLogin(current);
+			String pwHash = BCrypt.hashpw(newUser.getPassword(), pwSalt);
+			newUser.setPassword(pwHash);
+			newUser.setPasswordSalt(pwSalt);
+			newUser.setPasswordHashAlgorithm("blowfish");
+			newUser.setActive(true);
+			em.persist(newUser);
+			em.flush();
+			
+			String update = "INSERT INTO timebank_user (user_id, timebank_id, hours) VALUES (:userId, :timebankId, :hours)";
+			em.createNativeQuery(update).setParameter("userId", newUser.getId()).setParameter("timebankId", timebankId).setParameter("hours", 0.0).executeUpdate();
+		}
+		catch (Exception e) {
+			System.err.println("Could not register user at UserDAOImpl.createUser()");
+			System.err.println("User json: " + userJson);
+			e.printStackTrace();
+		}
+		return em.find(User.class, newUser.getId());
+	}
+
+	@Override
+	public User login(String email, String password) {
+		String query = "SELECT u FROM User u WHERE email = :email";
+		User requestingUser = em.createQuery(query, User.class).setParameter("email", email).getResultList().get(0);
+		
+		if (BCrypt.checkpw(password + requestingUser.getPasswordSalt(), requestingUser.getPassword())) {
+			return requestingUser;
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<User> getUsersByTimebank(int timebankId) {
+		return new ArrayList<User>(em.find(Timebank.class, timebankId).getTimebankUsers());
+	}
+
+	@Override
+	public List<User> getModeratorsByTimebank(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User showUser(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double showUserHoursByUserId(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOffer> getUserServiceOffers(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequest> getUserServiceRequests(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getUserItemTransferOffers(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> getUserItemTransferRequests(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> getUserItemLoanOffers(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> getUserItemLoanRequests(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferTx> getUserServiceOfferTxs(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequestTx> getUserServiceRequestTxs(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getUserItemTransferOfferTxs(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> getUserItemTransferRequestTxs(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> getUserItemLoanOfferTxs(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> getUserItemLoanRequestTxs(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean updatePassword(int userId, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean recoverPassword(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean updateEmail(int userId, String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateUser(int userId, String userJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double updateUserHours(int timebankId, int userId, Double hourDifference) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateUser(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

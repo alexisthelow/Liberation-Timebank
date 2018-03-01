@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import interfaces.Activity;
+
 @Entity
 @Table(name = "item_loan_offer_activity")
-public class ItemLoanOfferActivity {
+public class ItemLoanOfferActivity implements Activity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,6 +127,26 @@ public class ItemLoanOfferActivity {
 
 	public void setHidingModerator(User hidingModerator) {
 		this.hidingModerator = hidingModerator;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemLoanOfferActivityParent;
+	}
+
+	@Override
+	public User getUser() {
+		return this.itemLoanOfferActivityUser;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemLoanOfferActivityParent = (ItemLoanOffer) parent;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.itemLoanOfferActivityUser = user;
 	}
 
 	@Override

@@ -1,0 +1,22 @@
+package data;
+
+import entities.Timebank;
+
+public interface TimebankDAO {
+	
+	//create
+	
+	public Timebank createTimebank(String timebankJson);
+	
+	
+	//read
+		//specific timebank
+		//all timebanks
+	
+	//update
+		//specific timebank
+	
+	//destroy
+		//TODO -- just deactivate them, i think
+
+}

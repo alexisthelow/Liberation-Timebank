@@ -1,0 +1,61 @@
+package data;
+
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Address;
+
+public class AddressDAOImpl implements AddressDAO {
+
+	@Override
+	public Address createAddress(String addressJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+ 		return null;
+	}
+
+	@Override
+	public Address getAddressById(int addressId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Address> getAddressesByZip(int zip) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Address> getAddressesByState(String state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Address> getAddressesByCountry(String country) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Address updateAddress(int addressId, String addressJson) {
+		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		return null;
+	}
+
+	@Override
+	public Boolean destroyAddress(int addressId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

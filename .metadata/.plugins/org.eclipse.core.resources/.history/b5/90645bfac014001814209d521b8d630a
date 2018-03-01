@@ -1,0 +1,9 @@
+package data;
+
+public interface ModeratorDAO {
+	
+	//deactivate user
+	
+	//deactivate services + items
+
+}

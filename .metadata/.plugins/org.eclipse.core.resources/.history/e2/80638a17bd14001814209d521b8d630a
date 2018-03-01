@@ -1,0 +1,33 @@
+package data;
+
+import entities.ItemLoanOffer;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+
+public interface ItemDAO {
+	
+	//ITEM TRANSFERS
+	//create
+	public ItemTransferOffer createItemTransferOffer(int timebankId, String itemTransferOfferJson);
+	public ItemTransferRequest createItemTransferRequest(int timebankId, String itemTransferRequestJson);
+	public ItemLoanOffer createItemLoanOffer(int timebankId, String itemLoanOfferJson);
+	public ItemLoanRequest createItemLoanRequest(int timebankId, String itemLoanRequestJson);
+	
+	
+	//read
+	
+	//update
+	
+	//destroy
+	
+	//ITEM LOANS
+	//create
+	
+	//read
+	
+	//update
+	
+	//destroy
+	
+
+}

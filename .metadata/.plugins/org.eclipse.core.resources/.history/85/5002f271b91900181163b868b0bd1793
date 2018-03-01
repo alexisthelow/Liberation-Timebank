@@ -1,0 +1,22 @@
+package interfaces;
+
+import java.sql.Timestamp;
+import java.util.Set;
+
+import entities.ServiceCategory;
+import entities.ServiceSubcategory;
+
+public interface Service {
+	
+	public int getId();
+	public ServiceCategory getCategory();
+	public ServiceSubcategory getSubcategory();
+	public Boolean getRequiresSupplies();
+	public Boolean getSupplyCostEstimate();
+	public Timestamp getCreated();
+	public Timestamp getLastUpdated();
+	public Boolean getActive();
+	public Set<Location> getOrigins();
+	public Set<Destination> getDestinations();
+
+}

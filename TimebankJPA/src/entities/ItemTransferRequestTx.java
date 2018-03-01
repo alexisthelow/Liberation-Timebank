@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "item_transfer_request_tx")
-public class ItemTransferRequestTx {
+public class ItemTransferRequestTx implements Transaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -158,6 +160,66 @@ public class ItemTransferRequestTx {
 
 	public void setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.itemTransferRequestTxParent;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemTransferRequestTxProvider;
+	}
+
+	@Override
+	public Timestamp getParentUserAccept() {
+		return this.recipientAccept;
+	}
+
+	@Override
+	public Timestamp getParentUserReject() {
+		return this.recipientReject;
+	}
+
+	@Override
+	public Timestamp getOwnerComplete() {
+		return this.providerComplete;
+	}
+
+	@Override
+	public Timestamp getParentUserComplete() {
+		return this.recipientComplete;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.itemTransferRequestTxParent = (ItemTransferRequest) parent;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemTransferRequestTxProvider = owner;
+	}
+
+	@Override
+	public void setParentUserAccept(Timestamp accept) {
+		this.recipientAccept = accept;
+	}
+
+	@Override
+	public void setParentUserReject(Timestamp reject) {
+		this.recipientReject = reject;
+	}
+
+	@Override
+	public void setOwnerComplete(Timestamp complete) {
+		this.providerComplete = complete;
+	}
+
+	@Override
+	public void setParentUserComplete(Timestamp complete) {
+		this.recipientComplete = complete;
 	}
 
 	@Override

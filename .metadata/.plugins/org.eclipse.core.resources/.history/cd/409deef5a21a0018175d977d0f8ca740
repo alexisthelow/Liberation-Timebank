@@ -1,0 +1,18 @@
+package interfaces;
+
+import java.sql.Date;
+
+public interface Loan extends Transaction {
+	
+	public int getDaysRequested();
+	public void setDaysRequested();
+	public int getDaysProvided();
+	public void setDaysProvided();
+	public Date getBeginDate();
+	public void setBeginDate(Date date);
+	public Date getDueDate();
+	public void setDueDate();
+	public int getRenewCount();
+	public void setRenewCount(int count)
+
+}

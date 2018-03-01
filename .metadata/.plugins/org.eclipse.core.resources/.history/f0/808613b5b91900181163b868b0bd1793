@@ -1,0 +1,17 @@
+package interfaces;
+
+import java.sql.Timestamp;
+
+import entities.User;
+
+public interface Activity {
+	
+	public int getId();
+	public Object getParent();
+	public User getUser();
+	public String getMessage();
+	public Timestamp getPosted();
+	public Timestamp getLastUpdate();
+	public Boolean moderatorHide();
+
+}

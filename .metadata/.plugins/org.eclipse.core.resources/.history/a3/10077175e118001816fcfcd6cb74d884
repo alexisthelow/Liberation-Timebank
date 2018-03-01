@@ -1,0 +1,104 @@
+package controllers;
+
+import java.util.Set;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestActivity;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestActivity;
+import entities.ItemTransferRequestTx;
+
+public interface ItemControllerInterface {
+	
+	//create
+	
+		public ItemTransferOffer createItemTransferOffer();
+		public ItemTransferOfferActivity createItemTransferOfferActivity();
+		public ItemTransferOfferTx createItemTransferOfferTx();
+		
+		public ItemTransferRequest createItemTransferRequest();
+		public ItemTransferRequestActivity createItemTransferRequestActivity();
+		public ItemTransferRequestTx createItemTransferRequestTx();
+		
+		public ItemLoanOffer createItemLoanOffer();
+		public ItemLoanOfferActivity createItemLoanOfferActivity();
+		public ItemLoanOfferTx createItemLoanOfferTx();
+		
+		public ItemLoanRequest createItemLoanRequest();
+		public ItemLoanRequestActivity createItemLoanRequestActivity();
+		public ItemLoanRequestTx createItemLoanRequestTx();
+		
+	//read
+
+		//just one
+		
+		public ItemTransferOffer showItemTransferOffer();
+		public ItemTransferOfferActivity showItemTransferOfferActivity();
+		public ItemTransferOfferTx showItemTransferOfferTx();
+		
+		public ItemTransferRequest showItemTransferRequest();
+		public ItemTransferRequestActivity showItemTransferRequestActivity();
+		public ItemTransferRequestTx showItemTransferRequestTx();
+		
+		public ItemLoanOffer showItemLoanOffer();
+		public ItemLoanOfferActivity showItemLoanOfferActivity();
+		public ItemLoanOfferTx showItemLoanOfferTx();
+		
+		public ItemLoanRequest showItemLoanRequest();
+		public ItemLoanRequestActivity showItemLoanRequestActivity();
+		public ItemLoanRequestTx showItemLoanRequestTx();
+		
+		//index of parts
+		
+		public Set<ItemTransferOfferActivity> showAllItemTransferOfferActivity();
+		public Set<ItemTransferOfferTx> showAllItemTransferOfferTx();
+		
+		public Set<ItemTransferRequestActivity> showAllItemTransferRequestActivity();
+		public Set<ItemTransferRequestTx> showAllItemTransferRequestTx();
+		
+		public Set<ItemLoanOfferActivity> showAllItemLoanOfferActivity();
+		public Set<ItemLoanOfferTx> showAllItemLoanOfferTx();
+		
+		public Set<ItemLoanRequestActivity> showAllItemLoanRequestActivity();
+		public Set<ItemLoanRequestTx> showAllItemLoanRequestTx();
+		
+		//index by user
+		
+		public Set<ItemTransferOffer> showUserItemTransferOffers();
+		public Set<ItemTransferOfferTx> showUserItemTransferOfferTxs();
+		public Set<ItemTransferRequest> showUserItemTransferRequests();
+		public Set<ItemTransferRequestTx> showUserItemTransferRequestTxs();
+		public Set<ItemLoanOffer> showUserItemLoanOffers();
+		public Set<ItemLoanOfferTx> showUserItemLoanOfferTxs();
+		public Set<ItemLoanRequest> showUserItemLoanRequests();
+		public Set<ItemLoanRequestTx> showUserItemLoanRequestTxs();
+		
+		//index by timebank
+		
+		public Set<ItemTransferOffer> showTimebankItemTransferOffers();
+		public Set<ItemTransferRequest> showTimebankItemTransferRequests();
+		public Set<ItemLoanOffer> showTimebankItemLoanOffers();
+		public Set<ItemLoanRequest> showTimebankItemLoanRequests();
+		
+	//update
+		
+		//just one
+		
+		//transaction processes
+	
+	
+	//destroy
+		
+		//deactivate things
+	
+	
+	
+
+}

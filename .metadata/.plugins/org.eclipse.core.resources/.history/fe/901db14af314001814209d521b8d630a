@@ -1,0 +1,122 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOfferActivity;
+import entities.ServiceRequestActivity;
+
+public class ActivityDAOImpl implements ActivityDAO {
+
+	@Override
+	public ItemTransferOfferActivity createItemTransferOfferActivity(int offerId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequestActivity createItemTransferRequestActivity(int requestId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanOfferActivity createItemLoanOfferActivity(int offerId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequestActivity createItemLoanRequestActivity(int requestId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferActivity createServiceOfferActivity(int offerId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestActivity createServiceRequestActivity(int requestId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOfferActivity> getAllItemTransferOfferActivity(int itemTransferOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequestActivity> getAllItemTransferRequestActivity(int itemTransferRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOfferActivity> getAllItemLoanOfferActivity(int itemLoanOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequestActivity> getAllItemLoanRequestActivity(int itemLoanRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferActivity> getAllServiceOfferActivity(int serviceOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequestActivity> getAllServiceRequestActivity(int serviceRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferOfferActivity updateItemTransferOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequestActivity updateItemTransferRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanOfferActivity updateItemLoanOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequestActivity updateItemLoanRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferActivity updateServiceOfferActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestActivity updateServiceRequestActivity(int activityId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

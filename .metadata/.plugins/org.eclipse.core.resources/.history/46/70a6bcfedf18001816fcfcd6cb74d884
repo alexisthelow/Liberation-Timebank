@@ -1,0 +1,37 @@
+package controllers;
+
+public interface ItemControllerInterface {
+	
+	//create
+	
+		public ItemTransferOffer createItemTransferOffer();
+		public ItemTransferOfferActivity createItemTransferOfferActivity();
+		public ItemTransferOfferTx createItemTransferOfferTx();
+		
+		public ItemTransferRequest createItemTransferRequest();
+		public ItemTransferRequestActivity createItemTransferRequestActivity();
+		public ItemTransferRequestTx createItemTransferRequestTx();
+		
+		public ItemLoanOffer createItemLoanOffer();
+		public ItemLoanOfferActivity createItemLoanOfferActivity();
+		public ItemLoanOfferTx createItemLoanOfferTx();
+		
+		public ItemLoanRequest createItemLoanRequest();
+		public ItemLoanRequestActivity createItemLoanRequestActivity();
+		public ItemLoanRequestTx createItemLoanRequestTx();
+		
+		
+		public ItemTransferOffer
+	
+	//read
+	
+	
+	//update
+	
+	
+	//destroy
+	
+	
+	
+
+}

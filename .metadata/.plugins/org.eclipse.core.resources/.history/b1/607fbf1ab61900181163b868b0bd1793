@@ -1,0 +1,14 @@
+package interfaces;
+
+import entities.ServiceCategory;
+import entities.ServiceSubcategory;
+
+public interface Service {
+	
+	public int getId();
+	public ServiceCategory getCategory();
+	public ServiceSubcategory getSubcategory();
+	public Boolean getRequiresSupplies();
+	public Boolean getSupplyCostEstimate();
+
+}

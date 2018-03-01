@@ -1,0 +1,154 @@
+package data;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import entities.User;
+
+@Transactional
+@Repository
+public class ModeratorDAOImpl implements ModeratorDAO {
+	
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public User promoteUser(int timebankId, int userId) {
+		String query = "INSERT INTO timebank_moderator (moderator_id, timebank_id) VALUES (:userId, :timebankId)";
+		em.createN
+		return null;
+	}
+
+	@Override
+	public User demoteUser(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean removeUserFromTimebank(int timebankId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean banUser(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double alterUserHours(int timebankId, int userId, Double hourDifference) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeServiceOffer(int offerId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeServiceRequest(int requestId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemTransferOffer(int offerId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemTransferRequest(int requestId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanOffer(int offerId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanRequest(int requestId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideServiceOfferActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideServiceRequestActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemTransferOfferActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemTransferRequestActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemLoanOfferActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemLoanRequestActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeServiceOfferTx(int offerTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeServiceRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemTransferOfferTx(int offerTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemTransferRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanOfferTx(int offerTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

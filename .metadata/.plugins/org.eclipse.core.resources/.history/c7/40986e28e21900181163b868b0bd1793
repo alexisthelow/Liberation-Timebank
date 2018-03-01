@@ -1,0 +1,28 @@
+package data;
+
+import java.util.List;
+
+import entities.Address;
+
+public interface AddressDAO {
+	
+	//create
+	
+	public Address createAddress(String addressJson);
+	
+	//read
+	
+	public Address getAddressById(int addressId);
+	public List<Address> getAddressesByZip(int zip);
+	public List<Address> getAddressesByState(String state);
+	public List<Address> getAddressesByCountry(String country);
+	
+	//update
+	
+	public Address updateAddress(int actingUserId, int userId, int addressId, String addressJson);
+	
+	//destroy
+	
+	public Boolean destroyAddress(int addressId);
+	
+}

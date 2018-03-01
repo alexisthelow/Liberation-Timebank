@@ -1,0 +1,32 @@
+package controllers;
+
+import java.util.Set;
+
+import entities.MessageThread;
+import entities.Reply;
+
+public interface MessagingControllerInterface {
+	
+	//create
+	
+	public MessageThread createMessageThread();
+	public Reply createReply();
+
+	//read
+
+	public MessageThread showMessageThread();
+	public Reply showReply();
+	
+	public MessageThread showUserMessageThreads();
+	
+	public Set<Reply> showMessageThreadReplies();
+	
+	//update
+	
+	public MessageThread addUserToMessageThread();
+	public MessageThread removeUserFromMessageThread();
+	
+	//destroy
+	
+	
+}

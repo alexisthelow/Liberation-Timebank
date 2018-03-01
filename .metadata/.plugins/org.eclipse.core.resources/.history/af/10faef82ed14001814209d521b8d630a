@@ -1,0 +1,19 @@
+package data;
+
+import entities.MessageThread;
+import entities.Reply;
+
+public interface MessageDAO {
+	
+	//create
+	
+	public MessageThread createMessageThread(int userId, int[] recipients, String messageThreadJson, String replyJson);
+	public Reply createReply(int userId, int threadId, String replyJson);
+	
+	//read
+	
+	//update
+	
+	//destroy
+
+}

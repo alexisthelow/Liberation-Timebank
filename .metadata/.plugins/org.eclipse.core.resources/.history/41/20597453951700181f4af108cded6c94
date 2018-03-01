@@ -1,0 +1,314 @@
+package data;
+
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Address;
+import entities.ServiceOffer;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+import entities.Timebank;
+import entities.User;
+
+@Transactional
+@Repository
+public class ServiceDAOImpl implements ServiceDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public ServiceOffer createServiceOffer(int timebankId, int userId, String offerJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOffer newOffer = null;
+		
+		try {
+			newOffer = mapper.readValue(offerJson, ServiceOffer.class);
+			newOffer.setServiceOfferTimebank(em.find(Timebank.class, timebankId));
+			newOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			newOffer.setServiceOfferUser(em.find(User.class, userId));
+			newOffer.setActive(true);
+			em.persist(newOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOffer.class, newOffer.getId());
+	}
+
+	@Override
+	public ServiceOfferSchedule createServiceOfferSchedule(int offerId, String scheduleJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferSchedule newSchedule = null;
+		
+		try {
+			newSchedule = mapper.readValue(scheduleJson, ServiceOfferSchedule.class);
+			newSchedule.setServiceOfferScheduleParent(em.find(ServiceOffer.class, offerId));
+			em.persist(newSchedule);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferSchedule.class, newSchedule.getId());
+	}
+
+	@Override
+	public ServiceOfferOrigin createServiceOfferOrigin(int offerId, int addressId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceOfferOrigin.class);
+			newOrigin.setServiceOfferOriginParent(em.find(ServiceOffer.class, offerId));
+			newOrigin.setAddress(em.find(Address.class, addressId));
+			em.persist(newOrigin);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferOrigin.class, newOrigin.getId());
+	}
+
+	@Override
+	public ServiceOfferDestination createServiceOfferDestination(int offerId, int addressId, String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceOfferDestination.class);
+			newDestination.setServiceOfferDestinationParent(em.find(ServiceOffer.class, offerId));
+			newDestination.setAddress(em.find(Address.class, addressId));
+			em.persist(newDestination);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return em.find(ServiceOfferDestination.class, newDestination.getId());
+		
+	}
+
+	@Override
+	public ServiceRequest createServiceRequest(int timebankId, int userId, String requestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequest newRequest = null;
+		
+		try {
+			newRequest = mapper.readValue(requestJson, ServiceRequest.class);
+			newRequest.setServiceRequestTimebank(em.find(Timebank.class, timebankId));
+			newRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			newRequest.setServiceRequestUser(em.find(User.class, userId));
+			newRequest.setActive(true);
+			em.persist(newRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequest.class, newRequest.getId());
+	}
+
+	@Override
+	public ServiceRequestTimeWindow createServiceRequestTimeWindow(int requestId, String timeWindowJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestTimeWindow newWindow = null;
+		
+		try {
+			newWindow = mapper.readValue(timeWindowJson, ServiceRequestTimeWindow.class);
+			newWindow.setServiceRequestTimeWindowParent(em.find((ServiceRequest.class, requestId));
+			em.persist(newWindow);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestTimeWindow.class, em.find(ServiceRequestTimeWindow.class, newWindow.getId()));
+	}
+
+	@Override
+	public ServiceRequestOrigin createServiceRequestOrigin(int requestId, int addressId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceRequestOrigin.class);
+			newOrigin.setServiceRequestOriginParent(em.find(ServiceRequest.class, requestId));
+			newOrigin.setAddress(em.find(Address.id, addressId));
+			em.persist(newOrigin);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return em.find(ServiceRequestOrigin.class, newOrigin.getId());
+	}
+
+	@Override
+	public ServiceRequestDestination createServiceRequestDestination(int requestId, int addressId,
+			String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceRequestDestination.class);
+			newDestination.setServiceRequestDestinationParent(em.find(ServiceRequest.class, requestId));
+			newDestination.setAddress(em.find(Address.class, addressId));
+			em.persist(newDestination);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestDestination.class, newDestination.getId());
+	}
+
+	@Override
+	public List<ServiceOffer> getAllGlobalServiceOffers() {
+		String query = "SELECT s FROM ServiceOffer s WHERE globalVisibility = 1";
+		return em.createQuery(query, ServiceOffer.class).getResultList();
+	}
+
+	@Override
+	public List<ServiceRequest> getAllGlobalServiceRequests() {
+		String query = "SELECT s FROM ServiceRequest s WHERE globalVisibility = 1";
+		return em.createQuery(query, ServiceRequest.class).getResultList();
+	}
+
+	@Override
+	public List<ServiceOffer> getAllServiceOffersByTimebank(int timebankId) {
+		return new ArrayList<ServiceOffer>(em.find(Timebank.class, timebankId).getTimebankServiceOffers());
+	}
+
+	@Override
+	public List<ServiceRequest> getAllServiceRequestsByTimebank(int timebankId) {
+		return new ArrayList<ServiceRequest>(em.find(Timebank.class, timebankId).getTimebankServiceRequests());
+	}
+
+	@Override
+	public ServiceOffer showServiceOffer(int offerId) {
+		return em.find(ServiceOffer.class, offerId);
+	}
+
+	@Override
+	public ServiceRequest showServiceRequest(int requestId) {
+		return em.find(ServiceRequest.class, requestId);
+	}
+
+	@Override
+	public List<ServiceOfferOrigin> getServiceOfferOrigins(int offerId) {
+		return new ArrayList<ServiceOfferOrigin>(em.find(ServiceOffer.class, offerId).getServiceOfferOrigins());
+	}
+
+	@Override
+	public List<ServiceRequestOrigin> getServiceRequestOrigins(int requestId) {
+		return new ArrayList<ServiceRequestOrigin>(em.find(ServiceRequest.class, requestId).getServiceRequestOrigins());
+	}
+
+	@Override
+	public List<ServiceOfferDestination> getServiceOfferDestinations(int offerId) {
+		return new ArrayList<ServiceOfferDestination>(em.find(ServiceOffer.class, offerId).getServiceOfferDestinations());
+	}
+
+	@Override
+	public List<ServiceRequestDestination> getServiceRequestDestinations(int requestId) {
+		return new ArrayList<ServiceRequestDestination>(em.find(ServiceRequest.class, requestId).getServiceRequestDestinations());
+	}
+
+	@Override
+	public ServiceOffer updateServiceOffer(int userId, int offerId, String offerJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOffer managedOffer = em.find(ServiceOffer.class, offerId);
+		ServiceOffer newOffer = null;
+		
+		try {
+			newOffer = mapper.readValue(offerJson, ServiceOffer.class);
+			managedOffer.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedOffer.setLastUpdateUser(em.find(User.class, userId));
+			managedOffer.setActive(newOffer.getActive());
+			managedOffer.setDescription(newOffer.getDescription());
+			managedOffer.setGlobalVisibility(newOffer.getGlobalVisibility());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ServiceOfferSchedule updateServiceOfferSchedule(int userId, int scheduleId, String scheduleJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferOrigin updateServiceOfferOrigin(int userId, int originId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferDestination updateServiceOfferDestination(int userId, int destinationId,
+			String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequest updateServiceRequest(int userId, int requestId, String requestJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestTimeWindow updateServiceRequestTimeWindow(int userId, int windowId, String windowJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestOrigin updateServiceRequestOrigin(int userId, int originId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestDestination updateServiceRequestDestination(int userId, int destinationId,
+			String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateServiceOffer(int userId, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateServiceRequest(int userId, int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

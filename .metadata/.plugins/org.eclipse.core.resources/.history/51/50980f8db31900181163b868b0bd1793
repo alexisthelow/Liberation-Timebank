@@ -1,0 +1,10 @@
+package interfaces;
+
+public interface Offer {
+	
+	public String getTitle();
+	public String getDescription();
+	public void setTitle();
+	public void setDescription();
+
+}

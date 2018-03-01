@@ -1,0 +1,34 @@
+package data;
+
+public interface ServiceDAO {
+	
+	//create
+		//service offer 
+			//schedule
+			//origin
+			//destination
+		//service request 
+			//time window
+			//origin
+			//destination
+	
+	//read
+		//all services by timebank
+		//specific ones
+		//origins
+		//destinations
+	
+	//update
+		//service offer 
+			//schedule
+			//origin
+			//destination
+		//service request 
+			//time window
+			//origin
+			//destination
+	
+	//destroy
+		//just deactivate
+
+}

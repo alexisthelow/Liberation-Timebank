@@ -1,0 +1,269 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Address;
+import entities.ServiceOffer;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+import entities.Timebank;
+import entities.User;
+
+@Transactional
+@Repository
+public class ServiceDAOImpl implements ServiceDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public ServiceOffer createServiceOffer(int timebankId, int userId, String offerJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOffer newOffer = null;
+		
+		try {
+			newOffer = mapper.readValue(offerJson, ServiceOffer.class);
+			newOffer.setServiceOfferTimebank(em.find(Timebank.class, timebankId));
+			newOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			newOffer.setServiceOfferUser(em.find(User.class, userId));
+			newOffer.setActive(true);
+			em.persist(newOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOffer.class, newOffer.getId());
+	}
+
+	@Override
+	public ServiceOfferSchedule createServiceOfferSchedule(int offerId, String scheduleJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferSchedule newSchedule = null;
+		
+		try {
+			newSchedule = mapper.readValue(scheduleJson, ServiceOfferSchedule.class);
+			newSchedule.setServiceOfferScheduleParent(em.find(ServiceOffer.class, offerId));
+			em.persist(newSchedule);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferSchedule.class, newSchedule.getId());
+	}
+
+	@Override
+	public ServiceOfferOrigin createServiceOfferOrigin(int offerId, int addressId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceOfferOrigin.class);
+			newOrigin.setServiceOfferOriginParent(em.find(ServiceOffer.class, offerId));
+			newOrigin.setAddress(em.find(Address.class, addressId));
+			em.persist(newOrigin);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferOrigin.class, newOrigin.getId());
+	}
+
+	@Override
+	public ServiceOfferDestination createServiceOfferDestination(int offerId, int addressId, String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceOfferDestination.class);
+			newDestination.setServiceOfferDestinationParent(em.find(ServiceOffer.class, offerId));
+			newDestination.setAddress(em.find(Address.class, addressId));
+			em.persist(newDestination);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return em.find(ServiceOfferDestination.class, newDestination.getId());
+		
+	}
+
+	@Override
+	public ServiceRequest createServiceRequest(int timebankId, int userId, String requestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequest newRequest = null;
+		
+		try {
+			newRequest = mapper.readValue(requestJson, ServiceRequest.class);
+			newRequest.setServiceRequestTimebank(em.find(Timebank.class, timebankId));
+			newRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			newRequest.setServiceRequestUser(em.find(User.class, userId));
+			newRequest.setActive(true);
+			em.persist(newRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequest.class, newRequest.getId());
+	}
+
+	@Override
+	public ServiceRequestTimeWindow createServiceRequestTimeWindow(int requestId, String timeWindowJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestOrigin createServiceRequestOrigin(int requestId, int addressId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestDestination createServiceRequestDestination(int requestId, int addressId,
+			String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOffer> getAllGlobalServiceOffers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequest> getAllGlobalServiceRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOffer> getAllServiceOffersByTimebank(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequest> getAllServiceRequestsByTimebank(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOffer showServiceOffer(int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequest showServiceRequest(int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferOrigin> getServiceOfferOrigins(int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequestOrigin> getServiceRequestOrigins(int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferDestination> getServiceOfferDestinations(int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequestDestination> getServiceRequestDestinations(int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOffer updateServiceOffer(int userId, int offerId, String offerJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferSchedule updateServiceOfferSchedule(int userId, int scheduleId, String scheduleJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferOrigin updateServiceOfferOrigin(int userId, int originId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferDestination updateServiceOfferDestination(int userId, int destinationId,
+			String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequest updateServiceRequest(int userId, int requestId, String requestJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestTimeWindow updateServiceRequestTimeWindow(int userId, int windowId, String windowJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestOrigin updateServiceRequestOrigin(int userId, int originId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestDestination updateServiceRequestDestination(int userId, int destinationId,
+			String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateServiceOffer(int userId, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateServiceRequest(int userId, int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

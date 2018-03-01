@@ -1,0 +1,15 @@
+package interfaces;
+
+import java.sql.Timestamp;
+
+import entities.User;
+
+public interface Transaction {
+	
+	public int getId();
+	public Object getParent();
+	public User getOwner();
+	public Timestamp getCreated();
+	
+
+}

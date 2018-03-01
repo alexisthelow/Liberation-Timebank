@@ -1,0 +1,29 @@
+package interfaces;
+
+import java.sql.Timestamp;
+
+import entities.User;
+
+public interface Activity {
+	
+	public int getId();
+	public Object getParent();
+	public User getUser();
+	public String getMessage();
+	public Timestamp getPosted();
+	public Timestamp getLastUpdate();
+	public User getLastUpdateUser();
+	public Boolean getModeratorHide();
+	public User getHidingModerator();
+	
+	public void setId(int id);
+	public void setParent(Object parent);
+	public void setUser(User user);
+	public void setMessage(String message);
+	public void setPosted(Timestamp posted);
+	public void setLastUpdate(Timestamp lastUpdate);
+	public void setLastUpdateUser(User lastUpdateUser);
+	public void setModeratorHide(Boolean moderatorHide);
+	public void setHidingModerator(User hidingModerator);
+
+}

@@ -1,0 +1,205 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+import entities.ServiceOffer;
+import entities.ServiceRequest;
+import entities.Timebank;
+import entities.User;
+
+@Transactional
+@Repository
+public class ModeratorDAOImpl implements ModeratorDAO {
+	
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public User promoteUser(int timebankId, int userId) {
+		String query = "INSERT INTO timebank_moderator (moderator_id, timebank_id) VALUES (:userId, :timebankId)";
+		em.createNativeQuery(query).setParameter("userId", userId).setParameter("timebankId", timebankId).executeUpdate();
+		return em.find(User.class, userId); //TODO why am i returning a user here
+	}
+
+	@Override
+	public User demoteUser(int timebankId, int userId) {
+		String query = "DELETE FROM timebank_moderator WHERE moderator_id = :userId";
+		em.createNativeQuery(query).setParameter("userId", userId).executeUpdate() ;
+		return em.find(User.class, userId);	//TODO why?
+	}
+
+	@Override
+	public Boolean removeUserFromTimebank(int timebankId, int userId) {
+		String query = "DELETE FROM timebank_user WHERE user_id = :userId";
+		em.createNativeQuery(query).setParameter("userId", userId).executeUpdate();
+		return !em.find(User.class, userId).getUserTimebanks().contains(em.find(Timebank.class, timebankId));		//returns true if the user doesn't have this timebank
+	}
+
+	@Override
+	public Boolean banUser(int userId) {
+		String query = "INSERT INTO user_account (active) VALUES (0) WHERE user_id = :userId";
+		em.createNativeQuery(query).setParameter("userId", userId).executeUpdate();
+		return !em.find(User.class, userId).getActive();			//returns true if user is not active
+	}
+
+	@Override
+	public Double alterUserHours(int timebankId, int userId, Double hourDifference) {
+		String url = "jdbc:mysql://localhost:3306/timebankdb";
+		String user = "root";
+		String pass = "root";
+		Double userHours = null;
+		
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pass);
+			String sql = "SELECT hours FROM timebank_user WHERE user_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, userId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				userHours = rs.getDouble(3);
+				userHours += hourDifference;
+				sql = "INSERT INTO timebank_user (hours) VALUES (?)";
+				conn.setAutoCommit(false);
+				stmt = conn.prepareStatement(sql);
+				stmt.setDouble(1, userHours);
+				stmt.execute();
+				conn.commit();
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return userHours;
+	}
+
+	@Override
+	public Boolean closeServiceOffer(int offerId, int userId) {
+		ServiceOffer managedOffer = em.find(ServiceOffer.class, offerId);
+		managedOffer.setModeratorClosed(true);
+		managedOffer.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ServiceOffer.class, offerId).getModeratorClosed();		//returns true if close was successful
+	}
+
+	@Override
+	public Boolean closeServiceRequest(int requestId, int userId) {
+		ServiceRequest managedRequest = em.find(ServiceRequest.class, requestId);
+		managedRequest.setModeratorClosed(true);
+		managedRequest.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ServiceRequest.class, requestId).getModeratorClosed();		//returns true if close was successful
+	}
+
+	@Override
+	public Boolean closeItemTransferOffer(int offerId, int userId) {
+		ItemTransferOffer managedOffer = em.find(ItemTransferOffer.class, offerId);
+		managedOffer.setModeratorClosed(true);
+		managedOffer.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemTransferOffer.class, offerId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemTransferRequest(int requestId, int userId) {
+		ItemTransferRequest managedRequest = em.find(ItemTransferRequest.class, requestId);
+		managedRequest.setModeratorClosed(true);
+		managedRequest.setClosingModerator(em.find(User.class, userId));
+		return !em.find(ItemTransferRequest.class, requestId).getModeratorClosed();
+	}
+
+	@Override
+	public Boolean closeItemLoanOffer(int offerId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanRequest(int requestId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideServiceOfferActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideServiceRequestActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemTransferOfferActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemTransferRequestActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemLoanOfferActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean hideItemLoanRequestActivity(int activityId, int moderatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeServiceOfferTx(int offerTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeServiceRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemTransferOfferTx(int offerTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemTransferRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanOfferTx(int offerTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean closeItemLoanRequestTx(int requestTxId, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

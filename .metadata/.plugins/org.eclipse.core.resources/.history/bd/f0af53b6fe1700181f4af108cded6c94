@@ -1,0 +1,199 @@
+package data;
+
+@Transactional
+@Repository
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOffer;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestTx;
+import entities.Timebank;
+import entities.User;
+
+public class TransactionDAOImpl implements TransactionDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public ItemTransferOfferTx createItemTransferOfferTx(int userId, int offerId) {
+		ItemTransferOfferTx newTx = new ItemTransferOfferTx();
+		newTx.setCreated(new Timestamp(System.currentTimeMillis()));
+		newTx.setItemTransferOfferTxParent(em.find(ItemTransferOffer.class, offerId));
+		newTx.setItemTransferOfferTxRecipient(em.find(User.class, userId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ItemTransferOfferTx.class, newTx.getId());
+	}
+
+	@Override
+	public ItemTransferRequestTx createItemTransferRequestTx(int userId, int requestId) {
+		ItemTransferRequestTx newTx = new ItemTransferRequestTx();
+		newTx.setCreated(new Timestamp(System.currentTimeMillis()));
+		newTx.setItemTransferRequestTxParent(em.find(ItemTransferRequest.class, requestId));
+		newTx.setItemTransferRequestTxProvider(em.find(User.class, userId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ItemTransferRequestTx.class, newTx.getId());
+	}
+
+	@Override
+	public ItemLoanOfferTx createItemLoanOfferTx(int userId, int offerId) {
+		ItemLoanOfferTx newTx = new ItemLoanOfferTx();
+		newTx.setCreated(new Timestamp(System.currentTimeMillis()));
+		newTx.setItemLoanOfferTxParent(em.find(ItemLoanOffer.class, offerId));
+		newTx.setItemLoanOfferTxBorrower(em.find(User.class, userId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ItemLoanOfferTx.class, newTx.getId());
+	}
+
+	@Override
+	public ItemLoanRequestTx createItemLoanRequestTx(int userId, int requestId) {
+		ItemLoanRequestTx newTx = new ItemLoanRequestTx();
+		newTx.setCreated(new Timestamp (System.currentTimeMillis()));
+		newTx.setItemLoanRequestTxParent(em.find(ItemLoanRequest.class, requestId));
+		newTx.setItemLoanRequestTxLender(em.find(User.class, userId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ItemLoanRequestTx.class, newTx.getId());
+	}
+
+	@Override
+	public ServiceOfferTx createServiceOfferTx(int userId, int offerId) {
+		ServiceOfferTx newTx = new ServiceOfferTx();
+		newTx.setRecipientRequest(new Timestamp(System.currentTimeMillis()));
+		newTx.setServiceOfferRecipient(em.find(User.class, userId));
+		newTx.setServiceOfferTxParent(em.find(ServiceOffer.class, offerId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ServiceOfferTx.class, newTx.getId());
+	}
+
+	@Override
+	public ServiceRequestTx createServiceRequestTx(int userId, int requestId) {
+		ServiceRequestTx newTx = new ServiceRequestTx();
+		newTx.setCreated(new Timestamp(System.currentTimeMillis()));
+		newTx.setServiceRequestTxParent(em.find(ServiceRequest.class, requestId));
+		newTx.setServiceRequestProvider(em.find(User.class, userId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ServiceRequestTx.class, newTx.getId());
+	}
+
+	@Override
+	public ItemTransferOfferTx getItemTransferOfferTx(int txId) {
+		return em.find(ItemTransferOfferTx.class, txId);
+	}
+
+	@Override
+	public ItemTransferRequestTx getItemTransferRequestTx(int txId) {
+		return em.find(ItemTransferRequestTx.class, txId);
+	}
+
+	@Override
+	public ItemLoanOfferTx getItemLoanOfferTx(int txId) {
+		return em.find(ItemLoanOfferTx.class, txId);
+	}
+
+	@Override
+	public ItemLoanRequestTx getItemLoanRequestTx(int txId) {
+		return em.find(ItemLoanRequestTx.class, txId);
+	}
+
+	@Override
+	public ServiceOfferTx getServiceOfferTx(int txId) {
+		return em.find(ServiceOfferTx.class, txId);
+	}
+
+	@Override
+	public ServiceRequestTx getServiceRequestTx(int txId) {
+		return em.find(ServiceRequestTx.class, txId);
+	}
+
+	@Override
+	public List<ItemTransferOfferTx> getAllItemTransferOfferTxs(int timebankId) {
+		String query = "SELECT i FROM ItemTransferOfferTx WHERE itemTransferOfferTxParent = :timebankId";
+		return em.createQuery(query, ItemTransferOfferTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequestTx> getAllItemTransferRequestTxs(int timebankId) {
+		String query = "SELECT i FROM ItemTransferRequestTx WHERE ItemTransferRequestTxParent = :timebankId";
+		return em.createQuery(query, ItemTransferRequestTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOfferTx> getAllItemLoanOfferTxs(int timebankId) {
+		String query = "SELECT i FROM ItemLoanOfferTx WHERE ItemLoanOfferTxParent = :timebankId";
+		return em.createQuery(query, ItemLoanOfferTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequestTx> getAllItemLoanRequestTxs(int timebankId) {
+		String query = "SELECT i FROM ItemLoanRequestTx WHERE ItemLoanRequestTxParent = :timebankId";
+		return em.createQuery(query, ItemLoanRequestTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ServiceOfferTx> getAllServiceOfferTxs(int timebankId) {
+		String query = "SELECT s FROM ServiceOfferTx WHERE ServiceOfferTxParent = :timebankId";
+		return em.createQuery(query, ServiceOfferTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ServiceRequestTx> getAllServiceRequestTxs(int timebankId) {
+		String query = "SELECT i FROM ItemTransferRequestTx WHERE ItemTransferRequestTxParent = :timebankId";
+		return em.createQuery(query, ItemTransferRequestTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public ItemTransferOfferTx updateItemTransferOfferTx(int txId, int userId, String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequestTx updateItemTransferRequestTx(int txId, int userId, String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanOfferTx updateItemLoanOfferTx(int txId, int userId, String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequestTx updateItemLoanRequestTx(int txId, int userId, String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceOfferTx updateServiceOfferTx(int txId, int userId, String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceRequestTx updateServiceRequestTx(int txId, int userId, String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -20,9 +20,14 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Activity;
+import interfaces.Item;
+import interfaces.Offer;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "item_loan_offer")
-public class ItemLoanOffer {
+public class ItemLoanOffer implements Item, Offer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +60,9 @@ public class ItemLoanOffer {
 	
 	private Timestamp created;
 	
+	@Column(name = "global_visibility")
+	private Boolean globalVisibility;
+	
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 	
@@ -77,12 +85,12 @@ public class ItemLoanOffer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferActivityParent", cascade = CascadeType.PERSIST)
-	private Set<ItemLoanOfferActivity> itemLoanOfferActivities;
+	private Set<Activity> itemLoanOfferActivities;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferTxParent", cascade = CascadeType.PERSIST)
-	private Set<ItemLoanOfferTx> itemLoanOfferTxs;
+	private Set<Transaction> itemLoanOfferTxs;
 
 	public int getId() {
 		return id;
@@ -147,6 +155,14 @@ public class ItemLoanOffer {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+	
+	public Boolean getGlobalVisibility() {
+		return globalVisibility;
+	}
+
+	public void setGlobalVisibility(Boolean globalVisibility) {
+		this.globalVisibility = globalVisibility;
+	}
 
 	public Timestamp getLastUpdate() {
 		return lastUpdate;
@@ -196,20 +212,80 @@ public class ItemLoanOffer {
 		this.closingModerator = closingModerator;
 	}
 
-	public Set<ItemLoanOfferActivity> getItemLoanOfferActivities() {
+	public Set<Activity> getItemLoanOfferActivities() {
 		return itemLoanOfferActivities;
 	}
 
-	public void setItemLoanOfferActivities(Set<ItemLoanOfferActivity> itemLoanOfferActivities) {
+	public void setItemLoanOfferActivities(Set<Activity> itemLoanOfferActivities) {
 		this.itemLoanOfferActivities = itemLoanOfferActivities;
 	}
 
-	public Set<ItemLoanOfferTx> getItemLoanOfferTxs() {
+	public Set<Transaction> getItemLoanOfferTxs() {
 		return itemLoanOfferTxs;
 	}
 
-	public void setItemLoanOfferTxs(Set<ItemLoanOfferTx> itemLoanOfferTxs) {
+	public void setItemLoanOfferTxs(Set<Transaction> itemLoanOfferTxs) {
 		this.itemLoanOfferTxs = itemLoanOfferTxs;
+	}
+	
+	@Override
+	public Timebank getTimebank() {
+		return this.itemLoanOfferTimebank;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.itemLoanOfferUser;
+	}
+
+	@Override
+	public Set<Activity> getActivity() {
+		return this.itemLoanOfferActivities;
+	}
+
+	@Override
+	public Set<Transaction> getTransactions() {
+		return this.itemLoanOfferTxs;
+	}
+	
+	@Override
+	public void setTimebank(Timebank timebank) {
+		this.itemLoanOfferTimebank = timebank;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.itemLoanOfferUser = owner;
+	}
+
+	@Override
+	public ItemCategory getCategory() {
+		return this.itemLoanOfferCategory;
+	}
+
+	@Override
+	public void setItemCategory(ItemCategory category) {
+		this.itemLoanOfferCategory = category;
+	}
+
+	@Override
+	public ItemSubcategory getSubcategory() {
+		return this.itemLoanOfferSubcategory;
+	}
+
+	@Override
+	public void setItemSubcategory(ItemSubcategory subcategory) {
+		this.itemLoanOfferSubcategory = subcategory;
+	}
+
+	@Override
+	public void setActivity(Set<Activity> activity) {
+			this.itemLoanOfferActivities = activity;
+	}
+
+	@Override
+	public void setTransactions(Set<Transaction> transactions) {
+		this.itemLoanOfferTxs = transactions;
 	}
 
 	@Override

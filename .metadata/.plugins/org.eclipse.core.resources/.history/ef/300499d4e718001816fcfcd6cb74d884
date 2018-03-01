@@ -1,0 +1,37 @@
+package controllers;
+
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
+import entities.MessageThread;
+import entities.Reply;
+
+public interface MessagingControllerInterface {
+	
+	//create
+	
+	public MessageThread createMessageThread(HttpSession session, HttpServletResponse res, @RequestBody String messageJson);
+	public Reply createReply();
+
+	//read
+
+	public MessageThread showMessageThread();
+	public Reply showReply();
+	
+	public MessageThread showUserMessageThreads();
+	
+	public Set<Reply> showMessageThreadReplies();
+	
+	//update
+	
+	public MessageThread addUserToMessageThread();
+	public MessageThread removeUserFromMessageThread();
+	
+	//destroy
+	
+	
+}

@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=TimebankMVC/src&lt;data{ActivityDAO.java[ActivityDAO" modifiers="513" timestamp="1518992950000"/>
+<typeInfo handle="=TimebankMVC/src&lt;data{AddressDAO.java[AddressDAO" modifiers="513" timestamp="1518994744000"/>
+<typeInfo handle="=TimebankMVC/src&lt;data{MessageDAO.java[MessageDAO" modifiers="513" timestamp="1518999981000"/>
+<typeInfo handle="=TimebankMVC/src&lt;data{ModeratorDAO.java[ModeratorDAO" modifiers="513" timestamp="1518989299000"/>
+<typeInfo handle="=TimebankMVC/src&lt;controllers{ServiceControllerInterface.java[ServiceControllerInterface" modifiers="513" timestamp="1519425055000"/>
+<typeInfo handle="=TimebankMVC/\/Users\/alexislow\/.gradle\/caches\/modules-2\/files-2.1\/org.hibernate\/hibernate-core\/5.2.1.Final\/948e24fcce6847110ee5092ea11dbf879bdab704\/hibernate-core-5.2.1.Final.jar&lt;org.hibernate.integrator.spi(ServiceContributingIntegrator.class[ServiceContributingIntegrator" modifiers="1050113" timestamp="1511197015000"/>
+</typeInfoHistroy>

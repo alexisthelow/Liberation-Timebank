@@ -1,0 +1,63 @@
+package data;
+
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.MessageThread;
+import entities.Reply;
+
+public class MessageDAOImpl implements MessageDAO {
+
+	@Override
+	public MessageThread createMessageThread(int userId, int[] recipientIds, String messageThreadJson, String replyJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		MessageThread newThread = null;
+		Reply newReply = null;
+		
+		return null;
+	}
+
+	@Override
+	public Reply createReply(int userId, int threadId, String replyJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MessageThread showMessageThread(int threadId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MessageThread> getUserMessageThreads(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reply> showMessageThreadReplies(int threadId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reply showReply(int replyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MessageThread updateMessageThread(int userId, int threadId, String threadJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reply updateReply(int userId, int replyId, String replyJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,60 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOfferTx;
+import entities.ServiceRequestTx;
+
+public interface TransactionDAO {
+	
+	//create
+	
+		//tx
+	
+	public ItemTransferOfferTx createItemTransferOfferTx(int userId, int offerId, String txJson);
+	public ItemTransferRequestTx createItemTransferRequestTx(int userId, int requestId, String txJson);
+	public ItemLoanOfferTx createItemLoanOfferTx(int userId, int offerId, String txJson);
+	public ItemLoanRequestTx createItemLoanRequestTx(int userId, int requestId, String txJson);
+	public ServiceOfferTx createServiceOfferTx(int userId, int offerId, String txJson);
+	public ServiceRequestTx createServiceRequestTx(int userId, int requestId, String txJson);
+	
+	//read
+	
+		//specific tx
+	
+	public ItemTransferOfferTx getItemTransferOfferTx(int txId);
+	public ItemTransferRequestTx getItemTransferRequestTx(int txId);
+	public ItemLoanOfferTx getItemLoanOfferTx(int txId);
+	public ItemLoanRequestTx getItemLoanRequestTx(int txId);
+	public ServiceOfferTx getServiceOfferTx(int txId);
+	public ServiceRequestTx getServiceRequestTx(int txId);
+	
+		//tx index by timebank
+	
+	public List<ItemTransferOfferTx> getAllItemTransferOfferTxs(int timebankId);
+	public List<ItemTransferRequestTx> getAllItemTransferRequestTxs(int timebankId);
+	public List<ItemLoanOfferTx> getAllItemLoanOfferTxs(int timebankId);
+	public List<ItemLoanRequestTx> getAllItemLoanRequestTxs(int timebankId);
+	public List<ServiceOfferTx> getAllServiceOfferTxs(int timebankId);
+	public List<ServiceRequestTx> getAllServiceRequestTxs(int timebankId);
+	
+	//update
+
+		//specific tx
+	
+	public ItemTransferOfferTx updateItemTransferOfferTx(int txId, int userId, String txJson);
+	public ItemTransferRequestTx updateItemTransferRequestTx(int txId, int userId, String txJson);
+	public ItemLoanOfferTx updateItemLoanOfferTx(int txId, int userId, String txJson);
+	public ItemLoanRequestTx updateItemLoanRequestTx(int txId, int userId, String txJson);
+	public ServiceOfferTx updateServiceOfferTx(int txId, int userId, String txJson);
+	public ServiceRequestTx updateServiceRequestTx(int txId, int userId, String txJson);
+	
+	//destroy
+	
+		//TODO -- user should be able to cancel transactions
+
+}

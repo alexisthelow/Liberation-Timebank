@@ -1,0 +1,19 @@
+package data;
+
+import entities.Address;
+
+public interface AddressDAO {
+	
+	//create
+	public Address createAddress(String addressJson);
+	
+	//read
+	public Address getAddressById(int addressId);
+	
+	//update
+	public Address updateAddress(int addressId, String addressJson);
+	
+	//destroy
+	public Boolean destroyAddress(int addressId);
+	
+}

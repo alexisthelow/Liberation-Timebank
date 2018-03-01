@@ -1,0 +1,465 @@
+package controllers;
+
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import data.ActivityDAO;
+import data.ServiceDAO;
+import entities.ServiceOffer;
+import entities.ServiceOfferActivity;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestActivity;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+import entities.ServiceRequestTx;
+
+@RestController
+public class ServiceControllerImpl implements ServiceControllerInterface {
+	
+	@Autowired
+	ServiceDAO serviceDAO;
+	
+	@Autowired
+	ActivityDAO activityDAO;
+
+	@Override
+	@RequestMapping(path = "/so/create/{timebankId}", method = RequestMethod.POST)
+	public ServiceOffer createServiceOffer(HttpSession session, HttpServletResponse res, 
+			@PathVariable int timebankId, @RequestBody String offerJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/so/schedule/{offerId}", method = RequestMethod.POST)
+	public ServiceOfferSchedule createServiceOfferSchedule(HttpSession session, HttpServletResponse res, int offerId,
+			String scheduleJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/so/origin/{offerId}", method = RequestMethod.POST)
+	public ServiceOfferOrigin createServiceOfferOrigin(HttpSession session, HttpServletResponse res, int offerId,
+			int addressId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/so/destination/{offerId}", method = RequestMethod.POST)
+	public ServiceOfferDestination createServiceOfferDestination(HttpSession session, HttpServletResponse res,
+			int offerId, int addressId, String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/so/tx/{offerId}", method = RequestMethod.POST)
+	public ServiceOfferTx createServiceOfferTx(HttpSession session, HttpServletResponse res, int offerId,
+			String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/so/activity/{offerId}", method = RequestMethod.POST)
+	public ServiceOfferActivity createServiceOfferActivity(HttpSession session, HttpServletResponse res, int offerId,
+			String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/sr/{timebankId}", method = RequestMethod.POST)
+	public ServiceRequest createServiceRequest(HttpSession session, HttpServletResponse res, 
+			@PathVariable int timebankId, String requestJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/sr/window/{requestId}", method = RequestMethod.POST)
+	public ServiceRequestTimeWindow createServiceRequestTimeWindow(HttpSession session, HttpServletResponse res,
+			int requestId, String windowJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/sr/origin/{requestId}", method = RequestMethod.POST)
+	public ServiceRequestOrigin createServiceRequestOrigin(HttpSession session, HttpServletResponse res, int requestId,
+			int addressId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/sr/destination/{requestId}", method = RequestMethod.POST)
+	public ServiceRequestDestination createServiceRequestDestination(HttpSession session, HttpServletResponse res,
+			int requestId, int addressId, String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/sr/tx/{requestId}", method = RequestMethod.POST)
+	public ServiceRequestTx createServiceRequestTx(HttpSession session, HttpServletResponse res, int requestId,
+			String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/sr/activity/{requestId}", method = RequestMethod.POST)
+	public ServiceRequestActivity createServiceRequestActivity(HttpSession session, HttpServletResponse res,
+			int requestId, String activityJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "/", method = RequestMethod.)
+	public ServiceOffer showServiceOffer(HttpSession session, HttpServletResponse res, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferSchedule showServiceOfferSchedule(HttpSession session, HttpServletResponse res, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferOrigin showServiceOfferOrigin(HttpSession session, HttpServletResponse res, int offerId,
+			int originId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferDestination showServiceOfferDestination(HttpSession session, HttpServletResponse res,
+			int offerId, int destinationId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferActivity showServiceOfferActivity(HttpSession session, HttpServletResponse res, int offerId,
+			int activityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequest showServiceRequest(HttpSession session, HttpServletResponse res, int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestTimeWindow showServiceRequestTimeWindow(HttpSession session, HttpServletResponse res,
+			int requestId, int windowId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestOrigin showServiceRequestOrigin(HttpSession session, HttpServletResponse res, int requestId,
+			int originId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestDestination showServiceRequestDestination(HttpSession session, HttpServletResponse res,
+			int requestId, int destinationId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestActivity showServiceRequestActivity(HttpSession session, HttpServletResponse res,
+			int requestId, int activityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceOfferOrigin> getAllServiceOfferOrigins(HttpSession session, HttpServletResponse res,
+			int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceOfferDestination> getAllServiceOfferDestinations(HttpSession session, HttpServletResponse res,
+			int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceOfferActivity> getAllServiceOfferActivity(HttpSession session, HttpServletResponse res,
+			int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequestTimeWindow> getAllServiceRequestTimeWindows(HttpSession session, HttpServletResponse res,
+			int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequestOrigin> getAllServiceRequestOrigins(HttpSession session, HttpServletResponse res,
+			int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequestDestination> getAllServiceRequestDestinations(HttpSession session, HttpServletResponse res,
+			int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequestActivity> getAllServiceRequestActivity(HttpSession session, HttpServletResponse res,
+			int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceOffer> getServiceOffersByUser(HttpSession session, HttpServletResponse res, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequest> getServiceRequestsByUser(HttpSession session, HttpServletResponse res, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceOffer> getServiceOffersByTimebank(HttpSession session, HttpServletResponse res, int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequest> getServiceRequestsByTimebank(HttpSession session, HttpServletResponse res,
+			int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceOffer> getGlobalServiceOffers(HttpSession session, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Set<ServiceRequest> getGlobalServiceRequests(HttpSession session, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOffer updateServiceOffer(HttpSession session, HttpServletResponse res, int offerId,
+			String offerJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferSchedule updateServiceOfferSchedule(HttpSession session, HttpServletResponse res, int offerId,
+			String scheduleJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferOrigin updateServiceOfferOrigin(HttpSession session, HttpServletResponse res, int offerId,
+			int addressId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferDestination updateServiceOfferDestination(HttpSession session, HttpServletResponse res,
+			int offerId, int addressId, String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferActivity updateServiceOfferActivity(HttpSession session, HttpServletResponse res, int offerId,
+			int activityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferTx serviceOfferProviderAccept(HttpSession session, HttpServletResponse res, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferTx serviceOfferProviderReject(HttpSession session, HttpServletResponse res, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferTx serviceOfferRecipientComplete(HttpSession session, HttpServletResponse res, int offerId,
+			String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceOfferTx serviceOfferProviderComplete(HttpSession session, HttpServletResponse res, int offerId,
+			String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequest updateServiceRequest(HttpSession session, HttpServletResponse res, int requestId,
+			String requestJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestTimeWindow updateServiceRequestTimeWindow(HttpSession session, HttpServletResponse res,
+			int requestId, String windowJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestOrigin updateServiceRequestOrigin(HttpSession session, HttpServletResponse res, int requestId,
+			int addressId, String originJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestDestination updateServiceRequestDestination(HttpSession session, HttpServletResponse res,
+			int requestId, int addressId, String destinationJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestActivity updateServiceRequestActivity(HttpSession session, HttpServletResponse res,
+			int requestId, int activityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestTx serviceRequestRecipientAccept(HttpSession session, HttpServletResponse res, int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestTx serviceRequestRecipientReject(HttpSession session, HttpServletResponse res, int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestTx serviceRequestRecipientComplete(HttpSession session, HttpServletResponse res, int requestId,
+			String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public ServiceRequestTx serviceRequestProviderComplete(HttpSession session, HttpServletResponse res, int requestId,
+			String txJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Boolean deactivateServiceOffer(HttpSession session, HttpServletResponse res, int offerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@RequestMapping(path = "", method = RequestMethod.)
+	public Boolean deactivateServiceRequest(HttpSession session, HttpServletResponse res, int requestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

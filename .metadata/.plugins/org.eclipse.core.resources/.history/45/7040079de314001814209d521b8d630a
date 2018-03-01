@@ -1,0 +1,21 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemTransferOfferActivity;
+
+public interface ActivityDAO {
+	
+	//create
+		//all posts per service / item
+	public List<ItemTransferOfferActivity> getAllItemTransferOfferActivityById(int itemTransferOfferActivityId);
+	
+	
+	
+	//read
+	
+	//update
+	
+	//destroy
+
+}

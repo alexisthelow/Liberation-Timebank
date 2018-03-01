@@ -1,0 +1,76 @@
+package data;
+
+import java.util.List;
+
+import entities.ServiceOffer;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+
+public interface ServiceDAO {
+	
+	//create
+	
+		//service offer 
+	
+	public ServiceOffer createServiceOffer(int timebankId, int userId, String offerJson);
+	public ServiceOfferSchedule createServiceOfferSchedule(int offerId, String scheduleJson);
+	public ServiceOfferOrigin createServiceOfferOrigin(int offerId, String originJson);
+	public ServiceOfferDestination createServiceOfferDestination(int offerId, String destinationJson);
+
+		//service request 
+	
+	public ServiceRequest createServiceRequest(int timebankId, int userId, String requestJson);
+	public ServiceRequestTimeWindow createServiceOfferTimeWindow(int requestId, String timeWindowJson);
+	public ServiceRequestOrigin createServiceRequestOrigin(int requestId, String originJson);
+	public ServiceRequestDestination createServiceRequestDestination(int requestId, String destinationJson);
+	
+	//read
+	
+		//all global services
+
+	public List<ServiceOffer> getAllGlobalServiceOffers();
+	public List<ServiceRequest> getAllGlobalServiceRequests();
+	
+		//all services by timebank
+		
+	public List<ServiceOffer> getAllServiceOffersByTimebank(int timebankId);
+	public List<ServiceRequest> getAllServiceRequestsByTimebank(int timebankId);
+	
+		//specific services
+	
+	public ServiceOffer showServiceOffer(int offerId);
+	public ServiceRequest showServiceRequest(int requestId);
+	
+		//origins by service
+	
+	public List<ServiceOfferOrigin> getServiceOfferOrigins(int offerId);
+	public List<ServiceRequestOrigin> getServiceRequestOrigins(int requestId);
+	
+		//destinations by service
+
+	public List<ServiceOfferDestination> getServiceOfferDestinations(int offerId);
+	public List<ServiceRequestDestination> getServiceRequestDestinations(int requestId);
+	
+	//update
+	
+	public ServiceOffer updateServiceOffer(int userId, int offerId, String offerJson);
+	public ServiceOfferSchedule updateServiceOfferSchedule(int userId, int offerId, String scheduleJson);
+	public ServiceOfferOrigin updateServiceOfferOrigin(int userId, int originId, String originJson);
+		//service offer 
+			//schedule
+			//origin
+			//destination
+		//service request 
+			//time window
+			//origin
+			//destination
+	
+	//destroy
+		//just deactivate
+
+}

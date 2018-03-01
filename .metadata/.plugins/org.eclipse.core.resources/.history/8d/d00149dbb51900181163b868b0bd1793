@@ -1,0 +1,23 @@
+package interfaces;
+
+import java.sql.Timestamp;
+import java.util.Set;
+
+import entities.Timebank;
+import entities.User;
+
+public interface Request {
+	
+	public int getId();
+	public Timebank getTimebank();
+	public User getOwner();
+	public String getTitle();
+	public String getDescription();
+	public Timestamp getCreated();
+	public Timestamp getLastUpdate();
+	public Boolean getActive();
+	public Boolean moderatorClosed();
+	public Set<Transaction> getTransactions();
+	public Set<Activity> getActivity();
+
+}

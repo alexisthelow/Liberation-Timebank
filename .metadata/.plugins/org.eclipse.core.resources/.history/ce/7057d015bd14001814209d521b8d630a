@@ -1,0 +1,24 @@
+package data;
+
+public interface ItemDAO {
+	
+	//ITEM TRANSFERS
+	//create
+	
+	//read
+	
+	//update
+	
+	//destroy
+	
+	//ITEM LOANS
+	//create
+	
+	//read
+	
+	//update
+	
+	//destroy
+	
+
+}

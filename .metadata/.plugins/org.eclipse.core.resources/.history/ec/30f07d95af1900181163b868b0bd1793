@@ -1,0 +1,44 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOfferTx;
+import entities.ServiceRequestTx;
+
+public interface TransactionDAO {
+	
+	//create
+	
+		//tx
+	
+	
+	
+	
+	//read
+	
+		//specific tx
+	
+	
+	
+	
+		//tx index by timebank
+	
+	
+	
+	
+	//update
+
+		//specific tx
+	
+
+	
+	
+	//destroy
+	
+		//TODO -- user should be able to cancel transactions
+
+}

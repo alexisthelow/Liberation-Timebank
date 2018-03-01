@@ -1,0 +1,107 @@
+package controllers;
+
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import data.UserDAO;
+import entities.User;
+
+@RestController
+public class UserController implements UserControllerInterface {
+	
+	@Autowired
+	UserDAO userDAO;
+	
+	
+
+	@Override
+	public User register(HttpSession session, HttpServletResponse res, String userJson) {
+		String salt = BCrypt.gensalt();
+		ObjectMapper mapper = new ObjectMapper();
+		User newUser = null;
+		
+		try {
+			newUser = mapper.readValue(userJson, User.class);
+			String pwHash = BCrypt.hashpw(newUser.getPassword(), salt);
+			newUser.setPasswordHashAlgorithm("blowfish");
+			newUser.setPasswordSalt(salt);
+		}
+		catch (Exception e) {
+			System.err.println("Could not register user at UserController.register()");
+			System.err.println("User json: " + userJson);
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public User login(HttpSession session, HttpServletResponse res, String userJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean logout(HttpSession session, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String unauthorized(HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User showUser(HttpSession session, HttpServletResponse res, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<User> getUsersByTimebank(HttpSession session, HttpServletResponse res, int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<User> getActiveUsersByTimebank(HttpSession session, HttpServletResponse res, int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateUser(HttpSession session, HttpServletResponse res, int userId, String userJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean updatePassword(HttpSession session, HttpServletResponse res, String userJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean recoverPassword(HttpServletResponse res, String userJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User deactivateAccount(HttpSession session, HttpServletResponse res, int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

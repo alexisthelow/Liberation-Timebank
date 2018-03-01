@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "service_request_tx")
-public class ServiceRequestTx {
+public class ServiceRequestTx implements Transaction {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,16 +53,16 @@ public class ServiceRequestTx {
 	private Timestamp recipientComplete;
 	
 	@Column(name = "recipient_hour_offer")
-	private double recipientHourOffer;
+	private Double recipientHourOffer;
 
 	@Column(name = "provider_complete")
 	private Timestamp providerComplete;
 	
 	@Column(name = "provider_hour_request")
-	private double providerHourRequest;
+	private Double providerHourRequest;
 
 	@Column(name = "hours_exchanged")
-	private double hoursExchanged;
+	private Double hoursExchanged;
 	
 	@Column(name = "moderator_closed")
 	private Boolean moderatorClosed;
@@ -142,11 +144,11 @@ public class ServiceRequestTx {
 		this.recipientComplete = recipientComplete;
 	}
 
-	public double getRecipientHourOffer() {
+	public Double getRecipientHourOffer() {
 		return recipientHourOffer;
 	}
 
-	public void setRecipientHourOffer(double recipientHourOffer) {
+	public void setRecipientHourOffer(Double recipientHourOffer) {
 		this.recipientHourOffer = recipientHourOffer;
 	}
 
@@ -158,19 +160,19 @@ public class ServiceRequestTx {
 		this.providerComplete = providerComplete;
 	}
 
-	public double getProviderHourRequest() {
+	public Double getProviderHourRequest() {
 		return providerHourRequest;
 	}
 
-	public void setProviderHourRequest(double providerHourRequest) {
+	public void setProviderHourRequest(Double providerHourRequest) {
 		this.providerHourRequest = providerHourRequest;
 	}
 
-	public double getHoursExchanged() {
+	public Double getHoursExchanged() {
 		return hoursExchanged;
 	}
 
-	public void setHoursExchanged(double hoursExchanged) {
+	public void setHoursExchanged(Double hoursExchanged) {
 		this.hoursExchanged = hoursExchanged;
 	}
 
@@ -204,6 +206,66 @@ public class ServiceRequestTx {
 
 	public void setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.serviceRequestTxParent;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.serviceRequestProvider;
+	}
+
+	@Override
+	public Timestamp getParentUserAccept() {
+		return this.recipientAccept;
+	}
+
+	@Override
+	public Timestamp getParentUserReject() {
+		return this.recipientReject;
+	}
+
+	@Override
+	public Timestamp getOwnerComplete() {
+		return this.providerComplete;
+	}
+
+	@Override
+	public Timestamp getParentUserComplete() {
+		return this.recipientComplete;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.serviceRequestTxParent = (ServiceRequest) parent;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.serviceRequestProvider = owner;
+	}
+
+	@Override
+	public void setParentUserAccept(Timestamp accept) {
+		this.recipientAccept = accept;
+	}
+
+	@Override
+	public void setParentUserReject(Timestamp reject) {
+		this.recipientReject = reject;
+	}
+
+	@Override
+	public void setOwnerComplete(Timestamp complete) {
+		this.providerComplete = complete;
+	}
+
+	@Override
+	public void setParentUserComplete(Timestamp complete) {
+		this.recipientComplete = complete;
 	}
 
 	@Override

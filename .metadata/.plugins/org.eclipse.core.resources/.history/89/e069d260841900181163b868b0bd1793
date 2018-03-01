@@ -1,0 +1,13 @@
+package data;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+@Repository
+public class UserDAOImpl implements UserDAO {
+	
+	@PersistenceContext
+	EntityManager em;
+
+}

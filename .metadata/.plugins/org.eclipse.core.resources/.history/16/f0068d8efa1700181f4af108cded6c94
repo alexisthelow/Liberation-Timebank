@@ -1,0 +1,55 @@
+package data;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Timebank;
+
+@Transactional
+@Repository
+public class TimebankDAOImpl implements TimebankDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public Timebank create(String timebankJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		Timebank newTimebank = null;
+		
+		try {
+			newTimebank = mapper.readValue(timebankJson, Timebank.class);
+			em.persist(newTimebank);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(Timebank.class, newTimebank.getId());
+	}
+
+	@Override
+	public Timebank getTimebankById(int timebankId) {
+		return em.find(Timebank.class, timebankId);
+	}
+
+	@Override
+	public List<Timebank> getAllTimebanks() {
+		String query = "SELECT t FROM Timebank t";
+		return em.createQuery(query, Timebank.class).getResultList();
+	}
+
+	@Override
+	public Timebank update(int timebankId, String timebankJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

@@ -1,0 +1,15 @@
+package data;
+
+public interface TransactionDAO {
+	
+	//create
+	
+	public Transaction createTransaction(int actingUserId, Object parent, )
+	
+	//read
+	
+	//update
+	
+	//destroy
+
+}

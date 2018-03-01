@@ -1,0 +1,65 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+
+public interface ItemDAO {
+	
+	//create
+	
+		//single objects
+	public ItemTransferOffer createItemTransferOffer(int timebankId, String itemTransferOfferJson);
+	public ItemTransferRequest createItemTransferRequest(int timebankId, String itemTransferRequestJson);
+	public ItemLoanOffer createItemLoanOffer(int timebankId, String itemLoanOfferJson);
+	public ItemLoanRequest createItemLoanRequest(int timebankId, String itemLoanRequestJson);
+	
+	
+	//read
+	
+		//indices by timebank
+	public List<ItemTransferOffer> getAllItemTransferOffers(int timebankId);
+	public List<ItemTransferRequest> getAllItemTransferRequests(int timebankId);
+	public List<ItemLoanOffer> getAllItemLoanOffers(int timebankId);
+	public List<ItemLoanRequest> getAllItemLoanRequests(int timebankId);
+
+		//global indices
+	public List<ItemTransferOffer> getGlobalItemTransferOffers();
+	public List<ItemTransferRequest> getGlobalItemTransferRequests();
+	public List<ItemLoanOffer> getGlobalItemLoanOffers();
+	public List<ItemLoanRequest> getGlobalItemLoanRequests();
+	
+		//categories
+	public List<ItemTransferOffer> getItemTransferOffersByCategory(int timebankId, int categoryId);
+	public List<ItemTransferRequest> getItemTransferRequestsByCategory(int timebankId, int categoryId);
+	public List<ItemLoanOffer> getItemLoanOffersByCategory(int timebankId, int categoryId);
+	public List<ItemLoanRequest> getItemLoanRequestByCategory(int timebankId, int categoryId);
+
+		//subcategories
+		
+		//single objects
+	public ItemTransferOffer getItemTransferOfferById(int itemTransferOfferId);
+	public ItemTransferRequest getItemTransferRequestById(int itemTransferRequestId);
+	public ItemLoanOffer getItemLoanOfferById(int itemLoanOfferId);
+	public ItemLoanRequest getItemLoanRequestById(int itemLoanRequestId);
+	
+	//update
+	
+		//single objects
+	public ItemTransferOffer updateItemTransferOffer(int itemTransferOfferId, String itemTransferOfferJson);
+	public ItemTransferRequest updateItemTransferRequest(int itemTransferRequestId, String itemTransferRequestJson);
+	public ItemLoanOffer updateItemLoanOffer(int itemLoanOfferId, String itemLoanOfferJson);
+	public ItemLoanRequest updateItemLoanRequest(int itemLoanRequestId, String itemLoanRequestJson);
+	
+	//destroy
+		
+		//single objects -- by user
+	public Boolean deactivateItemTransferOffer(int itemTransferOfferId);
+	public Boolean deactivateItemTransferRequest(int itemTransferRequestId);
+	public Boolean deactivateItemLoanOffer(int itemLoanOfferId);
+	public Boolean deactivateItemLoanRequest(int itemLoanRequestId);
+	
+}

@@ -1,0 +1,75 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+
+public interface ItemDAO {
+	
+	//create
+	
+		//single objects
+	public ItemTransferOffer createItemTransferOffer(int timebankId, String itemTransferOfferJson);
+	public ItemTransferRequest createItemTransferRequest(int timebankId, String itemTransferRequestJson);
+	public ItemLoanOffer createItemLoanOffer(int timebankId, String itemLoanOfferJson);
+	public ItemLoanRequest createItemLoanRequest(int timebankId, String itemLoanRequestJson);
+	
+	
+	//read
+	
+		//timebank indices
+	public List<ItemTransferOffer> getAllItemTransferOffers(int timebankId);
+	public List<ItemTransferRequest> getAllItemTransferRequests(int timebankId);
+	public List<ItemLoanOffer> getAllItemLoanOffers(int timebankId);
+	public List<ItemLoanRequest> getAllItemLoanRequests(int timebankId);
+
+		//global indices
+	public List<ItemTransferOffer> getGlobalItemTransferOffers();
+	public List<ItemTransferRequest> getGlobalItemTransferRequests();
+	public List<ItemLoanOffer> getGlobalItemLoanOffers();
+	public List<ItemLoanRequest> getGlobalItemLoanRequests();
+	
+		//category indices
+	public List<ItemTransferOffer> getItemTransferOffersByCategory(int timebankId, int categoryId);
+	public List<ItemTransferRequest> getItemTransferRequestsByCategory(int timebankId, int categoryId);
+	public List<ItemLoanOffer> getItemLoanOffersByCategory(int timebankId, int categoryId);
+	public List<ItemLoanRequest> getItemLoanRequestByCategory(int timebankId, int categoryId);
+
+		//subcategory indices
+	public List<ItemTransferOffer> getItemTransferOfferBySubcategory(int timebankId, int subcategoryId);	
+	public List<ItemTransferRequest> getItemTransferRequestBySubcategory(int timebankId, int subcategoryId);	
+	public List<ItemLoanOffer> getItemLoanOfferBySubcategory(int timebankId, int subcategoryId);	
+	public List<ItemLoanRequest> getItemLoanRequestBySubcategory(int timebankId, int subcategoryId);	
+	
+		//search indices
+	public List<ItemTransferOffer> searchItemTransferOffers(String searchTerm);
+	public List<ItemTransferRequest> searchItemTransferRequests(String searchTerm);
+	public List<ItemLoanOffer> searchItemLoanOffers(String searchTerm);
+	public List<ItemLoanRequest> searchItemLoanRequests(String searchTerm);
+	
+		//single objects
+	public ItemTransferOffer getItemTransferOfferById(int itemTransferOfferId);
+	public ItemTransferRequest getItemTransferRequestById(int itemTransferRequestId);
+	public ItemLoanOffer getItemLoanOfferById(int itemLoanOfferId);
+	public ItemLoanRequest getItemLoanRequestById(int itemLoanRequestId);
+	
+	//update
+	
+		//single objects
+	public ItemTransferOffer updateItemTransferOffer(int itemTransferOfferId, String itemTransferOfferJson);
+	public ItemTransferRequest updateItemTransferRequest(int itemTransferRequestId, String itemTransferRequestJson);
+	public ItemLoanOffer updateItemLoanOffer(int itemLoanOfferId, String itemLoanOfferJson);
+	public ItemLoanRequest updateItemLoanRequest(int itemLoanRequestId, String itemLoanRequestJson);
+	
+	//destroy
+		
+		//single objects -- by user
+	public Boolean deactivateItemTransferOffer(int itemTransferOfferId);
+	public Boolean deactivateItemTransferRequest(int itemTransferRequestId);
+	public Boolean deactivateItemLoanOffer(int itemLoanOfferId);
+	public Boolean deactivateItemLoanRequest(int itemLoanRequestId);
+	
+}

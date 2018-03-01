@@ -1,0 +1,11 @@
+package interfaces;
+
+public interface Origin {
+	
+	public int getId();
+	public Object getParent();
+	public LocationCategory getLocationCategory();
+	public Address getAddress();
+	
+
+}

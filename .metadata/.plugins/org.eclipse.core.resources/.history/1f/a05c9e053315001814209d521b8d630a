@@ -1,0 +1,108 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.MessageThread;
+import entities.Reply;
+import entities.User;
+
+@Transactional
+@Repository
+public class MessageDAOImpl implements MessageDAO {
+
+	@PersistenceContext
+	EntityManager em;
+	
+	@Override
+	public MessageThread createMessageThread(int userId, int[] recipientIds, String messageThreadJson, String replyJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		MessageThread newThread = null;
+		Reply newReply = null;
+		Set<User> recipients = new HashSet<>();
+		
+		for (int id : recipientIds) {
+			recipients.add(em.find(User.class, id));
+		}
+		
+		try {
+			newThread = mapper.readValue(messageThreadJson, MessageThread.class);
+			newThread.setMessageThreadParticipants(recipients);
+			newThread.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newThread);
+			em.flush();
+			
+			newReply = createReply(userId, newThread.getId(), replyJson);
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newThread;
+	}
+
+	@Override
+	public Reply createReply(int userId, int threadId, String replyJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		Reply newReply = null;
+		
+		try {
+			newReply = mapper.readValue(replyJson, Reply.class);
+			newReply.setPosted(new Timestamp(System.currentTimeMillis()));
+			newReply.setParentMessageThread(em.find(MessageThread.class, threadId));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newReply;
+	}
+
+	@Override
+	public MessageThread showMessageThread(int threadId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MessageThread> getUserMessageThreads(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reply> showMessageThreadReplies(int threadId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reply showReply(int replyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MessageThread updateMessageThread(int userId, int threadId, String threadJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Reply updateReply(int userId, int replyId, String replyJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

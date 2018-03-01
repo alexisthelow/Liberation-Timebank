@@ -1,0 +1,47 @@
+package data;
+
+import java.util.List;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+import entities.ServiceOffer;
+import entities.ServiceRequest;
+import entities.Timebank;
+
+public interface TimebankDAO {
+	
+	//create
+	
+	public Timebank create(String timebankJson);
+	
+	//read
+	
+		//specific timebank
+	
+	public Timebank show(int timebankId);
+	
+		//all timebanks
+	
+	public List<Timebank> index();
+	
+	public List<ServiceOffer> getAllServiceOffersByTimebank(int timebankId);
+	public List<ServiceRequest> getAllServiceRequestsByTimebank(int timebankId);
+	
+	public List<ItemTransferOffer> getAllItemTransferOffers(int timebankId);
+	public List<ItemTransferRequest> getAllItemTransferRequests(int timebankId);
+	public List<ItemLoanOffer> getAllItemLoanOffers(int timebankId);
+	public List<ItemLoanRequest> getAllItemLoanRequests(int timebankId);
+	
+	//update
+	
+		//specific timebank
+	
+	public Timebank update(int timebankId, String timebankJson);
+	
+	//destroy
+	
+		//TODO -- just deactivate them although i think you shouldn't even be able to do that
+
+}

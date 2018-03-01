@@ -20,9 +20,15 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import interfaces.Activity;
+import interfaces.Location;
+import interfaces.Request;
+import interfaces.Service;
+import interfaces.Transaction;
+
 @Entity
 @Table(name = "service_request")
-public class ServiceRequest {
+public class ServiceRequest implements Service, Request {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +66,7 @@ public class ServiceRequest {
 	private Boolean requiresSupplies;
 	
 	@Column(name = "supply_cost_estimate")
-	private int supplyCostEstimate;
+	private Integer supplyCostEstimate;
 	
 	private Timestamp created;
 	
@@ -90,22 +96,22 @@ public class ServiceRequest {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestOriginParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceRequestOrigin> serviceRequestOrigins;
+	private Set<Location> serviceRequestOrigins;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestDestinationParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceRequestDestination> serviceRequestDestinations;
+	private Set<Location> serviceRequestDestinations;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestTxParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceRequestTx> serviceRequestTxs;
+	private Set<Transaction> serviceRequestTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestActivityParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceRequestActivity> serviceRequestActivities;
+	private Set<Activity> serviceRequestActivities;
 
 	public int getId() {
 		return id;
@@ -179,11 +185,11 @@ public class ServiceRequest {
 		this.requiresSupplies = requiresSupplies;
 	}
 
-	public int getSupplyCostEstimate() {
+	public Integer getSupplyCostEstimate() {
 		return supplyCostEstimate;
 	}
 
-	public void setSupplyCostEstimate(int supplyCostEstimate) {
+	public void setSupplyCostEstimate(Integer supplyCostEstimate) {
 		this.supplyCostEstimate = supplyCostEstimate;
 	}
 
@@ -243,36 +249,116 @@ public class ServiceRequest {
 		this.serviceRequestTimeWindows = serviceRequestTimeWindows;
 	}
 
-	public Set<ServiceRequestOrigin> getServiceRequestOrigins() {
+	public Set<Location> getServiceRequestOrigins() {
 		return serviceRequestOrigins;
 	}
 
-	public void setServiceRequestOrigins(Set<ServiceRequestOrigin> serviceRequestOrigins) {
+	public void setServiceRequestOrigins(Set<Location> serviceRequestOrigins) {
 		this.serviceRequestOrigins = serviceRequestOrigins;
 	}
 
-	public Set<ServiceRequestDestination> getServiceRequestDestinations() {
+	public Set<Location> getServiceRequestDestinations() {
 		return serviceRequestDestinations;
 	}
 
-	public void setServiceRequestDestinations(Set<ServiceRequestDestination> serviceRequestDestinations) {
+	public void setServiceRequestDestinations(Set<Location> serviceRequestDestinations) {
 		this.serviceRequestDestinations = serviceRequestDestinations;
 	}
 
-	public Set<ServiceRequestTx> getServiceRequestTxs() {
+	public Set<Transaction> getServiceRequestTxs() {
 		return serviceRequestTxs;
 	}
 
-	public void setServiceRequestTxs(Set<ServiceRequestTx> serviceRequestTxs) {
+	public void setServiceRequestTxs(Set<Transaction> serviceRequestTxs) {
 		this.serviceRequestTxs = serviceRequestTxs;
 	}
 
-	public Set<ServiceRequestActivity> getServiceRequestActivities() {
+	public Set<Activity> getServiceRequestActivities() {
 		return serviceRequestActivities;
 	}
 
-	public void setServiceRequestActivities(Set<ServiceRequestActivity> serviceRequestActivities) {
+	public void setServiceRequestActivities(Set<Activity> serviceRequestActivities) {
 		this.serviceRequestActivities = serviceRequestActivities;
+	}
+	
+	@Override
+	public Timebank getTimebank() {
+		return this.serviceRequestTimebank;
+	}
+
+	@Override
+	public User getOwner() {
+		return this.serviceRequestUser;
+	}
+
+	@Override
+	public Set<Transaction> getTransactions() {
+		return this.serviceRequestTxs;
+	}
+
+	@Override
+	public Set<Activity> getActivity() {
+		return this.serviceRequestActivities;
+	}
+
+	@Override
+	public ServiceCategory getCategory() {
+		return this.serviceRequestCategory;
+	}
+
+	@Override
+	public ServiceSubcategory getSubcategory() {
+		return this.serviceRequestSubcategory;
+	}
+
+	@Override
+	public Set<Location> getOrigins() {
+		return this.serviceRequestOrigins;
+	}
+
+	@Override
+	public Set<Location> getDestinations() {
+		return this.serviceRequestDestinations;
+	}
+	
+	@Override
+	public void setTimebank(Timebank timebank) {
+		this.serviceRequestTimebank = timebank;
+	}
+
+	@Override
+	public void setOwner(User owner) {
+		this.serviceRequestUser = owner;
+	}
+
+	@Override
+	public void setTransactions(Set<Transaction> transactions) {
+		this.serviceRequestTxs = transactions;
+	}
+
+	@Override
+	public void setActivity(Set<Activity> activity) {
+		this.serviceRequestActivities = activity;
+	}
+
+	@Override
+	public void setCategory(ServiceCategory category) {
+		this.serviceRequestCategory = category;
+	}
+
+	@Override
+	public void setSubcategory(ServiceSubcategory subcategory) {
+		this.serviceRequestSubcategory = subcategory;
+	}
+
+	@Override
+	public void setOrigins(Set<Location> origins) {
+		this.serviceRequestOrigins = origins;
+	}
+
+	@Override
+	public void setDestinations(Set<Location> destinations) {
+		this.serviceRequestDestinations = destinations;
 	}
 
 	@Override

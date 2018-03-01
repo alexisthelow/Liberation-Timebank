@@ -1,0 +1,153 @@
+package data;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestTx;
+import entities.ServiceOffer;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestTx;
+import entities.Timebank;
+
+@Transactional
+@Repository
+public class TimebankDAOImpl implements TimebankDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public Timebank create(String timebankJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		Timebank newTimebank = null;
+		
+		try {
+			newTimebank = mapper.readValue(timebankJson, Timebank.class);
+			em.persist(newTimebank);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(Timebank.class, newTimebank.getId());
+	}
+
+	@Override
+	public Timebank show(int timebankId) {
+		return em.find(Timebank.class, timebankId);
+	}
+
+	@Override
+	public List<Timebank> index() {
+		String query = "SELECT t FROM Timebank t";
+		return em.createQuery(query, Timebank.class).getResultList();
+	}
+
+	@Override
+	public Timebank update(int timebankId, String timebankJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		Timebank managedTimebank = em.find(Timebank.class, timebankId);
+		Timebank newTimebank = null;
+		
+		try {
+			newTimebank = mapper.readValue(timebankJson, Timebank.class);
+			managedTimebank.setTimebankOwner(newTimebank.getTimebankOwner());
+			managedTimebank.setTitle(newTimebank.getTitle());
+			managedTimebank.setDescription(newTimebank.getDescription());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(Timebank.class, timebankId);
+	}
+
+	@Override
+	public List<ServiceOffer> indexServiceOffers(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceRequest> indexServiceRequests(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ServiceOfferTx> indexServiceOfferTxs(int timebankId) {
+		String query = "SELECT s FROM ServiceOfferTx WHERE ServiceOfferTxParent = :timebankId";
+		return em.createQuery(query, ServiceOfferTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ServiceRequestTx> indexServiceRequestTxs(int timebankId) {
+		String query = "SELECT i FROM ServiceRequestTx WHERE ServiceRequestTxParent = :timebankId";
+		return em.createQuery(query, ServiceRequestTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferOffer> indexItemTransferOffers(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> indexItemTransferRequests(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> indexItemLoanOffers(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> indexItemLoanRequests(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOfferTx> indexItemTransferOfferTxs(int timebankId) {
+		String query = "SELECT i FROM ItemTransferOfferTx WHERE itemTransferOfferTxParent = :timebankId";
+		return em.createQuery(query, ItemTransferOfferTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequestTx> indexItemTransferRequestTxs(int timebankId) {
+		String query = "SELECT i FROM ItemTransferRequestTx WHERE ItemTransferRequestTxParent = :timebankId";
+		return em.createQuery(query, ItemTransferRequestTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOfferTx> indexItemLoanOfferTxs(int timebankId) {
+		String query = "SELECT i FROM ItemLoanOfferTx WHERE ItemLoanOfferTxParent = :timebankId";
+		return em.createQuery(query, ItemLoanOfferTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequestTx> indexItemLoanRequestTxs(int timebankId) {
+		String query = "SELECT i FROM ItemLoanRequestTx WHERE ItemLoanRequestTxParent = :timebankId";
+		return em.createQuery(query, ItemLoanRequestTx.class).setParameter("timebankId", timebankId).getResultList();
+	}
+	
+	
+	
+}

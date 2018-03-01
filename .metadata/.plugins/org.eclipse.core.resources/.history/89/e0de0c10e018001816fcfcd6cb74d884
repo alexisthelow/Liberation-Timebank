@@ -1,0 +1,54 @@
+package controllers;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestActivity;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestActivity;
+import entities.ItemTransferRequestTx;
+
+public interface ItemControllerInterface {
+	
+	//create
+	
+		public ItemTransferOffer createItemTransferOffer();
+		public ItemTransferOfferActivity createItemTransferOfferActivity();
+		public ItemTransferOfferTx createItemTransferOfferTx();
+		
+		public ItemTransferRequest createItemTransferRequest();
+		public ItemTransferRequestActivity createItemTransferRequestActivity();
+		public ItemTransferRequestTx createItemTransferRequestTx();
+		
+		public ItemLoanOffer createItemLoanOffer();
+		public ItemLoanOfferActivity createItemLoanOfferActivity();
+		public ItemLoanOfferTx createItemLoanOfferTx();
+		
+		public ItemLoanRequest createItemLoanRequest();
+		public ItemLoanRequestActivity createItemLoanRequestActivity();
+		public ItemLoanRequestTx createItemLoanRequestTx();
+		
+	//read
+
+		//just one
+		
+		//index of parts
+		
+		//index by user
+		
+		//index by timebank
+		
+	//update
+	
+	
+	//destroy
+	
+	
+	
+
+}

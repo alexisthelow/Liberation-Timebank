@@ -12,9 +12,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import interfaces.Location;
+
 @Entity
 @Table(name = "service_offer_origin")
-public class ServiceOfferOrigin {
+public class ServiceOfferOrigin implements Location {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +67,26 @@ public class ServiceOfferOrigin {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	@Override
+	public Object getParent() {
+		return this.serviceOfferOriginParent;
+	}
+
+	@Override
+	public LocationCategory getLocationCategory() {
+		return this.serviceOfferOriginLocationCategory;
+	}
+	
+	@Override
+	public void setParent(Object parent) {
+		this.serviceOfferOriginParent = (ServiceOffer) parent;
+	}
+
+	@Override
+	public void setLocationCategory(LocationCategory category) {
+		this.serviceOfferOriginLocationCategory = category;
 	}
 
 	@Override

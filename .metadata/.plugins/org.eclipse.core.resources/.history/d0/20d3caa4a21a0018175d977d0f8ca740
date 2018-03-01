@@ -1,0 +1,9 @@
+package interfaces;
+
+public interface Loan extends Transaction {
+	
+	public int getDaysRequested();
+	public int getDaysProvided();
+	
+
+}

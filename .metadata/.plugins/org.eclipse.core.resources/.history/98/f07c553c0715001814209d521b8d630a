@@ -1,0 +1,286 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanRequest;
+import entities.ItemTransferOffer;
+import entities.ItemTransferRequest;
+
+@Transactional
+@Repository
+public class ItemDAOImpl implements ItemDAO {
+
+	@PersistenceContext
+	EntityManager em;
+	
+	@Override
+	public ItemTransferOffer createItemTransferOffer(int userId, int timebankId, String itemTransferOfferJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferOffer newItemTransferOffer = null;
+		
+		try {
+			newItemTransferOffer = mapper.readValue(itemTransferOfferJson, ItemTransferOffer.class);
+			newItemTransferOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemTransferOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemTransferOffer;
+	}
+
+	@Override
+	public ItemTransferRequest createItemTransferRequest(int userId, int timebankId, String itemTransferRequestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferRequest newItemTransferRequest = null;
+		
+		try {
+			newItemTransferRequest = mapper.readValue(itemTransferRequestJson, ItemTransferRequest.class);
+			newItemTransferRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemTransferRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemTransferRequest;
+	}
+
+	@Override
+	public ItemLoanOffer createItemLoanOffer(int userId, int timebankId, String itemLoanOfferJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanOffer newItemLoanOffer = null;
+		
+		try {
+			newItemLoanOffer = mapper.readValue(itemLoanOfferJson, ItemLoanOffer.class);
+			newItemLoanOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemLoanOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemLoanOffer;
+	}
+
+	@Override
+	public ItemLoanRequest createItemLoanRequest(int userId, int timebankId, String itemLoanRequestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanRequest newItemLoanRequest = null;
+		
+		try {
+			newItemLoanRequest = mapper.readValue(itemLoanRequestJson, ItemLoanRequest.class);
+			newItemLoanRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			em.persist(newItemLoanRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newItemLoanRequest;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getAllItemTransferOffers(int timebankId) {
+		String query = "SELECT i FROM ItemTransferOffer i WHERE timebankId = :id";
+		return em.createQuery(query, ItemTransferOffer.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemTransferRequest> getAllItemTransferRequests(int timebankId) {
+		String query = "SELECT i FROM ItemTransferRequest i WHERE timebankId = :id";
+		return em.createQuery(query, ItemTransferRequest.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanOffer> getAllItemLoanOffers(int timebankId) {
+		String query = "SELECT i FROM ItemLoanOffer i WHERE timebankId = :id";
+		return em.createQuery(query, ItemLoanOffer.class).setParameter("id", timebankId).getResultList();
+	}
+
+	@Override
+	public List<ItemLoanRequest> getAllItemLoanRequests(int timebankId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getGlobalItemTransferOffers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> getGlobalItemTransferRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> getGlobalItemLoanOffers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> getGlobalItemLoanRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getItemTransferOffersByCategory(int timebankId, int categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> getItemTransferRequestsByCategory(int timebankId, int categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> getItemLoanOffersByCategory(int timebankId, int categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> getItemLoanRequestByCategory(int timebankId, int categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOffer> getItemTransferOfferBySubcategory(int timebankId, int subcategoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> getItemTransferRequestBySubcategory(int timebankId, int subcategoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> getItemLoanOfferBySubcategory(int timebankId, int subcategoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> getItemLoanRequestBySubcategory(int timebankId, int subcategoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferOffer> searchItemTransferOffers(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemTransferRequest> searchItemTransferRequests(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanOffer> searchItemLoanOffers(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ItemLoanRequest> searchItemLoanRequests(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferOffer getItemTransferOfferById(int itemTransferOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequest getItemTransferRequestById(int itemTransferRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanOffer getItemLoanOfferById(int itemLoanOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequest getItemLoanRequestById(int itemLoanRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferOffer updateItemTransferOffer(int itemTransferOfferId, String itemTransferOfferJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemTransferRequest updateItemTransferRequest(int itemTransferRequestId, String itemTransferRequestJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanOffer updateItemLoanOffer(int itemLoanOfferId, String itemLoanOfferJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemLoanRequest updateItemLoanRequest(int itemLoanRequestId, String itemLoanRequestJson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemTransferOffer(int itemTransferOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemTransferRequest(int itemTransferRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemLoanOffer(int itemLoanOfferId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deactivateItemLoanRequest(int itemLoanRequestId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+ 
+}

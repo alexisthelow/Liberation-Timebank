@@ -1,0 +1,140 @@
+package controllers;
+
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanOfferTx;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestActivity;
+import entities.ItemLoanRequestTx;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferOfferTx;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestActivity;
+import entities.ItemTransferRequestTx;
+
+public interface ItemControllerInterface {
+	
+	//create
+	
+		public ItemTransferOffer createItemTransferOffer(HttpSession session, HttpServletResponse res, @RequestBody String offerJson);
+		public ItemTransferOfferActivity createItemTransferOfferActivity(HttpSession session, HttpServletResponse res, @RequestBody String activityJson);
+		public ItemTransferOfferTx createItemTransferOfferTx(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+		
+		public ItemTransferRequest createItemTransferRequest(HttpSession session, HttpServletResponse res, @RequestBody String requestJson);
+		public ItemTransferRequestActivity createItemTransferRequestActivity(HttpSession session, HttpServletResponse res, @RequestBody String activityJson);
+		public ItemTransferRequestTx createItemTransferRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		
+		public ItemLoanOffer createItemLoanOffer(HttpSession session, HttpServletResponse res, @RequestBody String offerJson);
+		public ItemLoanOfferActivity createItemLoanOfferActivity(HttpSession session, HttpServletResponse res, @RequestBody String activityJson);
+		public ItemLoanOfferTx createItemLoanOfferTx(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+		
+		public ItemLoanRequest createItemLoanRequest(HttpSession session, HttpServletResponse res, @RequestBody String requestJson);
+		public ItemLoanRequestActivity createItemLoanRequestActivity(HttpSession session, HttpServletResponse res, @RequestBody String activityJson);
+		public ItemLoanRequestTx createItemLoanRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		
+	//read
+
+		//just one
+		
+		public ItemTransferOffer showItemTransferOffer(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+		public ItemTransferOfferActivity showItemTransferOfferActivity(HttpSession session, HttpServletResponse res, @PathVariable int activityId);
+		public ItemTransferOfferTx showItemTransferOfferTx(HttpSession session, HttpServletResponse res, @PathVariable int txId);
+		
+		public ItemTransferRequest showItemTransferRequest(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		public ItemTransferRequestActivity showItemTransferRequestActivity(HttpSession session, HttpServletResponse res, @PathVariable int activityId);
+		public ItemTransferRequestTx showItemTransferRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int txId);
+		
+		public ItemLoanOffer showItemLoanOffer(HttpSession session, HttpServletResponse res, @PathVariable int offerId);
+		public ItemLoanOfferActivity showItemLoanOfferActivity(HttpSession session, HttpServletResponse res, @PathVariable int activityId);
+		public ItemLoanOfferTx showItemLoanOfferTx(HttpSession session, HttpServletResponse res, @PathVariable int txId);
+		
+		public ItemLoanRequest showItemLoanRequest(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		public ItemLoanRequestActivity showItemLoanRequestActivity(HttpSession session, HttpServletResponse res, @PathVariable int activityId);
+		public ItemLoanRequestTx showItemLoanRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int txId);
+		
+		//index of parts
+		
+		public Set<ItemTransferOfferActivity> showAllItemTransferOfferActivity();
+		public Set<ItemTransferOfferTx> showAllItemTransferOfferTx();
+		
+		public Set<ItemTransferRequestActivity> showAllItemTransferRequestActivity(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		public Set<ItemTransferRequestTx> showAllItemTransferRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		
+		public Set<ItemLoanOfferActivity> showAllItemLoanOfferActivity(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		public Set<ItemLoanOfferTx> showAllItemLoanOfferTx(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		
+		public Set<ItemLoanRequestActivity> showAllItemLoanRequestActivity(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		public Set<ItemLoanRequestTx> showAllItemLoanRequestTx(HttpSession session, HttpServletResponse res, @PathVariable int requestId);
+		
+		//index by user
+		
+		public Set<ItemTransferOffer> showUserItemTransferOffers();
+		public Set<ItemTransferOfferTx> showUserItemTransferOfferTxs();
+		public Set<ItemTransferRequest> showUserItemTransferRequests();
+		public Set<ItemTransferRequestTx> showUserItemTransferRequestTxs();
+		public Set<ItemLoanOffer> showUserItemLoanOffers();
+		public Set<ItemLoanOfferTx> showUserItemLoanOfferTxs();
+		public Set<ItemLoanRequest> showUserItemLoanRequests();
+		public Set<ItemLoanRequestTx> showUserItemLoanRequestTxs();
+		
+		//index by timebank
+		
+		public Set<ItemTransferOffer> showTimebankItemTransferOffers();
+		public Set<ItemTransferRequest> showTimebankItemTransferRequests();
+		public Set<ItemLoanOffer> showTimebankItemLoanOffers();
+		public Set<ItemLoanRequest> showTimebankItemLoanRequests();
+		
+	//update
+		
+		//just one
+		
+		public ItemTransferOffer updateItemTransferOffer();
+		public ItemTransferOfferActivity updateItemTransferOfferActivity();
+		public ItemTransferOfferTx itemTransferOfferProviderAccept();
+		public ItemTransferOfferTx itemTransferOfferProviderReject();
+		public ItemTransferOfferTx itemTransferOfferProviderComplete();
+		public ItemTransferOfferTx itemTransferOfferRecipientComplete();
+		
+		public ItemTransferRequest updateItemTransferRequest();
+		public ItemTransferRequestActivity updateItemTransferRequestActivity();
+		public ItemTransferRequestTx itemTransferRequestRecipientAccept();
+		public ItemTransferRequestTx itemTransferRequestRecipientReject();
+		public ItemTransferRequestTx itemTransferRequestRecipientComplete();
+		public ItemTransferRequestTx itemTransferRequestProviderComplete();
+		
+		public ItemLoanOffer updateItemLoanOffer();
+		public ItemLoanOfferActivity updateItemLoanOfferActivity();
+		public ItemLoanOfferTx itemLoanOfferLenderAccept();
+		public ItemLoanOfferTx itemLoanOfferLenderReject();
+		public ItemLoanOfferTx itemLoanOfferLenderComplete();
+		public ItemLoanOfferTx itemLoanOfferBorrowerComplete();
+		
+		public ItemLoanRequest updateItemLoanRequest();
+		public ItemLoanRequestActivity updateItemLoanRequestActivity();
+		public ItemLoanRequestTx itemLoanRequestBorrowerAccept();
+		public ItemLoanRequestTx itemLoanRequestBorrowerReject();
+		public ItemLoanRequestTx itemLoanRequestBorrowerComplete();
+		public ItemLoanRequestTx itemLoanRequestLenderComplete();
+		
+	//destroy
+		
+		//deactivate things
+		
+		public Boolean deactivateItemTransferOffer();
+		public Boolean deactivateItemTransferRequest();
+		public Boolean deactivateItemLoanOffer();
+		public Boolean deactivateItemLoanRequest();
+	
+	
+	
+
+}
