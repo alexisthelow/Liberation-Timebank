@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -91,27 +91,27 @@ public class ServiceRequest implements Service, Request {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestTimeWindowParent", cascade = CascadeType.PERSIST)
-	private Set<ServiceRequestTimeWindow> serviceRequestTimeWindows;
+	private List<ServiceRequestTimeWindow> serviceRequestTimeWindows;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestOriginParent", cascade = CascadeType.PERSIST)
-	private Set<Location> serviceRequestOrigins;
+	private List<ServiceRequestOrigin> serviceRequestOrigins;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestDestinationParent", cascade = CascadeType.PERSIST)
-	private Set<Location> serviceRequestDestinations;
+	private List<ServiceRequestDestination> serviceRequestDestinations;
 
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestTxParent", cascade = CascadeType.PERSIST)
-	private Set<Transaction> serviceRequestTxs;
+	private List<ServiceRequestTx> serviceRequestTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceRequestActivityParent", cascade = CascadeType.PERSIST)
-	private Set<Activity> serviceRequestActivities;
+	private List<ServiceRequestActivity> serviceRequestActivities;
 
 	public int getId() {
 		return id;
@@ -241,43 +241,43 @@ public class ServiceRequest implements Service, Request {
 		this.closingModerator = closingModerator;
 	}
 
-	public Set<ServiceRequestTimeWindow> getServiceRequestTimeWindows() {
+	public List<ServiceRequestTimeWindow> getServiceRequestTimeWindows() {
 		return serviceRequestTimeWindows;
 	}
 
-	public void setServiceRequestTimeWindows(Set<ServiceRequestTimeWindow> serviceRequestTimeWindows) {
+	public void setServiceRequestTimeWindows(List<ServiceRequestTimeWindow> serviceRequestTimeWindows) {
 		this.serviceRequestTimeWindows = serviceRequestTimeWindows;
 	}
 
-	public Set<Location> getServiceRequestOrigins() {
+	public List<ServiceRequestOrigin> getServiceRequestOrigins() {
 		return serviceRequestOrigins;
 	}
 
-	public void setServiceRequestOrigins(Set<Location> serviceRequestOrigins) {
+	public void setServiceRequestOrigins(List<ServiceRequestOrigin> serviceRequestOrigins) {
 		this.serviceRequestOrigins = serviceRequestOrigins;
 	}
 
-	public Set<Location> getServiceRequestDestinations() {
+	public List<ServiceRequestDestination> getServiceRequestDestinations() {
 		return serviceRequestDestinations;
 	}
 
-	public void setServiceRequestDestinations(Set<Location> serviceRequestDestinations) {
+	public void setServiceRequestDestinations(List<ServiceRequestDestination> serviceRequestDestinations) {
 		this.serviceRequestDestinations = serviceRequestDestinations;
 	}
 
-	public Set<Transaction> getServiceRequestTxs() {
+	public List<ServiceRequestTx> getServiceRequestTxs() {
 		return serviceRequestTxs;
 	}
 
-	public void setServiceRequestTxs(Set<Transaction> serviceRequestTxs) {
+	public void setServiceRequestTxs(List<ServiceRequestTx> serviceRequestTxs) {
 		this.serviceRequestTxs = serviceRequestTxs;
 	}
 
-	public Set<Activity> getServiceRequestActivities() {
+	public List<ServiceRequestActivity> getServiceRequestActivities() {
 		return serviceRequestActivities;
 	}
 
-	public void setServiceRequestActivities(Set<Activity> serviceRequestActivities) {
+	public void setServiceRequestActivities(List<ServiceRequestActivity> serviceRequestActivities) {
 		this.serviceRequestActivities = serviceRequestActivities;
 	}
 	
@@ -292,13 +292,13 @@ public class ServiceRequest implements Service, Request {
 	}
 
 	@Override
-	public Set<Transaction> getTransactions() {
-		return this.serviceRequestTxs;
+	public List<Transaction> getTransactions() {
+		return null;
 	}
 
 	@Override
-	public Set<Activity> getActivity() {
-		return this.serviceRequestActivities;
+	public List<Activity> getActivity() {
+		return null;
 	}
 
 	@Override
@@ -312,13 +312,13 @@ public class ServiceRequest implements Service, Request {
 	}
 
 	@Override
-	public Set<Location> getOrigins() {
-		return this.serviceRequestOrigins;
+	public List<Location> getOrigins() {
+		return null;
 	}
 
 	@Override
-	public Set<Location> getDestinations() {
-		return this.serviceRequestDestinations;
+	public List<Location> getDestinations() {
+		return null;
 	}
 	
 	@Override
@@ -332,13 +332,11 @@ public class ServiceRequest implements Service, Request {
 	}
 
 	@Override
-	public void setTransactions(Set<Transaction> transactions) {
-		this.serviceRequestTxs = transactions;
+	public void setTransactions(List<Transaction> transactions) {
 	}
 
 	@Override
-	public void setActivity(Set<Activity> activity) {
-		this.serviceRequestActivities = activity;
+	public void setActivity(List<Activity> activity) {
 	}
 
 	@Override
@@ -352,13 +350,11 @@ public class ServiceRequest implements Service, Request {
 	}
 
 	@Override
-	public void setOrigins(Set<Location> origins) {
-		this.serviceRequestOrigins = origins;
+	public void setOrigins(List<Location> origins) {
 	}
 
 	@Override
-	public void setDestinations(Set<Location> destinations) {
-		this.serviceRequestDestinations = destinations;
+	public void setDestinations(List<Location> destinations) {
 	}
 
 	@Override

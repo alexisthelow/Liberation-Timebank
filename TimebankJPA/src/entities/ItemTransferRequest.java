@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -83,12 +83,12 @@ public class ItemTransferRequest implements Item, Request {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestActivityParent", cascade = CascadeType.PERSIST)
-	private Set<Activity> itemTransferRequestActivity;
+	private List<ItemTransferRequestActivity> itemTransferRequestActivity;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferRequestTxParent", cascade = CascadeType.PERSIST)
-	private Set<Transaction> itemTransferRequestTx;
+	private List<ItemTransferRequestTx> itemTransferRequestTx;
 
 	public int getId() {
 		return id;
@@ -202,19 +202,19 @@ public class ItemTransferRequest implements Item, Request {
 		this.closingModerator = closingModerator;
 	}
 
-	public Set<Activity> getItemTransferRequestActivity() {
+	public List<ItemTransferRequestActivity> getItemTransferRequestActivity() {
 		return itemTransferRequestActivity;
 	}
 
-	public void setItemTransferRequestActivity(Set<Activity> itemTransferRequestActivity) {
+	public void setItemTransferRequestActivity(List<ItemTransferRequestActivity> itemTransferRequestActivity) {
 		this.itemTransferRequestActivity = itemTransferRequestActivity;
 	}
 
-	public Set<Transaction> getItemTransferRequestTx() {
+	public List<ItemTransferRequestTx> getItemTransferRequestTx() {
 		return itemTransferRequestTx;
 	}
 
-	public void setItemTransferRequestTx(Set<Transaction> itemTransferRequestTx) {
+	public void setItemTransferRequestTx(List<ItemTransferRequestTx> itemTransferRequestTx) {
 		this.itemTransferRequestTx = itemTransferRequestTx;
 	}
 	
@@ -229,13 +229,13 @@ public class ItemTransferRequest implements Item, Request {
 	}
 
 	@Override
-	public Set<Transaction> getTransactions() {
-		return this.itemTransferRequestTx;
+	public List<Transaction> getTransactions() {
+		return null;
 	}
 
 	@Override
-	public Set<Activity> getActivity() {
-		return this.itemTransferRequestActivity;
+	public List<Activity> getActivity() {
+		return null;
 	}
 	
 	@Override
@@ -269,13 +269,11 @@ public class ItemTransferRequest implements Item, Request {
 	}
 
 	@Override
-	public void setActivity(Set<Activity> activity) {
-		this.itemTransferRequestActivity = activity;
+	public void setActivity(List<Activity> activity) {
 	}
 
 	@Override
-	public void setTransactions(Set<Transaction> transactions) {
-		this.itemTransferRequestTx = transactions;
+	public void setTransactions(List<Transaction> transactions) {
 	}
 
 	@Override

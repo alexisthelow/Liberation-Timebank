@@ -1,7 +1,7 @@
 package interfaces;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import entities.ItemCategory;
 import entities.ItemSubcategory;
@@ -34,9 +34,9 @@ public interface Item {
 	public void setModeratorClosed(Boolean closed);
 	public User getClosingModerator();
 	public void setClosingModerator(User closingModerator);
-	public Set<Activity> getActivity();
-	public void setActivity(Set<Activity> activity);
-	public Set<Transaction> getTransactions();
-	public void setTransactions(Set<Transaction> transactions);
+	public List<Activity> getActivity();
+	public void setActivity(List<Activity> activity);
+	public List<Transaction> getTransactions();
+	public void setTransactions(List<Transaction> transactions);
 
 }

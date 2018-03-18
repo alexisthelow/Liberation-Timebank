@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -98,22 +98,22 @@ public class ServiceOffer implements Service, Offer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferOriginParent", cascade = CascadeType.PERSIST)
-	private Set<Location> serviceOfferOrigins;
+	private List<ServiceOfferOrigin> serviceOfferOrigins;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferDestinationParent", cascade = CascadeType.PERSIST)
-	private Set<Location> serviceOfferDestinations;
+	private List<ServiceOfferDestination> serviceOfferDestinations;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferTxParent", cascade = CascadeType.PERSIST)
-	private Set<Transaction> serviceOfferTxs;
+	private List<ServiceOfferTx> serviceOfferTxs;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "serviceOfferActivityParent", cascade = CascadeType.PERSIST)
-	private Set<Activity> serviceOfferActivities;
+	private List<ServiceOfferActivity> serviceOfferActivities;
 
 	public int getId() {
 		return id;
@@ -251,35 +251,35 @@ public class ServiceOffer implements Service, Offer {
 		this.serviceOfferSchedule = serviceOfferSchedule;
 	}
 
-	public Set<Location> getServiceOfferOrigins() {
+	public List<ServiceOfferOrigin> getServiceOfferOrigins() {
 		return serviceOfferOrigins;
 	}
 
-	public void setServiceOfferOrigins(Set<Location> serviceOfferOrigins) {
+	public void setServiceOfferOrigins(List<ServiceOfferOrigin> serviceOfferOrigins) {
 		this.serviceOfferOrigins = serviceOfferOrigins;
 	}
 
-	public Set<Location> getServiceOfferDestinations() {
+	public List<ServiceOfferDestination> getServiceOfferDestinations() {
 		return serviceOfferDestinations;
 	}
 
-	public void setServiceOfferDestinations(Set<Location> serviceOfferDestinations) {
+	public void setServiceOfferDestinations(List<ServiceOfferDestination> serviceOfferDestinations) {
 		this.serviceOfferDestinations = serviceOfferDestinations;
 	}
 
-	public Set<Transaction> getServiceOfferTxs() {
+	public List<ServiceOfferTx> getServiceOfferTxs() {
 		return serviceOfferTxs;
 	}
 
-	public void setServiceOfferTxs(Set<Transaction> serviceOfferTxs) {
+	public void setServiceOfferTxs(List<ServiceOfferTx> serviceOfferTxs) {
 		this.serviceOfferTxs = serviceOfferTxs;
 	}
 
-	public Set<Activity> getServiceOfferActivities() {
+	public List<ServiceOfferActivity> getServiceOfferActivities() {
 		return serviceOfferActivities;
 	}
 
-	public void setServiceOfferActivities(Set<Activity> serviceOfferActivities) {
+	public void setServiceOfferActivities(List<ServiceOfferActivity> serviceOfferActivities) {
 		this.serviceOfferActivities = serviceOfferActivities;
 	}
 	
@@ -294,12 +294,12 @@ public class ServiceOffer implements Service, Offer {
 	}
 
 	@Override
-	public Set<Activity> getActivity() {
+	public List<Activity> getActivity() {
 		return this.getActivity();
 	}
 
 	@Override
-	public Set<Transaction> getTransactions() {
+	public List<Transaction> getTransactions() {
 		return this.getTransactions();
 	}
 	
@@ -314,13 +314,13 @@ public class ServiceOffer implements Service, Offer {
 	}
 
 	@Override
-	public Set<Location> getOrigins() {
-		return this.serviceOfferOrigins;
+	public List<Location> getOrigins() {
+		return null;
 	}
 
 	@Override
-	public Set<Location> getDestinations() {
-		return this.serviceOfferDestinations;
+	public List<Location> getDestinations() {
+		return null;
 	}
 	
 	@Override
@@ -334,13 +334,13 @@ public class ServiceOffer implements Service, Offer {
 	}
 
 	@Override
-	public void setActivity(Set<Activity> activity) {
-		this.serviceOfferActivities = activity;
+	public void setActivity(List<Activity> activity) {
+		//TODO
 	}
 
 	@Override
-	public void setTransactions(Set<Transaction> transactions) {
-		this.serviceOfferTxs = transactions;
+	public void setTransactions(List<Transaction> transactions) {
+
 	}
 
 	@Override
@@ -354,15 +354,15 @@ public class ServiceOffer implements Service, Offer {
 	}
 
 	@Override
-	public void setOrigins(Set<Location> origins) {
-		this.serviceOfferOrigins = origins;
+	public void setOrigins(List<Location> origins) {
+		//TODO
 	}
 
 	@Override
-	public void setDestinations(Set<Location> destinations) {
-		this.serviceOfferDestinations = destinations;
+	public void setDestinations(List<Location> destinations) {
+		//TODO
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

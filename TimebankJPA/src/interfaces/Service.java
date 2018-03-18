@@ -1,7 +1,7 @@
 package interfaces;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import entities.ServiceCategory;
 import entities.ServiceSubcategory;
@@ -27,9 +27,9 @@ public interface Service {
 	public void setLastUpdateUser(User user);
 	public Boolean getActive();
 	public void setActive(Boolean active);
-	public Set<Location> getOrigins();
-	public void setOrigins(Set<Location> origins);
-	public Set<Location> getDestinations();
-	public void setDestinations(Set<Location> destinations);
+	public List<Location> getOrigins();
+	public void setOrigins(List<Location> origins);
+	public List<Location> getDestinations();
+	public void setDestinations(List<Location> destinations);
 
 }

@@ -1,7 +1,7 @@
  package entities;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -88,12 +88,12 @@ public class ItemLoanRequest implements Item, Request {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanRequestActivityParent", cascade = CascadeType.PERSIST)
-	private Set<Activity> itemLoanRequestActivities;
+	private List<ItemLoanRequestActivity> itemLoanRequestActivities;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToOne(mappedBy = "itemLoanRequestTxParent", cascade = CascadeType.PERSIST)
-	private Set<Transaction> itemLoanRequestTx;
+	private ItemLoanRequestTx itemLoanRequestTx;
 
 	public int getId() {
 		return id;
@@ -215,19 +215,19 @@ public class ItemLoanRequest implements Item, Request {
 		this.closingModerator = closingModerator;
 	}
 
-	public Set<Activity> getItemLoanRequestActivities() {
+	public List<ItemLoanRequestActivity> getItemLoanRequestActivities() {
 		return itemLoanRequestActivities;
 	}
 
-	public void setItemLoanRequestActivities(Set<Activity> itemLoanRequestActivities) {
+	public void setItemLoanRequestActivities(List<ItemLoanRequestActivity> itemLoanRequestActivities) {
 		this.itemLoanRequestActivities = itemLoanRequestActivities;
 	}
 
-	public Set<Transaction> getItemLoanRequestTx() {
+	public ItemLoanRequestTx getItemLoanRequestTx() {
 		return itemLoanRequestTx;
 	}
 
-	public void setItemLoanRequestTx(Set<Transaction> itemLoanRequestTx) {
+	public void setItemLoanRequestTx(ItemLoanRequestTx itemLoanRequestTx) {
 		this.itemLoanRequestTx = itemLoanRequestTx;
 	}
 	
@@ -242,13 +242,13 @@ public class ItemLoanRequest implements Item, Request {
 	}
 
 	@Override
-	public Set<Transaction> getTransactions() {
-		return this.itemLoanRequestTx;
+	public List<Transaction> getTransactions() {
+		return null;
 	}
 
 	@Override
-	public Set<Activity> getActivity() {
-		return this.itemLoanRequestActivities;
+	public List<Activity> getActivity() {
+		return null;
 	}
 	
 	@Override
@@ -282,13 +282,11 @@ public class ItemLoanRequest implements Item, Request {
 	}
 
 	@Override
-	public void setActivity(Set<Activity> activity) {
-		this.itemLoanRequestActivities = activity;
+	public void setActivity(List<Activity> activity) {
 	}
 
 	@Override
-	public void setTransactions(Set<Transaction> transactions) {
-		this.itemLoanRequestTx = transactions;
+	public void setTransactions(List<Transaction> transactions) {
 	}
 
 	@Override

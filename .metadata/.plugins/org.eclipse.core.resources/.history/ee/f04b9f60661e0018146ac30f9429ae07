@@ -1,0 +1,447 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Address;
+import entities.ServiceOffer;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+import entities.ServiceRequestTx;
+import entities.Timebank;
+import entities.User;
+import interfaces.Location;
+
+@Transactional
+@Repository
+public class ServiceDAOImpl implements ServiceDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	@Override
+	public ServiceOffer createServiceOffer(int timebankId, User user, String offerJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOffer newOffer = null;
+		
+		try {
+			newOffer = mapper.readValue(offerJson, ServiceOffer.class);
+			newOffer.setServiceOfferTimebank(em.find(Timebank.class, timebankId));
+			newOffer.setCreated(new Timestamp(System.currentTimeMillis()));
+			newOffer.setServiceOfferUser(user);
+			newOffer.setActive(true);
+			em.persist(newOffer);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOffer.class, newOffer.getId());
+	}
+
+	@Override
+	public ServiceOfferSchedule createServiceOfferSchedule(int offerId, String scheduleJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferSchedule newSchedule = null;
+		
+		try {
+			newSchedule = mapper.readValue(scheduleJson, ServiceOfferSchedule.class);
+			newSchedule.setServiceOfferScheduleParent(em.find(ServiceOffer.class, offerId));
+			em.persist(newSchedule);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferSchedule.class, newSchedule.getId());
+	}
+
+	@Override
+	public ServiceOfferOrigin createServiceOfferOrigin(int offerId, int addressId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceOfferOrigin.class);
+			newOrigin.setServiceOfferOriginParent(em.find(ServiceOffer.class, offerId));
+			newOrigin.setAddress(em.find(Address.class, addressId));
+			em.persist(newOrigin);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferOrigin.class, newOrigin.getId());
+	}
+
+	@Override
+	public ServiceOfferDestination createServiceOfferDestination(int offerId, int addressId, String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceOfferDestination.class);
+			newDestination.setServiceOfferDestinationParent(em.find(ServiceOffer.class, offerId));
+			newDestination.setAddress(em.find(Address.class, addressId));
+			em.persist(newDestination);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return em.find(ServiceOfferDestination.class, newDestination.getId());
+		
+	}
+
+	@Override
+	public ServiceRequest createServiceRequest(int timebankId, User user, String requestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequest newRequest = null;
+		
+		try {
+			newRequest = mapper.readValue(requestJson, ServiceRequest.class);
+			newRequest.setServiceRequestTimebank(em.find(Timebank.class, timebankId));
+			newRequest.setCreated(new Timestamp(System.currentTimeMillis()));
+			newRequest.setServiceRequestUser(user);
+			newRequest.setActive(true);
+			em.persist(newRequest);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequest.class, newRequest.getId());
+	}
+
+	@Override
+	public ServiceRequestTimeWindow createServiceRequestTimeWindow(int requestId, String timeWindowJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestTimeWindow newWindow = null;
+		
+		try {
+			newWindow = mapper.readValue(timeWindowJson, ServiceRequestTimeWindow.class);
+			newWindow.setServiceRequestTimeWindowParent(em.find(ServiceRequest.class, requestId));
+			em.persist(newWindow);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestTimeWindow.class, em.find(ServiceRequestTimeWindow.class, newWindow.getId()));
+	}
+
+	@Override
+	public ServiceRequestOrigin createServiceRequestOrigin(int requestId, int addressId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceRequestOrigin.class);
+			newOrigin.setServiceRequestOriginParent(em.find(ServiceRequest.class, requestId));
+			newOrigin.setAddress(em.find(Address.class, addressId));
+			em.persist(newOrigin);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return em.find(ServiceRequestOrigin.class, newOrigin.getId());
+	}
+
+	@Override
+	public ServiceRequestDestination createServiceRequestDestination(int requestId, int addressId,
+			String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceRequestDestination.class);
+			newDestination.setServiceRequestDestinationParent(em.find(ServiceRequest.class, requestId));
+			newDestination.setAddress(em.find(Address.class, addressId));
+			em.persist(newDestination);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestDestination.class, newDestination.getId());
+	}
+
+	@Override
+	public List<ServiceOffer> getAllGlobalServiceOffers() {
+		String query = "SELECT s FROM ServiceOffer s WHERE globalVisibility = 1";
+		return em.createQuery(query, ServiceOffer.class).getResultList();
+	}
+
+	@Override
+	public List<ServiceRequest> getAllGlobalServiceRequests() {
+		String query = "SELECT s FROM ServiceRequest s WHERE globalVisibility = 1";
+		return em.createQuery(query, ServiceRequest.class).getResultList();
+	}
+
+	@Override
+	public ServiceOffer showServiceOffer(int offerId) {
+		return em.find(ServiceOffer.class, offerId);
+	}
+
+	@Override
+	public ServiceRequest showServiceRequest(int requestId) {
+		return em.find(ServiceRequest.class, requestId);
+	}
+
+	@Override
+	public List<Location> indexServiceOfferOrigins(int offerId) {
+		return new ArrayList<Location>(em.find(ServiceOffer.class, offerId).getServiceOfferOrigins());
+	}
+
+	@Override
+	public List<Location> indexServiceRequestOrigins(int requestId) {
+		return new ArrayList<Location>(em.find(ServiceRequest.class, requestId).getServiceRequestOrigins());
+	}
+
+	@Override
+	public List<Location> indexServiceOfferDestinations(int offerId) {
+		return new ArrayList<Location>(em.find(ServiceOffer.class, offerId).getServiceOfferDestinations());
+	}
+
+	@Override
+	public List<Location> indexServiceRequestDestinations(int requestId) {
+		return new ArrayList<Location>(em.find(ServiceRequest.class, requestId).getServiceRequestDestinations());
+	}
+
+	@Override
+	public ServiceOffer updateServiceOffer(User actingUser, int offerId, String offerJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOffer managedOffer = em.find(ServiceOffer.class, offerId);
+		ServiceOffer newOffer = null;
+		
+		try {
+			newOffer = mapper.readValue(offerJson, ServiceOffer.class);
+			managedOffer.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedOffer.setLastUpdateUser(actingUser);
+			managedOffer.setActive(newOffer.getActive());
+			managedOffer.setDescription(newOffer.getDescription());
+			managedOffer.setGlobalVisibility(newOffer.getGlobalVisibility());
+			managedOffer.setRequiresSupplies(newOffer.getRequiresSupplies());
+			managedOffer.setServiceOfferCategory(newOffer.getServiceOfferCategory());
+			managedOffer.setServiceOfferSubcategory(newOffer.getServiceOfferSubcategory());
+			managedOffer.setSupplyCostEstimate(newOffer.getSupplyCostEstimate());
+			managedOffer.setTitle(newOffer.getTitle());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOffer.class, offerId);
+	}
+
+	@Override
+	public ServiceOfferSchedule updateServiceOfferSchedule(int scheduleId, String scheduleJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferSchedule managedSchedule = em.find(ServiceOfferSchedule.class, scheduleId);
+		ServiceOfferSchedule newSchedule = null;
+		
+		try {
+			newSchedule = mapper.readValue(scheduleJson, ServiceOfferSchedule.class);
+			managedSchedule.setServiceOfferBeginDate(newSchedule.getServiceOfferBeginDate());
+			managedSchedule.setServiceOfferEndDate(newSchedule.getServiceOfferEndDate());
+			managedSchedule.setDayOneTimeBegin(newSchedule.getDayOneTimeBegin());
+			managedSchedule.setDayOneTimeEnd(newSchedule.getDayOneTimeEnd());
+			managedSchedule.setDayTwoTimeBegin(newSchedule.getDayTwoTimeBegin());
+			managedSchedule.setDayTwoTimeEnd(newSchedule.getDayTwoTimeEnd());
+			managedSchedule.setDayThreeTimeBegin(newSchedule.getDayThreeTimeBegin());
+			managedSchedule.setDayThreeTimeEnd(newSchedule.getDayThreeTimeEnd());
+			managedSchedule.setDayFourTimeBegin(newSchedule.getDayFourTimeBegin());
+			managedSchedule.setDayFourTimeEnd(newSchedule.getDayFourTimeEnd());
+			managedSchedule.setDayFiveTimeBegin(newSchedule.getDayFiveTimeBegin());
+			managedSchedule.setDayFiveTimeEnd(newSchedule.getDayFiveTimeEnd());
+			managedSchedule.setDaySixTimeBegin(newSchedule.getDaySixTimeBegin());
+			managedSchedule.setDaySixTimeEnd(newSchedule.getDaySixTimeEnd());
+			managedSchedule.setDaySevenTimeBegin(newSchedule.getDaySevenTimeBegin());
+			managedSchedule.setDaySevenTimeEnd(newSchedule.getDaySevenTimeEnd());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return em.find(ServiceOfferSchedule.class, scheduleId);
+	}
+
+	@Override
+	public ServiceOfferOrigin updateServiceOfferOrigin(int originId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferOrigin managedOrigin = em.find(ServiceOfferOrigin.class, originId);
+		ServiceOfferOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceOfferOrigin.class);
+			managedOrigin.setServiceOfferOriginLocationCategory(newOrigin.getServiceOfferOriginLocationCategory());
+			managedOrigin.setAddress(newOrigin.getAddress());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferOrigin.class, originId);
+	}
+
+	@Override
+	public ServiceOfferDestination updateServiceOfferDestination(int destinationId, String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferDestination managedDestination = em.find(ServiceOfferDestination.class, destinationId);
+		ServiceOfferDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceOfferDestination.class);
+			managedDestination.setServiceOfferDestinationLocationCategory(newDestination.getServiceOfferDestinationLocationCategory());
+			managedDestination.setAddress(newDestination.getAddress());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceOfferDestination.class, destinationId);
+	}
+
+	@Override
+	public ServiceRequest updateServiceRequest(User actingUser, int requestId, String requestJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequest managedRequest = em.find(ServiceRequest.class, requestId);
+		ServiceRequest newRequest = null;
+		
+		try {
+			newRequest = mapper.readValue(requestJson, ServiceRequest.class);
+			managedRequest.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedRequest.setLastUpdateUser(actingUser);
+			managedRequest.setActive(newRequest.getActive());
+			managedRequest.setDescription(newRequest.getDescription());
+			managedRequest.setGlobalVisibility(newRequest.getGlobalVisibility());
+			managedRequest.setRequiresSupplies(newRequest.getRequiresSupplies());
+			managedRequest.setServiceRequestCategory(newRequest.getServiceRequestCategory());
+			managedRequest.setServiceRequestSubcategory(newRequest.getServiceRequestSubcategory());
+			managedRequest.setSupplyCostEstimate(newRequest.getSupplyCostEstimate());
+			managedRequest.setTitle(newRequest.getTitle());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequest.class, requestId);
+	}
+
+	@Override
+	public ServiceRequestTimeWindow updateServiceRequestTimeWindow(int windowId, String windowJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestTimeWindow managedWindow = em.find(ServiceRequestTimeWindow.class, windowId);
+		ServiceRequestTimeWindow newWindow = null;
+		
+		try {
+			newWindow = mapper.readValue(windowJson, ServiceRequestTimeWindow.class);
+			managedWindow.setBeginDate(newWindow.getBeginDate());
+			managedWindow.setBeginTime(newWindow.getBeginTime());
+			managedWindow.setEndDate(newWindow.getEndDate());
+			managedWindow.setEndTime(newWindow.getEndTime());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestTimeWindow.class, windowId);
+	}
+
+	@Override
+	public ServiceRequestOrigin updateServiceRequestOrigin(int originId, String originJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestOrigin managedOrigin = em.find(ServiceRequestOrigin.class, originId);
+		ServiceRequestOrigin newOrigin = null;
+		
+		try {
+			newOrigin = mapper.readValue(originJson, ServiceRequestOrigin.class);
+			managedOrigin.setServiceRequestOriginLocationCategory(newOrigin.getServiceRequestOriginLocationCategory());
+			managedOrigin.setAddress(newOrigin.getAddress());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestOrigin.class, originId);
+	}
+
+	@Override
+	public ServiceRequestDestination updateServiceRequestDestination(int userId, int destinationId,
+			String destinationJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestDestination managedDestination = em.find(ServiceRequestDestination.class, destinationId);
+		ServiceRequestDestination newDestination = null;
+		
+		try {
+			newDestination = mapper.readValue(destinationJson, ServiceRequestDestination.class);
+			managedDestination.setServiceRequestDestinationLocationCategory(newDestination.getServiceRequestDestinationLocationCategory());
+			managedDestination.setAddress(newDestination.getAddress());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return em.find(ServiceRequestDestination.class, destinationId);
+	}
+
+	@Override
+	public Boolean deactivateServiceOffer(int userId, int offerId) {
+		ServiceOffer managedOffer = em.find(ServiceOffer.class, offerId);
+		managedOffer.setActive(false);
+		return !em.find(ServiceOffer.class, offerId).getActive();
+	}
+
+	@Override
+	public Boolean deactivateServiceRequest(int userId, int requestId) {
+		ServiceRequest managedRequest = em.find(ServiceRequest.class, requestId);
+		managedRequest.setActive(false);
+		return !em.find(ServiceRequest.class, requestId).getActive();
+	}
+
+	@Override
+	public ServiceOfferTx createServiceOfferTx(int userId, int offerId) {
+		ServiceOfferTx newTx = new ServiceOfferTx();
+		newTx.setRecipientRequest(new Timestamp(System.currentTimeMillis()));
+		newTx.setServiceOfferRecipient(em.find(User.class, userId));
+		newTx.setServiceOfferTxParent(em.find(ServiceOffer.class, offerId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ServiceOfferTx.class, newTx.getId());
+	}
+
+	@Override
+	public ServiceRequestTx createServiceRequestTx(int userId, int requestId) {
+		ServiceRequestTx newTx = new ServiceRequestTx();
+		newTx.setCreated(new Timestamp(System.currentTimeMillis()));
+		newTx.setServiceRequestTxParent(em.find(ServiceRequest.class, requestId));
+		newTx.setServiceRequestProvider(em.find(User.class, userId));
+		em.persist(newTx);
+		em.flush();
+		return em.find(ServiceRequestTx.class, newTx.getId());
+	}
+
+	@Override
+	public ServiceOfferTx getServiceOfferTx(int txId) {
+		return em.find(ServiceOfferTx.class, txId);
+	}
+
+	@Override
+	public ServiceRequestTx getServiceRequestTx(int txId) {
+		return em.find(ServiceRequestTx.class, txId);
+	}
+	
+	
+
+}

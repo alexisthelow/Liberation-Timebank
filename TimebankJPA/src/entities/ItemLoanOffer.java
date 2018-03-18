@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -85,12 +85,12 @@ public class ItemLoanOffer implements Item, Offer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferActivityParent", cascade = CascadeType.PERSIST)
-	private Set<Activity> itemLoanOfferActivities;
+	private List<ItemLoanOfferActivity> itemLoanOfferActivities;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemLoanOfferTxParent", cascade = CascadeType.PERSIST)
-	private Set<Transaction> itemLoanOfferTxs;
+	private List<ItemLoanOfferTx> itemLoanOfferTxs;
 
 	public int getId() {
 		return id;
@@ -212,19 +212,19 @@ public class ItemLoanOffer implements Item, Offer {
 		this.closingModerator = closingModerator;
 	}
 
-	public Set<Activity> getItemLoanOfferActivities() {
+	public List<ItemLoanOfferActivity> getItemLoanOfferActivities() {
 		return itemLoanOfferActivities;
 	}
 
-	public void setItemLoanOfferActivities(Set<Activity> itemLoanOfferActivities) {
+	public void setItemLoanOfferActivities(List<ItemLoanOfferActivity> itemLoanOfferActivities) {
 		this.itemLoanOfferActivities = itemLoanOfferActivities;
 	}
 
-	public Set<Transaction> getItemLoanOfferTxs() {
+	public List<ItemLoanOfferTx> getItemLoanOfferTxs() {
 		return itemLoanOfferTxs;
 	}
 
-	public void setItemLoanOfferTxs(Set<Transaction> itemLoanOfferTxs) {
+	public void setItemLoanOfferTxs(List<ItemLoanOfferTx> itemLoanOfferTxs) {
 		this.itemLoanOfferTxs = itemLoanOfferTxs;
 	}
 	
@@ -239,13 +239,13 @@ public class ItemLoanOffer implements Item, Offer {
 	}
 
 	@Override
-	public Set<Activity> getActivity() {
-		return this.itemLoanOfferActivities;
+	public List<Activity> getActivity() {
+		return null;
 	}
 
 	@Override
-	public Set<Transaction> getTransactions() {
-		return this.itemLoanOfferTxs;
+	public List<Transaction> getTransactions() {
+		return null;
 	}
 	
 	@Override
@@ -279,13 +279,11 @@ public class ItemLoanOffer implements Item, Offer {
 	}
 
 	@Override
-	public void setActivity(Set<Activity> activity) {
-			this.itemLoanOfferActivities = activity;
+	public void setActivity(List<Activity> activity) {
 	}
 
 	@Override
-	public void setTransactions(Set<Transaction> transactions) {
-		this.itemLoanOfferTxs = transactions;
+	public void setTransactions(List<Transaction> transactions) {
 	}
 
 	@Override

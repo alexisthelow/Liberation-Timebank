@@ -1,7 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -83,12 +83,12 @@ public class ItemTransferOffer implements Item, Offer {
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferActivityParent", cascade = CascadeType.PERSIST)
-	private Set<Activity> itemTransferOfferActivity;
+	private List<ItemTransferOfferActivity> itemTransferOfferActivity;
 	
 	@JsonIgnore
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(mappedBy = "itemTransferOfferTxParent", cascade = CascadeType.PERSIST)
-	private Set<Transaction> itemTransferOfferTx;
+	private List<ItemTransferOfferTx> itemTransferOfferTx;
 
 	public int getId() {
 		return id;
@@ -202,19 +202,19 @@ public class ItemTransferOffer implements Item, Offer {
 		this.closingModerator = closingModerator;
 	}
 	
-	public Set<Activity> getItemTransferOfferActivity() {
+	public List<ItemTransferOfferActivity> getItemTransferOfferActivity() {
 		return itemTransferOfferActivity;
 	}
 
-	public void setItemTransferOfferActivity(Set<Activity> itemTransferOfferActivity) {
+	public void setItemTransferOfferActivity(List<ItemTransferOfferActivity> itemTransferOfferActivity) {
 		this.itemTransferOfferActivity = itemTransferOfferActivity;
 	}
 
-	public Set<Transaction> getItemTransferOfferTx() {
+	public List<ItemTransferOfferTx> getItemTransferOfferTx() {
 		return itemTransferOfferTx;
 	}
 
-	public void setItemTransferOfferTx(Set<Transaction> itemTransferOfferTx) {
+	public void setItemTransferOfferTx(List<ItemTransferOfferTx> itemTransferOfferTx) {
 		this.itemTransferOfferTx = itemTransferOfferTx;
 	}
 	
@@ -229,13 +229,13 @@ public class ItemTransferOffer implements Item, Offer {
 	}
 
 	@Override
-	public Set<Activity> getActivity() {
-		return this.itemTransferOfferActivity;
+	public List<Activity> getActivity() {
+		return null;
 	}
 
 	@Override
-	public Set<Transaction> getTransactions() {
-		return this.itemTransferOfferTx;
+	public List<Transaction> getTransactions() {
+		return null;
 	}
 	
 	@Override
@@ -269,13 +269,11 @@ public class ItemTransferOffer implements Item, Offer {
 	}
 
 	@Override
-	public void setActivity(Set<Activity> activity) {
-		this.itemTransferOfferActivity = activity;
+	public void setActivity(List<Activity> activity) {
 	}
 
 	@Override
-	public void setTransactions(Set<Transaction> transactions) {
-		this.itemTransferOfferTx = transactions;
+	public void setTransactions(List<Transaction> transactions) {
 	}
 
 	@Override

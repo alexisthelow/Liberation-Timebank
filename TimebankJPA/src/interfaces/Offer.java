@@ -1,7 +1,7 @@
 package interfaces;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import entities.Timebank;
 import entities.User;
@@ -28,10 +28,10 @@ public interface Offer {
 	public void setLastUpdateUser(User user);
 	public Boolean getModeratorClosed();
 	public void setModeratorClosed(Boolean moderatorClosed);
-	public Set<Activity> getActivity();
-	public void setActivity(Set<Activity> activity);
-	public Set<Transaction> getTransactions();
-	public void setTransactions(Set<Transaction> transactions);
+	public List<Activity> getActivity();
+	public void setActivity(List<Activity> activity);
+	public List<Transaction> getTransactions();
+	public void setTransactions(List<Transaction> transactions);
 	
 
 }

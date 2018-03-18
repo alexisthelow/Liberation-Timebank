@@ -1,0 +1,46 @@
+package data;
+
+import java.util.Set;
+
+import entities.User;
+import interfaces.Activity;
+
+public interface ActivityDAO {
+	
+	//create
+	
+	public Activity createItemTransferOfferActivity(int offerId, String activityJson);
+	public Activity createItemTransferRequestActivity(int requestId, String activityJson);
+	public Activity createItemLoanOfferActivity(int offerId, String activityJson);
+	public Activity createItemLoanRequestActivity(int requestId, String activityJson);
+	public Activity createServiceOfferActivity(int offerId, String activityJson);
+	public Activity createServiceRequestActivity(int requestId, String activityJson);
+	public Activity createActivity(String activityJson);
+	
+	//read
+	
+		//all posts per service / item
+	
+	public Set<Activity> indexItemTransferOfferActivity(int offerId);
+	public Set<Activity> indexItemTransferRequestActivity(int requestId);
+	public Set<Activity> indexItemLoanOfferActivity(int offerId);
+	public Set<Activity> indexItemLoanRequestActivity(int requestId);
+	public Set<Activity> indexServiceOfferActivity(int offerId);
+	public Set<Activity> indexServiceRequestActivity(int requestId);
+	public Set<Activity> indexActivity(Object parent);
+	
+	//update
+	
+	public Activity updateItemTransferOfferActivity(int activityId, String activityJson);
+	public Activity updateItemTransferRequestActivity(int activityId, String activityJson);
+	public Activity updateItemLoanOfferActivity(int activityId, String activityJson);
+	public Activity updateItemLoanRequestActivity(int activityId, String activityJson);
+	public Activity updateServiceOfferActivity(int activityId, String activityJson);
+	public Activity updateServiceRequestActivity(int activityId, String activityJson);
+	public Activity mapActivity(int userId, String activityJson);
+
+	//destroy
+	
+		//TODO -- users should be able to hide posts and that should be tracked separate from mod hides
+
+}

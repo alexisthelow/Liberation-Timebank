@@ -1,0 +1,90 @@
+package data;
+
+import java.util.List;
+
+import entities.ServiceOffer;
+import entities.ServiceOfferDestination;
+import entities.ServiceOfferOrigin;
+import entities.ServiceOfferSchedule;
+import entities.ServiceOfferTx;
+import entities.ServiceRequest;
+import entities.ServiceRequestDestination;
+import entities.ServiceRequestOrigin;
+import entities.ServiceRequestTimeWindow;
+import entities.ServiceRequestTx;
+import entities.User;
+
+public interface ServiceDAO {
+	
+	//create
+	
+		//service offer 
+	
+	public ServiceOffer createServiceOffer(int timebankId, User user, String offerJson);
+	public ServiceOfferSchedule createServiceOfferSchedule(int offerId, String scheduleJson);
+	public ServiceOfferOrigin createServiceOfferOrigin(int offerId, int addressId, String originJson);
+	public ServiceOfferDestination createServiceOfferDestination(int offerId, int addressId, String destinationJson);
+
+		//service request 
+	
+	public ServiceRequest createServiceRequest(int timebankId, User user, String requestJson);
+	public ServiceRequestTimeWindow createServiceRequestTimeWindow(int requestId, String timeWindowJson);
+	public ServiceRequestOrigin createServiceRequestOrigin(int requestId, int addressId, String originJson);
+	public ServiceRequestDestination createServiceRequestDestination(int requestId, int addressId, String destinationJson);
+
+		//tx
+	
+	public ServiceOfferTx createServiceOfferTx(User user, int offerId);
+	public ServiceRequestTx createServiceRequestTx(User user, int requestId);
+	
+	//read
+	
+		//all global services
+
+	public List<ServiceOffer> getAllGlobalServiceOffers();
+	public List<ServiceRequest> getAllGlobalServiceRequests();
+	
+		//specific services
+	
+	public ServiceOffer showServiceOffer(int offerId);
+	public ServiceRequest showServiceRequest(int requestId);
+	
+		//origins by service
+	
+	public List<Location> indexServiceOfferOrigins(int offerId);
+	public List<ServiceRequestOrigin> indexServiceRequestOrigins(int requestId);
+	
+		//destinations by service
+
+	public List<ServiceOfferDestination> indexServiceOfferDestinations(int offerId);
+	public List<ServiceRequestDestination> indexServiceRequestDestinations(int requestId);
+	
+		//tx
+	
+	public ServiceOfferTx showServiceOfferTx(int txId);
+	public ServiceRequestTx showServiceRequestTx(int txId);
+	
+	//update
+	
+		//service offer
+	
+	public ServiceOffer updateServiceOffer(User actingUser, int offerId, String offerJson);
+	public ServiceOfferSchedule updateServiceOfferSchedule(int scheduleId, String scheduleJson);
+	public ServiceOfferOrigin updateServiceOfferOrigin(int originId, String originJson);
+	public ServiceOfferDestination updateServiceOfferDestination(int destinationId, String destinationJson);
+
+		//service request 
+		
+	public ServiceRequest updateServiceRequest(User actingUser, int requestId, String requestJson);
+	public ServiceRequestTimeWindow updateServiceRequestTimeWindow(int windowId, String windowJson);
+	public ServiceRequestOrigin updateServiceRequestOrigin(int originId, String originJson);
+	public ServiceRequestDestination updateServiceRequestDestination(int destinationId, String destinationJson);
+	
+	//destroy
+	
+		//just deactivate
+	
+	public Boolean deactivateServiceOffer(int actingUserId, int offerId);
+	public Boolean deactivateServiceRequest(int actingUserId, int requestId);
+
+}

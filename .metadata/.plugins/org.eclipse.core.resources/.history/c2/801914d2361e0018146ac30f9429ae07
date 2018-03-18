@@ -1,0 +1,307 @@
+package data;
+
+import java.sql.Timestamp;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.ItemLoanOffer;
+import entities.ItemLoanOfferActivity;
+import entities.ItemLoanRequest;
+import entities.ItemLoanRequestActivity;
+import entities.ItemTransferOffer;
+import entities.ItemTransferOfferActivity;
+import entities.ItemTransferRequest;
+import entities.ItemTransferRequestActivity;
+import entities.ServiceOffer;
+import entities.ServiceOfferActivity;
+import entities.ServiceRequest;
+import entities.ServiceRequestActivity;
+import entities.User;
+import interfaces.Activity;
+
+@Transactional
+@Repository
+public class ActivityDAOImpl implements ActivityDAO {
+
+	@PersistenceContext
+	EntityManager em;
+	
+	@Override
+	public ItemTransferOfferActivity createItemTransferOfferActivity(int offerId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemTransferOfferActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ItemTransferRequestActivity createItemTransferRequestActivity(int requestId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemTransferRequestActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;	}
+
+	@Override
+	public ItemLoanOfferActivity createItemLoanOfferActivity(int offerId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemLoanOfferActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;	}
+
+	@Override
+	public ItemLoanRequestActivity createItemLoanRequestActivity(int requestId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemLoanRequestActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ServiceOfferActivity createServiceOfferActivity(int offerId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ServiceOfferActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ServiceRequestActivity createServiceRequestActivity(int requestId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ServiceRequestActivity.class);
+			em.persist(newActivity);
+			em.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public Set<Activity> indexItemTransferOfferActivity(int itemTransferOfferId) {
+		ItemTransferOffer managed = em.find(ItemTransferOffer.class, itemTransferOfferId);
+		return managed.getItemTransferOfferActivity();
+	}
+
+	@Override
+	public Set<Activity> indexItemTransferRequestActivity(int itemTransferRequestId) {
+		ItemTransferRequest managed = em.find(ItemTransferRequest.class, itemTransferRequestId);
+		return managed.getItemTransferRequestActivity();
+	}
+
+	@Override
+	public Set<Activity> indexItemLoanOfferActivity(int itemLoanOfferId) {
+		ItemLoanOffer managed = em.find(ItemLoanOffer.class, itemLoanOfferId);
+		return managed.getItemLoanOfferActivities();
+	}
+
+	@Override
+	public Set<Activity> indexItemLoanRequestActivity(int itemLoanRequestId) {
+		ItemLoanRequest managed = em.find(ItemLoanRequest.class, itemLoanRequestId);
+		return managed.getItemLoanRequestActivities();
+	}
+
+	@Override
+	public Set<Activity> indexServiceOfferActivity(int serviceOfferId) {
+		ServiceOffer managed = em.find(ServiceOffer.class, serviceOfferId);
+		return managed.getServiceOfferActivities();
+	}
+
+	@Override
+	public Set<Activity> indexServiceRequestActivity(int serviceRequestId) {
+		ServiceRequest managed = em.find(ServiceRequest.class, serviceRequestId);
+		return managed.getServiceRequestActivities();	
+	}
+
+	@Override
+	public Activity mapActivity(int userId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		User actingUser = em.find(User.class, userId);
+		Activity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, Activity.class);
+			newActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			newActivity.setLastUpdateUser(actingUser);
+		}
+		catch (Exception e) {
+			System.err.println("Failed to map activity json at ActivityDAOImpl.updateActivity()");
+			System.err.println("userId: " + userId);
+			System.err.println("activityJson: " + activityJson);
+			e.printStackTrace();
+		}
+		
+		return newActivity;
+	}
+
+	@Override
+	public ItemTransferOfferActivity updateItemTransferOfferActivity(int userId, int activityId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferOfferActivity managedActivity = em.find(ItemTransferOfferActivity.class, activityId);
+		ItemTransferOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemTransferOfferActivity.class);
+			managedActivity.setMessage(newActivity.getMessage());
+			managedActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedActivity.setLastUpdateUser(em.find(User.class, userId));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedActivity;
+	}
+	
+	@Override
+	public ItemTransferRequestActivity updateItemTransferRequestActivity(int userId, int activityId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemTransferRequestActivity managedActivity = em.find(ItemTransferRequestActivity.class, activityId);
+		ItemTransferRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemTransferRequestActivity.class);
+			managedActivity.setMessage(newActivity.getMessage());
+			managedActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedActivity.setLastUpdateUser(em.find(User.class, userId));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedActivity;
+	}
+
+	@Override
+	public ItemLoanOfferActivity updateItemLoanOfferActivity(int userId, int activityId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanOfferActivity managedActivity = em.find(ItemLoanOfferActivity.class, activityId);
+		ItemLoanOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemLoanOfferActivity.class);
+			managedActivity.setMessage(newActivity.getMessage());
+			managedActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedActivity.setLastUpdateUser(em.find(User.class, userId));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedActivity;
+	}
+
+	@Override
+	public ItemLoanRequestActivity updateItemLoanRequestActivity(int userId, int activityId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ItemLoanRequestActivity managedActivity = em.find(ItemLoanRequestActivity.class, activityId);
+		ItemLoanRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ItemLoanRequestActivity.class);
+			managedActivity.setMessage(newActivity.getMessage());
+			managedActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedActivity.setLastUpdateUser(em.find(User.class, userId));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedActivity;
+	}
+
+	@Override
+	public ServiceOfferActivity updateServiceOfferActivity(int userId, int activityId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceOfferActivity managedActivity = em.find(ServiceOfferActivity.class, activityId);
+		ServiceOfferActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ServiceOfferActivity.class);
+			managedActivity.setMessage(newActivity.getMessage());
+			managedActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedActivity.setLastUpdateUser(em.find(User.class, userId));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedActivity;
+	}
+
+	@Override
+	public ServiceRequestActivity updateServiceRequestActivity(int userId, int activityId, String activityJson) {
+		ObjectMapper mapper = new ObjectMapper();
+		ServiceRequestActivity managedActivity = em.find(ServiceRequestActivity.class, activityId);
+		ServiceRequestActivity newActivity = null;
+		
+		try {
+			newActivity = mapper.readValue(activityJson, ServiceRequestActivity.class);
+			managedActivity.setMessage(newActivity.getMessage());
+			managedActivity.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+			managedActivity.setLastUpdateUser(em.find(User.class, userId));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return managedActivity;
+	}
+
+}
